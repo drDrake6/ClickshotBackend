@@ -7,6 +7,6 @@
 </head>
 <body>
   <h1>Ой</h1>
-  <img src="<%=contextPath%>/img/gopher.png" alt="none">
+  <img src="<%=contextPath%>/media/gopher.png" alt="none">
 </body>
 </html>
