@@ -1,0 +1,9 @@
+{
+  "dbConnection": {
+    "connectionString": "jdbc:mysql://eu-west.connect.psdb.cloud/instabox?sslMode=VERIFY_IDENTITY&useUnicode=true&characterEncoding=UTF-8",
+    "dbUser": "imna5yvke6ng0ldiqk5v",
+    "dbPass": "pscale_pw_9Wn9TRGVeJJHRywNPWBLSJrxPiMfK5JgXtJ2cB3r6h1",
+    "test": "test1"
+  },
+  "domen": "https://4309-2a09-bac1-7540-18-00-84-7b.ngrok-free.app"
+}
