@@ -9,7 +9,7 @@ import java.util.Map;
 @Singleton
 public class MimeService {
 
-    public enum MediaType {IMAGE, VIDEO, AUDIO, PDF};
+    public enum MediaType {IMAGE, VIDEO, AUDIO};
     private Map<String, String> imageTypes;
     private Map<String, String> videoTypes;
     private Map<String, String> audioTypes;
