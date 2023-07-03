@@ -15,6 +15,6 @@
     <p>
         <%= request.getRequestURI() %>
     </p>
-    <a href="/allUsers">allUsers</a>
+    <a href="/Clickshot/allUsers">allUsers</a>
 </body>
 </html>
