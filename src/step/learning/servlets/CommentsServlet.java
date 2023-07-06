@@ -5,9 +5,7 @@ import com.google.inject.Singleton;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import step.learning.dao.CommentDAO;
-import step.learning.dao.PostDAO;
 import step.learning.entities.Comment;
-import step.learning.entities.Post;
 import step.learning.entities.Response;
 
 import javax.servlet.ServletException;
@@ -15,7 +13,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 @Singleton
@@ -33,7 +30,7 @@ public class CommentsServlet extends HttpServlet {
 
         JSONArray jcomments = new JSONArray();
         for (Comment comment : comments) {
-            if(commentDAO.іsAnswer(comment.getId())){
+            if(commentDAO.isAnswer(comment.getId())){
                 jcomments.put(
                         new JSONObject(
                                 new Response(

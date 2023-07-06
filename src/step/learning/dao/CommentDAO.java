@@ -8,6 +8,8 @@ import step.learning.services.DataService;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -86,16 +88,8 @@ public class CommentDAO {
         }
     }
 
-    public Boolean deleteCommentById(List<String> deletedIds, String id){
-        while (hasAnswer(id)){
-            deleteCommentById(deletedIds, getAnswer(id));
-        }
-
-        if(іsAnswer(id)){
-            deleteResponse(id);
-        }
-
-        String sql = "DELETE FROM Comments WHERE id = ?";
+    public Boolean deleteCommentById(String id){
+        String sql = "UPDATE Comments SET deleted = NOW() WHERE id = ?";
         try(PreparedStatement prep =
                     dataService.getConnection().prepareStatement(sql)){
             prep.setString(1, id);
@@ -104,7 +98,6 @@ public class CommentDAO {
                 return false;
             }
             else{
-                deletedIds.add(id);
                 return true;
             }
         } catch (SQLException ex) {
@@ -114,7 +107,25 @@ public class CommentDAO {
         }
     }
 
-    public Boolean іsAnswer(String id){
+    public Boolean restoreComment(String id){
+        String sql = "UPDATE Comments SET deleted = null WHERE id = ?";
+        try(PreparedStatement prep =
+                    dataService.getConnection().prepareStatement(sql)){
+            prep.setString(1, id);
+
+            if(prep.executeUpdate() == 0){
+                return false;
+            }
+        } catch (SQLException ex) {
+            System.out.println("UserDAO::restoreComment() " + ex.getMessage()
+                    + "\n" + sql + " -- " + id);
+            return null;
+        }
+
+        return true;
+    }
+
+    public Boolean isAnswer(String id){
         String sql = "SELECT * FROM Responses WHERE id_response = ?";
         try(PreparedStatement prep =
                     dataService.getConnection().prepareStatement(sql)){
@@ -130,7 +141,7 @@ public class CommentDAO {
     }
 
     public String getCommentIdOfAnswer(String id){
-        String sql = "SELECT id_comment FROM Responses WHERE id_response = ?";
+        String sql = "SELECT id_comment FROM Responses WHERE id_response = ? AND deleted IS NULL";
         try(PreparedStatement prep =
                     dataService.getConnection().prepareStatement(sql)){
             prep.setString(1, id);
@@ -148,7 +159,7 @@ public class CommentDAO {
     }
 
     public Boolean hasAnswer(String id){
-        String sql = "SELECT * FROM Responses WHERE id_comment = ?";
+        String sql = "SELECT * FROM Responses WHERE id_comment = ? AND deleted IS NULL";
         try(PreparedStatement prep =
                     dataService.getConnection().prepareStatement(sql)){
             prep.setString(1, id);
@@ -163,7 +174,7 @@ public class CommentDAO {
     }
 
     public String getAnswer(String id){
-        String sql = "SELECT id_response FROM Responses WHERE id_comment = ?";
+        String sql = "SELECT id_response FROM Responses WHERE id_comment = ? AND deleted IS NULL";
         try(PreparedStatement prep =
                     dataService.getConnection().prepareStatement(sql)){
             prep.setString(1, id);
@@ -181,7 +192,7 @@ public class CommentDAO {
     }
 
     public Boolean authorHasComment(String id, String author){
-        String sql = "SELECT * FROM Comments WHERE author = ? AND id = ?";
+        String sql = "SELECT * FROM Comments WHERE author = ? AND id = ? AND deleted IS NULL";
         try (PreparedStatement prep =
                      dataService.getConnection().prepareStatement(sql)) {
             prep.setString(1, author);
@@ -201,7 +212,7 @@ public class CommentDAO {
     }
 
     public Comment getCommentById(String id){
-        String sql = "SELECT * FROM Comments WHERE id = ?";
+        String sql = "SELECT * FROM Comments WHERE id = ? AND deleted IS NULL";
         try (PreparedStatement prep =
                      dataService.getConnection().prepareStatement(sql)) {
             prep.setString(1, id);
@@ -236,21 +247,14 @@ public class CommentDAO {
         }
     }
 
-//
-//    public List<Comment> getCommentsByUser(String id){
-//
-//    }
-//
-//    public List<Comment> getAllComments(){
-//
-//    }
 
-    public List<Comment> getSomeComments(int from, int amount){
-        String sql = "SELECT * FROM Comments ORDER BY date LIMIT ?, ?";
+    public List<Comment> getCommentsByUser(String login, int from, int amount){
+        String sql = "SELECT * FROM Comments WHERE author = ? AND deleted IS NULL ORDER BY date ASC LIMIT ?, ?";
         try (PreparedStatement prep =
                      dataService.getConnection().prepareStatement(sql)) {
-            prep.setInt(1, from);
-            prep.setInt(2, amount);
+            prep.setString(1, login);
+            prep.setInt(2, from);
+            prep.setInt(3, amount);
             ResultSet res = prep.executeQuery();
             List<Comment> comments = new ArrayList<>();
             while(res.next()){
@@ -258,13 +262,13 @@ public class CommentDAO {
             }
             return comments;
         } catch (Exception ex) {
-            System.out.println("PostDAO::getSomePosts() " + ex.getMessage()
+            System.out.println("PostDAO::getSomeCommentsByPost() " + ex.getMessage()
                     + "\n" + sql);
         }
         return null;
     }
 
-    public List<Comment> getSomeCommentsByPost(String postId, int from, int amount){
+    public List<Comment> getAllCommentsOfPost(String postId, int from, int amount){
         String sql = "SELECT * FROM Comments WHERE postId = ? ORDER BY date ASC LIMIT ?, ?";
         try (PreparedStatement prep =
                      dataService.getConnection().prepareStatement(sql)) {
@@ -284,22 +288,44 @@ public class CommentDAO {
         return null;
     }
 
-    public Boolean deleteResponse(String id){
-
-        String sql = "DELETE FROM Responses WHERE id_response = ?";
-        try(PreparedStatement prep =
-                    dataService.getConnection().prepareStatement(sql)){
-            prep.setString(1, id);
-
-            if(prep.executeUpdate() == 0){
-                return false;
+    public List<Comment> getSomeComments(int from, int amount){
+        String sql = "SELECT * FROM Comments WHERE deleted IS NULL ORDER BY date LIMIT ?, ?";
+        try (PreparedStatement prep =
+                     dataService.getConnection().prepareStatement(sql)) {
+            prep.setInt(1, from);
+            prep.setInt(2, amount);
+            ResultSet res = prep.executeQuery();
+            List<Comment> comments = new ArrayList<>();
+            while(res.next()){
+                comments.add(new Comment(res));
             }
-        } catch (SQLException ex) {
-            System.out.println("CommentDAO::deleteCommentById() " + ex.getMessage()
-                    + "\n" + sql + " -- " + id);
-            return null;
+            return comments;
+        } catch (Exception ex) {
+            System.out.println("PostDAO::getSomePosts() " + ex.getMessage()
+                    + "\n" + sql);
         }
-
-        return true;
+        return null;
     }
+
+    public List<Comment> getSomeCommentsByPost(String postId, int from, int amount){
+        String sql = "SELECT * FROM Comments WHERE postId = ? AND deleted IS NULL ORDER BY date ASC LIMIT ?, ?";
+        try (PreparedStatement prep =
+                     dataService.getConnection().prepareStatement(sql)) {
+            prep.setString(1, postId);
+            prep.setInt(2, from);
+            prep.setInt(3, amount);
+            ResultSet res = prep.executeQuery();
+            List<Comment> comments = new ArrayList<>();
+            while(res.next()){
+                comments.add(new Comment(res));
+            }
+            return comments;
+        } catch (Exception ex) {
+            System.out.println("PostDAO::getSomeCommentsByPost() " + ex.getMessage()
+                    + "\n" + sql);
+        }
+        return null;
+    }
+
+
 }

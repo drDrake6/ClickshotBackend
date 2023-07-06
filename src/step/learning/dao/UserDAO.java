@@ -1,7 +1,6 @@
 package step.learning.dao;
 
 import com.google.inject.Inject;
-import javafx.util.Pair;
 import org.json.JSONObject;
 import step.learning.entities.User;
 import step.learning.services.DataService;
@@ -11,6 +10,7 @@ import step.learning.services.LoadConfigService;
 
 import java.io.FileNotFoundException;
 import java.sql.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -19,27 +19,25 @@ public class UserDAO {
     private final DataService dataService;
     private final HashService hashService;
     private final EmailService emailService;
-    private final TaggedPeopleDAO taggedPeopleDAO;
-    private final LikesDAO likedDAO;
-    private final SavesDAO savesDAO;
+    private final PostDAO postDAO;
+
+    private final SubscribersDAO subscribersDAO;
     private final LoadConfigService loadConfigService;
 
     @Inject
     public UserDAO(DataService dataService,
                    HashService hashService,
                    EmailService emailService,
-                   TaggedPeopleDAO taggedPeopleDAO,
-                   LikesDAO likedDAO,
-                   SavesDAO savesDAO,
-                   LoadConfigService loadConfigService)
+                   PostDAO postDAO,
+                   LoadConfigService loadConfigService,
+                   SubscribersDAO subscribersDAO)
     {
         this.dataService = dataService;
         this.hashService = hashService;
         this.emailService = emailService;
-        this.taggedPeopleDAO = taggedPeopleDAO;
-        this.likedDAO = likedDAO;
-        this.savesDAO = savesDAO;
+        this.postDAO = postDAO;
         this.loadConfigService = loadConfigService;
+        this.subscribersDAO = subscribersDAO;
     }
     public User setAuthorizeToken(String token, String userId){
         String sql = "UPDATE Users SET token = ? WHERE id = ?";
@@ -56,7 +54,7 @@ public class UserDAO {
         return null;
     }
     public User getUserById(String userId){
-        String sql = "SELECT * FROM Users WHERE id = ?";
+        String sql = "SELECT * FROM Users WHERE id = ? AND deleted IS null";
         try(PreparedStatement prep =
                     dataService.getConnection().prepareStatement(sql)){
             prep.setString(1, userId);
@@ -70,7 +68,7 @@ public class UserDAO {
     }
 
     public User getUserByToken(String token){
-        String sql = "SELECT * FROM Users WHERE token = ?";
+        String sql = "SELECT * FROM Users WHERE token = ? AND deleted IS null";
         try(PreparedStatement prep =
                     dataService.getConnection().prepareStatement(sql)){
             prep.setString(1, token);
@@ -101,7 +99,7 @@ public class UserDAO {
     }
 
     public List<User> getSomeUsers(int from, int amount){
-        String sql = "SELECT * FROM Users ORDER BY login LIMIT ?, ?";
+        String sql = "SELECT * FROM Users WHERE deleted IS null ORDER BY login LIMIT ?, ?";
         try(PreparedStatement prep = dataService.getConnection().prepareStatement(sql)){
             prep.setInt(1, from);
             prep.setInt(2, amount);
@@ -119,7 +117,7 @@ public class UserDAO {
     }
 
     public List<User> findSomeUsers(int from, int amount, JSONObject params){
-        String sql = "SELECT * FROM Users WHERE";
+        String sql = "SELECT * FROM Users WHERE deleted IS null AND";
                 if(!params.isNull("login")) sql += " login LIKE ? AND";
         if(!params.isNull("name")) sql += " name LIKE ? AND";
         if(!params.isNull("surname")) sql += " surname LIKE ? AND";
@@ -175,7 +173,7 @@ public class UserDAO {
     }
 
     public User getUser(String login){
-        String sql = "SELECT * FROM Users WHERE login = ?";
+        String sql = "SELECT * FROM Users WHERE login = ? AND deleted IS null";
         try(PreparedStatement prep = dataService.getConnection().prepareStatement(sql)){
             prep.setString(1, login);
             ResultSet res = prep.executeQuery();
@@ -204,7 +202,6 @@ public class UserDAO {
     public String add(User user){
         user.setId(UUID.randomUUID().toString());
         user.setSalt(genSalt());
-        user.setEmail_code(/*UUID.randomUUID().toString().substring(0, 6)*/null);
         user.setEmail_attempt(/*UUID.randomUUID().toString().substring(0, 6)*/0);
         String sql = "INSERT INTO Users (" +
                 "id, " +
@@ -213,14 +210,13 @@ public class UserDAO {
                 "name, " +
                 "surname, " +
                 "salt, " +
-                "phone, " +
                 "email, " +
                 "email_code, " +
                 "email_attempt, " +
                 "avatar, " +
                 "birthday, " +
                 "bio," +
-                "token ) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+                "token ) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)";
         try(PreparedStatement prep = dataService.getConnection().prepareStatement(sql)){
             prep.setString(1, user.getId());
             prep.setString(2, user.getLogin());
@@ -228,14 +224,13 @@ public class UserDAO {
             prep.setString(4, user.getName());
             prep.setString(5, user.getSurname());
             prep.setString(6, user.getSalt());
-            prep.setString(7, user.getPhone());
-            prep.setString(8, user.getEmail());
-            prep.setString(9, user.getEmail_code());
-            prep.setInt(10, user.getEmail_attempt());
-            prep.setString(11, user.getAvatar());
-            prep.setTimestamp(12, user.getBirthday());
-            prep.setString(13, user.getBio());
-            prep.setString(14, user.getToken());
+            prep.setString(7, user.getEmail());
+            prep.setString(8, user.getEmail_code());
+            prep.setInt(9, user.getEmail_attempt());
+            prep.setString(10, user.getAvatar());
+            prep.setTimestamp(11, user.getBirthday());
+            prep.setString(12, user.getBio());
+            prep.setString(13, user.getToken());
 
             prep.executeUpdate();
         }
@@ -252,7 +247,6 @@ public class UserDAO {
         if(user.getPassword() != null) sql += "password = ?, salt = ?, ";
         if(user.getName() != null) sql += "name = ?, ";
         if(user.getSurname() != null) sql += "surname = ?, ";
-        if(user.getPhone() != null) sql += "phone = ?, ";
         if(user.getAvatar() != null) sql += "avatar = ?, ";
         if(user.getEmail() != null) sql += "email = ?, email_code = ?, email_attempt = ?, ";
         if(user.getBirthday() != null) sql += "birthday = ?, ";
@@ -278,11 +272,6 @@ public class UserDAO {
 
             if(user.getSurname() != null) {
                 prep.setString(param, user.getSurname());
-                param++;
-            }
-
-            if(user.getPhone() != null) {
-                prep.setString(param, user.getPhone());
                 param++;
             }
 
@@ -327,33 +316,41 @@ public class UserDAO {
         }
     }
 
-    public boolean deleteUserById(String userId){
-        String sql = "DELETE FROM Users WHERE id = ?";
+    public Boolean deleteUser(String login){
+        String sql = "UPDATE Users SET deleted = ? WHERE login = ?";
         try(PreparedStatement prep =
                     dataService.getConnection().prepareStatement(sql)){
-            prep.setString(1, userId);
+            prep.setTimestamp(1, Timestamp.valueOf(LocalDateTime.now()));
+            prep.setString(2, login);
 
             if(prep.executeUpdate() == 0){
                 return false;
             }
         } catch (SQLException ex) {
-            System.out.println("UserDAO::deleteUserById() " + ex.getMessage()
-                    + "\n" + sql + " -- " + userId);
-            return false;
+            System.out.println("UserDAO::deleteUser() " + ex.getMessage()
+                    + "\n" + sql + " -- " + login);
+            return null;
         }
 
-
-
-        return cascade(userId);
+        return postDAO.deletePostByAuthor(login);
     }
 
-    private boolean cascade(String userId){
-        if(taggedPeopleDAO.deleteTaggedPeopleByAuthor(userId) != null &&
-                likedDAO.deleteLikeByUser(userId) != null &&
-                savesDAO.deleteSavesByUser(userId) != null)
-            return true;
-        else
-            return false;
+    public Boolean restoreUser(String login){
+        String sql = "UPDATE Users SET deleted = null WHERE login = ?";
+        try(PreparedStatement prep =
+                    dataService.getConnection().prepareStatement(sql)){
+            prep.setString(1, login);
+
+            if(prep.executeUpdate() == 0){
+                return false;
+            }
+        } catch (SQLException ex) {
+            System.out.println("UserDAO::restoreUser() " + ex.getMessage()
+                    + "\n" + sql + " -- " + login);
+            return null;
+        }
+
+        return postDAO.restorePostByAuthor(login);
     }
 
     public boolean sendConfirmCode(String email, String param, String value, String code, String link) throws FileNotFoundException {
@@ -409,24 +406,6 @@ public class UserDAO {
             return false;
     }
 
-    public int postsAmount(String login){
-        String sql = "SELECT COUNT(*) as 'count' FROM Posts WHERE author = ?";
-
-        try(PreparedStatement prep = dataService.getConnection().prepareStatement(sql)){
-            prep.setString(1, login);
-            ResultSet res = prep.executeQuery();
-            if(res.next())
-                return res.getInt("count");
-            else
-                return -1;
-        }
-        catch (SQLException ex) {
-            System.out.println("setEmailCode() | Query error: " + ex.getMessage());
-            System.out.println("sql: " + sql);
-            return -1;
-        }
-    }
-
     public JSONObject getPublicUserInfo(String login){
         User user = getUser(login);
         JSONObject jsonObject = new JSONObject();
@@ -436,7 +415,17 @@ public class UserDAO {
         jsonObject.put("bio", user.getBio());
         jsonObject.put("email", user.getEmail());
         jsonObject.put("birthday", user.getBirthday());
-        jsonObject.put("postsAmount", postsAmount(login));
+        jsonObject.put("postsAmount", postDAO.postsAmount(login, false));
+
+        if(user.getEmail_code() == null){
+            jsonObject.put("isEmailConfirmed", true);
+        }
+        else {
+            jsonObject.put("isEmailConfirmed", !user.getEmail_code().equals("not_confirmed"));
+        }
+
+        jsonObject.put("subscribersAmount", subscribersDAO.subscribersAmount(login, false));
+        jsonObject.put("subscribingAmount", subscribersDAO.subscribingAmount(login, false));
 
         return jsonObject;
     }

@@ -16,7 +16,6 @@ public class User {
     String avatar;
     String name;
     String surname;
-    String phone;
     String email;
     String email_code;
     int email_attempt;
@@ -28,7 +27,6 @@ public class User {
 
     public User() {
     }
-
     public User(JSONObject obj) throws Exception {
 
         this.setId("");
@@ -36,7 +34,6 @@ public class User {
         this.setPassword(obj.getString("password"));
         this.setName(obj.getString("name"));
         this.setSurname(obj.getString("surname"));
-        this.setPhone(obj.getString("phone"));
         this.setSalt("");
         this.setAvatar(obj.getString("avatar"));
         this.setEmail(obj.getString("email"));
@@ -57,7 +54,9 @@ public class User {
             this.setToken(obj.getString("token"));
         }
 
-        this.setRole(obj.getString("role").charAt(0));
+        if(!obj.isNull("role")){
+            this.setRole(obj.getString("role").charAt(0));
+        }
     }
 
     public User(ResultSet res) throws SQLException {
@@ -66,7 +65,6 @@ public class User {
         this.setPassword(res.getString("password"));
         this.setName(res.getString("name"));
         this.setSurname(res.getString("surname"));
-        this.setPhone(res.getString("phone"));
         this.setSalt(res.getString("salt"));
         this.setAvatar(res.getString("avatar"));
         this.setEmail(res.getString("email"));
@@ -110,7 +108,6 @@ public class User {
                 ", avatar='" + avatar + '\'' +
                 ", name='" + name + '\'' +
                 ", surname='" + surname + '\'' +
-                ", phone='" + phone + '\'' +
                 ", email='" + email + '\'' +
                 ", email_code=" + email_code +
                 ", email_attempt=" + email_attempt +
@@ -176,14 +173,6 @@ public class User {
 
     public void setSurname(String surname) {
         this.surname = surname;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
     }
 
     public String getEmail() {

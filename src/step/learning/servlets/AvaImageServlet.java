@@ -3,6 +3,7 @@ package step.learning.servlets;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import org.eclipse.jetty.server.Request;
+import org.json.JSONObject;
 import step.learning.dao.UserDAO;
 import step.learning.entities.User;
 import step.learning.services.BodyParseService;
@@ -39,6 +40,8 @@ public class AvaImageServlet extends HttpServlet {
                 req.setAttribute(Request.__MULTIPART_CONFIG_ELEMENT, new MultipartConfigElement(""));
             }
 
+            java.util.Collection<Part> test = req.getParts();
+
             List<MimeService.MediaType> mediaTypes = new ArrayList<>();
             mediaTypes.add(MimeService.MediaType.IMAGE);
 
@@ -49,7 +52,7 @@ public class AvaImageServlet extends HttpServlet {
             byte[] loginBytes;
             InputStream is = partLogin.getInputStream();
             loginBytes = IOUtils.readAllBytes(is);
-            String login = new String(loginBytes, StandardCharsets.UTF_8);
+            String login = new JSONObject(new String(loginBytes, StandardCharsets.UTF_8)).getString("login");
             User user = userDAO.getUser(login);
             user.setAvatar(path);
             userDAO.update(user, user.getId());

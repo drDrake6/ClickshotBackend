@@ -7,6 +7,8 @@ import step.learning.services.UploadService;
 
 import javax.servlet.MultipartConfigElement;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -17,6 +19,7 @@ import java.util.List;
 
 import org.eclipse.jetty.server.Request;
 
+@MultipartConfig
 @Singleton
 public class MediaServlet extends HttpServlet {
     @Inject
@@ -29,6 +32,8 @@ public class MediaServlet extends HttpServlet {
             if ("POST".equals(req.getMethod()) && req.getContentType().contains("multipart/form-data")) {
                 req.setAttribute(Request.__MULTIPART_CONFIG_ELEMENT, new MultipartConfigElement(""));
             }
+
+            java.util.Collection<javax.servlet.http.Part> test = req.getParts();
 
             List<MimeService.MediaType> mediaTypes = new ArrayList<>();
             mediaTypes.add(MimeService.MediaType.IMAGE);
@@ -60,7 +65,7 @@ public class MediaServlet extends HttpServlet {
             return;
         }
         String path = req.getServletContext().getRealPath("/");
-        File file = new File(path + "/../Uploads" + requestedFile);
+        File file = new File(path + "/Uploads" + requestedFile);
         if(file.isFile() && file.canRead()){
             resp.setContentType(mimeService.getMimeType(extension));
             resp.setContentLengthLong((file.length()));

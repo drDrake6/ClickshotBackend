@@ -34,6 +34,7 @@ public class PostsOfUserServlet extends HttpServlet {
         }
 
         res.setContentType("application/json");
+        res.setHeader("Access-Control-Allow-Origin","*");
         res.setCharacterEncoding("UTF-8");
         res.getWriter().write(jposts.toString());
     }

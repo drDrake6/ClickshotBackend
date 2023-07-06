@@ -3,7 +3,6 @@ package step.learning.servlets;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import org.json.JSONObject;
-import step.learning.dao.LikesDAO;
 import step.learning.dao.SavesDAO;
 import step.learning.services.BodyParseService;
 
@@ -44,7 +43,7 @@ public class SaveServlet extends HttpServlet {
         String login = req.getParameter("login");
 
         JSONObject answer = new JSONObject();
-        answer.put("isSaved", savesDAO.isLikedByUser(postId, login));
+        answer.put("isSaved", savesDAO.isSavedByUser(postId, login, false));
 
         res.setContentType("application/json");
         res.setCharacterEncoding("UTF-8");

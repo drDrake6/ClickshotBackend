@@ -27,17 +27,30 @@ public class LikeServlet extends HttpServlet {
         String login = body.getString("login");
         boolean isLiked = body.getBoolean("isLiked");
 
+
         if(isLiked){
-            if (likedDAO.putLike(postId, login))
-                res.getWriter().write("0: Liked successfully");
-            else
-                res.getWriter().write("1: internal error");
+            Boolean ok = likedDAO.putLike(postId, login);
+            if(ok != null) {
+                if (ok)
+                    res.getWriter().write("0: Liked successfully");
+                else
+                    res.getWriter().write("2: you have liked this post already");
+            }
+            else{
+                res.getWriter().write("0: unliked successfully");
+            }
         }
         else{
-            if (likedDAO.unLike(postId, login))
-                res.getWriter().write("0: unliked successfully");
-            else
+            Boolean ok = likedDAO.unLike(postId, login);
+            if(ok != null){
+                if (ok)
+                    res.getWriter().write("0: unliked successfully");
+                else
+                    res.getWriter().write("2: you have unliked this post already");
+            }
+            else{
                 res.getWriter().write("1: internal error");
+            }
         }
     }
 
@@ -46,7 +59,7 @@ public class LikeServlet extends HttpServlet {
         String login = req.getParameter("login");
 
         JSONObject answer = new JSONObject();
-        answer.put("isLiked", likedDAO.isLikedByUser(postId, login));
+        answer.put("isLiked", likedDAO.isLikedByUser(postId, login, false));
         answer.put("amountLikes", likedDAO.getLikesCount(postId));
 
         res.setContentType("application/json");

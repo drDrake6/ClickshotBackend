@@ -44,7 +44,7 @@ public class AddUserServlet extends HttpServlet {
 
         try {
             if(userDAO.getUser(user.getLogin()) != null){
-                res.getWriter().write("1: with such login exists");
+                res.getWriter().write("1: user with such login exists");
                 return;
             }
         } catch (JSONException ex) {

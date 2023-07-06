@@ -31,12 +31,12 @@ public class BanPostServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
         JSONObject body = bodyParseService.parseBody(req);
 
-        if(body.isNull("adminToken")){
+        if(body.isNull("token")){
             res.getWriter().write("2: access denied");
             return;
         }
         else{
-            User user = userDAO.getUserByToken(body.getString("adminToken"));
+            User user = userDAO.getUserByToken(body.getString("token"));
             if(user == null){
                 res.getWriter().write("2: access denied");
                 return;
@@ -48,30 +48,16 @@ public class BanPostServlet extends HttpServlet {
             }
         }
 
+        String postId = body.getString("postId");
+        boolean baning = Boolean.parseBoolean(body.getString("baning"));
 
-        List<String> banPosts = new ArrayList<>();
-        if(!body.isNull("bans")){
-            JSONObject bans = body.getJSONObject("bans");
-            for (int i = 0; i < bans.length(); i++) {
-                banPosts.add(bans.getString(String.valueOf(i)));
-            }
-        }
-
-        List<String> unbanPosts = new ArrayList<>();
-        if(!body.isNull("unbans")) {
-            JSONObject unbans = body.getJSONObject("unbans");
-            for (int i = 0; i < unbans.length(); i++) {
-                unbanPosts.add(unbans.getString(String.valueOf(i)));
-            }
-        }
-
-        Boolean completed = postDAO.banPosts(banPosts, unbanPosts);
+        Boolean completed = postDAO.banPosts(postId, baning);
         if(completed != null){
             if(completed){
-                res.getWriter().write("0: posts modified successfully");
+                res.getWriter().write("0: post modified successfully");
             }
             else{
-                res.getWriter().write("1: no posts were modified");
+                res.getWriter().write("1: post was not modified");
             }
         }
         else{

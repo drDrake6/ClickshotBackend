@@ -1,16 +1,13 @@
 package step.learning.dao;
 
 import com.google.inject.Inject;
-import com.mysql.cj.protocol.a.LocalDateTimeValueEncoder;
 import org.json.JSONObject;
 import step.learning.entities.Post;
-import step.learning.entities.User;
 import step.learning.services.DataService;
 
 import java.sql.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -29,7 +26,7 @@ public class PostDAO {
     }
 
     public boolean canShowPost(Post post){
-        return !post.isBanned()
+        return post.isBaned() == null
                 && !post.getPostponePublication().after(Timestamp.valueOf(LocalDateTime.now()));
     }
 
@@ -44,9 +41,7 @@ public class PostDAO {
                 "description, " +
                 "mediaUrl, " +
                 "metadata, " +
-                "likes, " +
-                "addDate, " +
-                "banned) VALUES (?,?,?,?,?,?,?,?,?)";
+                "addDate) VALUES (?,?,?,?,?,?,?)";
         try(PreparedStatement prep = dataService.getConnection().prepareStatement(sql)){
             prep.setString(1, post.getId());
             prep.setTimestamp(2, post.getPostponePublication());
@@ -54,9 +49,7 @@ public class PostDAO {
             prep.setString(4, post.getDescription());
             prep.setString(5, post.getMediaUrl());
             prep.setString(6, post.getMetadata());
-            prep.setInt(7, post.getLikes());
-            prep.setTimestamp(8, post.getAddDate());
-            prep.setBoolean(9, false);
+            prep.setTimestamp(7, post.getAddDate());
 
             prep.executeUpdate();
         }
@@ -75,11 +68,10 @@ public class PostDAO {
         if(post.getDescription() != null) sql += "description = ?, ";
         if(post.getMediaUrl() != null) sql += "mediaUrl = ?, ";
         if(post.getMetadata() != null) sql += "metadata = ?, ";
-        if(post.getLikes() >= 0) sql += "likes = ?, ";
         if(post.getAddDate() != null) sql += "addDate = ?, ";
-        sql += "banned = ?, ";
+        sql += "baned = ?, ";
         if(sql.endsWith(", ")) sql = sql.substring(0, sql.lastIndexOf(','));
-        sql += " WHERE id = ?";
+        sql += " WHERE id = ? AND deleted IS null";
 
         try(PreparedStatement prep = dataService.getConnection().prepareStatement(sql)){
             if(prep.getParameterMetaData().getParameterCount() == 0) return;
@@ -104,16 +96,12 @@ public class PostDAO {
                 prep.setString(param, post.getMetadata());
                 param++;
             }
-            if(post.getLikes() >= 0) {
-                prep.setInt(param, post.getLikes());
-                param++;
-            }
             if(post.getAddDate() != null) {
                 prep.setTimestamp(param, post.getAddDate());
                 param++;
             }
 
-                prep.setBoolean(param, post.isBanned());
+                prep.setTimestamp(param, post.isBaned());
                 param++;
 
             prep.setString(param, id);
@@ -125,7 +113,28 @@ public class PostDAO {
         }
     }
     public Boolean deletePostById(String postId){
-        String sql = "DELETE FROM Posts WHERE id = ?";
+        String sql = "UPDATE Posts SET deleted = ? WHERE id = ?";
+        try(PreparedStatement prep =
+                    dataService.getConnection().prepareStatement(sql)){
+            prep.setTimestamp(1, Timestamp.valueOf(LocalDateTime.now()));
+            prep.setString(2, postId);
+
+            if(prep.executeUpdate() == 0){
+                return false;
+            }
+        } catch (SQLException ex) {
+            System.out.println("UserDAO::deletePostById() " + ex.getMessage()
+                    + "\n" + sql + " -- " + postId);
+            return null;
+        }
+
+        return true;
+
+        //return cascade(postId);
+    }
+
+    public Boolean restorePost(String postId){
+        String sql = "UPDATE Posts SET deleted = null WHERE id = ?";
         try(PreparedStatement prep =
                     dataService.getConnection().prepareStatement(sql)){
             prep.setString(1, postId);
@@ -134,12 +143,12 @@ public class PostDAO {
                 return false;
             }
         } catch (SQLException ex) {
-            System.out.println("CarDao::deletePostById() " + ex.getMessage()
+            System.out.println("UserDAO::restorePost() " + ex.getMessage()
                     + "\n" + sql + " -- " + postId);
             return null;
         }
 
-        return cascade(postId);
+        return true;
     }
 
     public boolean deletePostByAuthor(String login){
@@ -152,24 +161,24 @@ public class PostDAO {
         return true;
     }
 
-    private boolean cascade(String postId){
-        if(taggedPeopleDAO.deleteTaggedPeopleByPost(postId) != null &&
-                likedDAO.deleteLikeByPost(postId) != null &&
-                savesDAO.deleteSavesByPost(postId) != null)
-            return true;
-        else
-            return false;
+    public boolean restorePostByAuthor(String login){
+        List<Post> posts = getDeletedPostsByAuthor(login);
+
+        for (int i = 0; i < posts.size(); i++) {
+            if(!restorePost(posts.get(i).getId()))
+                return false;
+        }
+        return true;
     }
+
     public Post getPostByID(String postId) {
-        String sql = "SELECT * FROM Posts WHERE id = ?";
+        String sql = "SELECT * FROM Posts WHERE id = ? AND deleted IS null AND baned IS null";
         try (PreparedStatement prep =
                      dataService.getConnection().prepareStatement(sql)) {
             prep.setString(1, postId);
             ResultSet res = prep.executeQuery();
             if (res.next()) {
-                Post post = new Post(res);
-                if(canShowPost(post))
-                    return post;
+                    return new Post(res);
             }
         } catch (SQLException ex) {
             System.out.println("PostDAO::getPostByID() " + ex.getMessage()
@@ -178,16 +187,14 @@ public class PostDAO {
         return null;
     }
     public List<Post> getPostsByAuthor(String author){
-        String sql = "SELECT * FROM Posts WHERE author = ?";
+        String sql = "SELECT * FROM Posts WHERE author = ? AND deleted IS null AND baned IS null";
         try (PreparedStatement prep =
                      dataService.getConnection().prepareStatement(sql)) {
             prep.setString(1, author);
             ResultSet res = prep.executeQuery();
             List<Post> posts = new ArrayList<>();
             while(res.next()){
-                Post post = new Post(res);
-                if(canShowPost(post))
-                    posts.add(post);
+                    posts.add(new Post(res));
             }
             return posts;
         } catch (SQLException ex) {
@@ -197,8 +204,44 @@ public class PostDAO {
         return null;
     }
 
+    public List<Post> getBanedPostsByAuthor(String author){
+        String sql = "SELECT * FROM Posts WHERE author = ? AND deleted IS null";
+        try (PreparedStatement prep =
+                     dataService.getConnection().prepareStatement(sql)) {
+            prep.setString(1, author);
+            ResultSet res = prep.executeQuery();
+            List<Post> posts = new ArrayList<>();
+            while(res.next()){
+                posts.add(new Post(res));
+            }
+            return posts;
+        } catch (SQLException ex) {
+            System.out.println("PostDAO::getBanedPostsByAuthor() " + ex.getMessage()
+                    + "\n" + sql + " -- " + author);
+        }
+        return null;
+    }
+
+    public List<Post> getDeletedPostsByAuthor(String author){
+        String sql = "SELECT * FROM Posts WHERE author = ? AND baned IS null";
+        try (PreparedStatement prep =
+                     dataService.getConnection().prepareStatement(sql)) {
+            prep.setString(1, author);
+            ResultSet res = prep.executeQuery();
+            List<Post> posts = new ArrayList<>();
+            while(res.next()){
+                posts.add(new Post(res));
+            }
+            return posts;
+        } catch (SQLException ex) {
+            System.out.println("PostDAO::getDeletedPostsByAuthor() " + ex.getMessage()
+                    + "\n" + sql + " -- " + author);
+        }
+        return null;
+    }
+
     public Boolean authorHasPost(String id, String author){
-        String sql = "SELECT * FROM Posts WHERE author = ? AND id = ?";
+        String sql = "SELECT * FROM Posts WHERE author = ? AND id = ? AND deleted IS null";
         try (PreparedStatement prep =
                      dataService.getConnection().prepareStatement(sql)) {
             prep.setString(1, author);
@@ -218,7 +261,7 @@ public class PostDAO {
     }
 
     public List<Post> getSomePosts(int from, int amount){
-        String sql = "SELECT * FROM Posts ORDER BY addDate LIMIT ?, ?";
+        String sql = "SELECT * FROM Posts WHERE deleted IS null AND baned IS null ORDER BY addDate LIMIT ?, ?";
         try (PreparedStatement prep =
                      dataService.getConnection().prepareStatement(sql)) {
             prep.setInt(1, from);
@@ -226,9 +269,7 @@ public class PostDAO {
             ResultSet res = prep.executeQuery();
             List<Post> posts = new ArrayList<>();
             while(res.next()){
-                Post post = new Post(res);
-                if(canShowPost(post))
-                    posts.add(post);
+                    posts.add(new Post(res));
             }
             return posts;
         } catch (SQLException ex) {
@@ -239,7 +280,7 @@ public class PostDAO {
     }
 
     public List<Post> findSomePosts(int from, int amount, JSONObject params){
-        String sql = "SELECT * FROM Posts WHERE";
+        String sql = "SELECT * FROM Posts WHERE deleted IS null AND baned IS null AND";
         if(!params.isNull("author")) sql += " author LIKE ? AND";
         if(!params.isNull("description")) sql += " description LIKE ? AND";
         if(!params.isNull("addDate")) sql += " addDate BETWEEN ? AND ?";
@@ -269,18 +310,18 @@ public class PostDAO {
             ResultSet res = prep.executeQuery();
             List<Post> posts = new ArrayList<>();
             while(res.next()){
-                posts.add(new Post(res));
+                    posts.add(new Post(res));
             }
             return posts;
         } catch (SQLException ex) {
-            System.out.println("UserDAO::FindSomePosts() " + ex.getMessage()
+            System.out.println("PostDAO::FindSomePosts() " + ex.getMessage()
                     + "\n" + sql);
         }
         return null;
     }
 
     public List<Post> getSomePostsByAuthor(String login, int from, int amount){
-        String sql = "SELECT * FROM Posts WHERE author = ? ORDER BY addDate LIMIT ?, ?";
+        String sql = "SELECT * FROM Posts WHERE author = ? AND deleted IS null AND baned IS null ORDER BY addDate LIMIT ?, ?";
         try (PreparedStatement prep =
                      dataService.getConnection().prepareStatement(sql)) {
             prep.setString(1, login);
@@ -289,9 +330,7 @@ public class PostDAO {
             ResultSet res = prep.executeQuery();
             List<Post> posts = new ArrayList<>();
             while(res.next()){
-                Post post = new Post(res);
-                if(canShowPost(post))
-                    posts.add(post);
+                    posts.add(new Post(res));
             }
             return posts;
         } catch (SQLException ex) {
@@ -308,9 +347,7 @@ public class PostDAO {
             ResultSet res = statement.executeQuery(sql);
             List<Post> posts = new ArrayList<>();
             while(res.next()){
-                Post post = new Post(res);
-                if(canShowPost(post))
-                    posts.add(post);
+                    posts.add(new Post(res));
             }
             return posts;
         } catch (SQLException ex) {
@@ -320,78 +357,42 @@ public class PostDAO {
         return null;
     }
 
-    public Boolean banPosts(List<String> banPosts, List<String> unbanPosts){
-        StringBuilder sql = new StringBuilder("UPDATE Posts SET banned = TRUE WHERE id IN (");
-        boolean res1 = false;
-        boolean res2 = false;
+    public int postsAmount(String login, boolean includeDeleted){
+        String sql = "SELECT COUNT(*) as 'count' FROM Posts WHERE author = ?";
+        if(!includeDeleted)
+            sql += " AND deleted IS NULL";
 
-        try {
-            for (int i = 0; i < banPosts.size(); i++) {
-                if (!this.getPostByID(banPosts.get(i)).isBanned()) {
-                    sql.append("?, ");
-                }
-                else{
-                    banPosts.remove(banPosts.get(i));
-                    i--;
-                }
-            }
+        try(PreparedStatement prep = dataService.getConnection().prepareStatement(sql)){
+            prep.setString(1, login);
+            ResultSet res = prep.executeQuery();
+            if(res.next())
+                return res.getInt("count");
+            else
+                return -1;
+        }
+        catch (SQLException ex) {
+            System.out.println("setEmailCode() | Query error: " + ex.getMessage());
+            System.out.println("sql: " + sql);
+            return -1;
+        }
+    }
 
-            if (sql.toString().endsWith(", ")) {
-                sql.delete(sql.length() - 2, sql.length());
-                sql.append(")");
+    public Boolean banPosts(String postId, boolean ban) {
+        String sql;
 
-                try (PreparedStatement prep =
-                             dataService.getConnection().prepareStatement(sql.toString())) {
-                    for (int i = 0; i < banPosts.size(); i++) {
-                        prep.setString(i + 1, banPosts.get(i));
-                    }
-                    res1 = prep.executeUpdate() != 0;
-                } catch (SQLException ex) {
-                    System.out.println("PostDAO::banPosts() ban " + ex.getMessage()
-                            + "\n" + sql);
-                    return null;
-                }
-            }
-        }catch (Exception ex) {
-            System.out.println("PostDAO::banPosts() ban " + ex.getMessage());
+        if (ban)
+            sql = "UPDATE Posts SET baned = NOW() WHERE id = ?";
+        else
+            sql = "UPDATE Posts SET baned = null WHERE id = ?";
+
+        try (PreparedStatement prep =
+                     dataService.getConnection().prepareStatement(sql)) {
+            prep.setString(1, postId);
+            return prep.executeUpdate() != 0;
+        } catch (SQLException ex) {
+            System.out.println("PostDAO::banPosts()" + ex.getMessage()
+                    + "\n" + sql);
             return null;
         }
-
-        sql = new StringBuilder("UPDATE Posts SET banned = FALSE WHERE id IN (");
-
-        try {
-            for (int i = 0; i < unbanPosts.size(); i++) {
-                if(this.getPostByID(unbanPosts.get(i)).isBanned()){
-                    sql.append("?, ");
-                }
-                else{
-                    unbanPosts.remove(unbanPosts.get(i));
-                    i--;
-                }
-            }
-
-            if(sql.toString().endsWith(", ")) {
-                sql.delete(sql.length() - 2, sql.length());
-                sql.append(")");
-
-                try (PreparedStatement prep =
-                             dataService.getConnection().prepareStatement(sql.toString())) {
-                    for (int i = 0; i < unbanPosts.size(); i++) {
-                        prep.setString(i + 1, unbanPosts.get(i));
-                    }
-                    res2 = prep.executeUpdate() != 0;
-                } catch (SQLException ex) {
-                    System.out.println("PostDAO::banPosts() unban " + ex.getMessage()
-                            + "\n" + sql);
-                    return null;
-                }
-            }
-
-        }catch (Exception ex) {
-            System.out.println("PostDAO::banPosts() unban " + ex.getMessage());
-            return null;
-        }
-
-        return (res1 || res2);
     }
 }

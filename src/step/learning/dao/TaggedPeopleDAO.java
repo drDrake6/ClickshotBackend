@@ -51,38 +51,5 @@ public class TaggedPeopleDAO {
         }
         return null;
     }
-    public Boolean deleteTaggedPeopleByPost(String postId){
-        String sql = "DELETE FROM TaggedPeople WHERE postId = ?";
-        try(PreparedStatement prep =
-                    dataService.getConnection().prepareStatement(sql)){
-            prep.setString(1, postId);
-
-            if(prep.executeUpdate() == 0){
-                return false;
-            }
-        } catch (SQLException ex) {
-            System.out.println("TaggedPeopleDAO::deleteTaggedPeopleByPost() " + ex.getMessage()
-                    + "\n" + sql + " -- " + postId);
-            return null;
-        }
-        return true;
-    }
-
-    public Boolean deleteTaggedPeopleByAuthor(String authorId){
-        String sql = "DELETE FROM TaggedPeople WHERE userId = ?";
-        try(PreparedStatement prep =
-                    dataService.getConnection().prepareStatement(sql)){
-            prep.setString(1, authorId);
-
-            if(prep.executeUpdate() == 0){
-                return false;
-            }
-        } catch (SQLException ex) {
-            System.out.println("TaggedPeopleDAO::deleteTaggedPeopleByAuthor() " + ex.getMessage()
-                    + "\n" + sql + " -- " + authorId);
-            return null;
-        }
-        return true;
-    }
 
 }

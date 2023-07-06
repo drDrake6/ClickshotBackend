@@ -48,18 +48,10 @@ public class DeleteCommentServlet extends HttpServlet {
             return;
         }
         else if (has || user.getRole() == 'a'){
-            List<String> deletedIds = new ArrayList<>();
 
-            if(commentDAO.deleteCommentById(deletedIds, commentId))
+            if(commentDAO.deleteCommentById(commentId))
             {
-                JSONObject jsonObject = new JSONObject();
-                for (int i = 0; i < deletedIds.size(); i++) {
-                    jsonObject.put(String.valueOf(i), deletedIds.get(i));
-                }
-
-                res.setContentType("application/json");
-                res.setCharacterEncoding("UTF-8");
-                res.getWriter().write(jsonObject.toString());
+                res.getWriter().write("deleted successfully");
             }
 
             else

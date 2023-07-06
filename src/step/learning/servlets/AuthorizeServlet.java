@@ -37,14 +37,16 @@ public class AuthorizeServlet extends HttpServlet {
         }
 
         User user = userDAO.getUser(login);
-        if(user != null && userDAO.CheckCredentials(user, password)){
+        if(user != null
+                && userDAO.CheckCredentials(user, password)
+                && user.getRole() != 'b'){
             if(user.getEmail_code() != null && !user.getEmail_code().equals("not_confirmed"))
                 user.setEmail_code(null);
             user.setEmail_attempt(0);
-                user.setToken(UUID.randomUUID().toString());
-                userDAO.update(user, user.getId());
-                res.getWriter().write("0: " + user.getToken());
-                System.out.println("access allowed");
+            user.setToken(UUID.randomUUID().toString());
+            userDAO.update(user, user.getId());
+            res.getWriter().write("0: " + user.getToken());
+            System.out.println("access allowed");
         }
         else{
             res.getWriter().write( "1: access denied");

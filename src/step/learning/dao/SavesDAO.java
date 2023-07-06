@@ -23,7 +23,17 @@ public class SavesDAO {
     }
 
     public void addSave(String postId, String login){
-        String sql = "INSERT INTO SavedBy (postId, userId) VALUES (?, (SELECT id FROM Users WHERE login = ?))";
+        Boolean isSaved = isSavedByUser(postId, login, true);
+        String sql;
+        if(isSaved != null){
+            if(isSaved)
+                sql = "UPDATE SavedBy SET deleted = null, date = NOW() WHERE postId = ? AND userId = (SELECT id FROM Users WHERE login = ?)";
+            else
+                sql = "INSERT INTO SavedBy (postId, userId) VALUES (?, (SELECT id FROM Users WHERE login = ?))";
+        }
+        else
+            return;
+
         try (PreparedStatement prep =
                      dataService.getConnection().prepareStatement(sql)) {
             prep.setString(1,  postId);
@@ -36,7 +46,7 @@ public class SavesDAO {
     }
 
     public void unSave(String postId, String login){
-        String sql = "DELETE FROM SavedBy WHERE postId = ? AND userId = (SELECT id FROM Users WHERE login = ?)";
+        String sql = "UPDATE SavedBy SET deleted = NOW() WHERE postId = ? AND userId = (SELECT id FROM Users WHERE login = ?)";
         try (PreparedStatement prep =
                      dataService.getConnection().prepareStatement(sql)) {
             prep.setString(1,  postId);
@@ -46,62 +56,6 @@ public class SavesDAO {
             System.out.println("SavesDAO::unSave() " + ex.getMessage()
                     + "\n" + sql);
         }
-    }
-
-    public Boolean deleteSavesByUser(String login){
-        String sql = "DELETE FROM SavedBy WHERE userId = (SELECT userId FROM Users WHERE login = ?)";
-        try(PreparedStatement prep =
-                    dataService.getConnection().prepareStatement(sql)){
-            prep.setString(1, login);
-            if(prep.executeUpdate() == 0){
-                return false;
-            }
-        } catch (SQLException ex) {
-            System.out.println("SavesDAO::deleteSavesByUser() " + ex.getMessage()
-                    + "\n" + sql + " -- " + login);
-            return null;
-        }
-
-        return true;
-
-
-
-
-    }
-
-    public Boolean deleteSavesByPost(String postId){
-        String sql = "DELETE FROM SavedBy WHERE postId = ?";
-        try(PreparedStatement prep =
-                    dataService.getConnection().prepareStatement(sql)){
-            prep.setString(1, postId);
-            if(prep.executeUpdate() == 0){
-                return false;
-            }
-        } catch (SQLException ex) {
-            System.out.println("SavesDAO::deleteSavesByPost() " + ex.getMessage()
-                    + "\n" + sql + " -- " + postId);
-            return null;
-        }
-
-        return true;
-    }
-
-    public Boolean deleteOneSave(String postId, String login){
-        String sql = "DELETE FROM SavedBy WHERE postId = ? AND userId = (SELECT userId FROM Users WHERE login = ?)";
-        try(PreparedStatement prep =
-                    dataService.getConnection().prepareStatement(sql)){
-            prep.setString(1, postId);
-            prep.setString(2, login);
-            if(prep.executeUpdate() == 0){
-                return false;
-            }
-        } catch (SQLException ex) {
-            System.out.println("SavesDAO::deleteOneSave() " + ex.getMessage()
-                    + "\n" + sql + " -- " + postId + " " + login);
-            return null;
-        }
-
-        return true;
     }
 
     public List<String> getSaves(String login){
@@ -161,9 +115,11 @@ public class SavesDAO {
         return null;
     }
 
-    public Boolean isLikedByUser(String postId, String login){
-
+    public Boolean isSavedByUser(String postId, String login, boolean includeDeleted){
         String sql = "SELECT * FROM SavedBy WHERE postId = ? AND userId = (SELECT userId FROM Users WHERE login = ?)";
+        if(!includeDeleted)
+            sql += " AND deleted IS NULL";
+
         try (PreparedStatement prep =
                      dataService.getConnection().prepareStatement(sql)) {
             prep.setString(1,  postId);

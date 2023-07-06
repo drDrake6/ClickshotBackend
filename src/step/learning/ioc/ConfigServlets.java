@@ -17,8 +17,11 @@ public class ConfigServlets extends ServletModule {
         filter("/*").through(DataFilter.class);
 
         serve("/allUsers").with(AllUsersServlet.class);
-        serve("/add").with(AddUserServlet.class);
-        serve("/delete").with(DeleteUserServlet.class);
+        serve("/addUser").with(AddUserServlet.class);
+        serve("/deleteUser").with(DeleteUserServlet.class);
+        serve("/restoreUser").with(RestoreUserServlet.class);
+        serve("/restorePost").with(RestorePostServlet.class);
+        serve("/restoreComment").with(RestoreCommentServlet.class);
         serve("/authorize").with(AuthorizeServlet.class);
         serve("/confirm").with(ConfirmEmailServlet.class);
         serve("/restore").with(RestorePasswordServlet.class);
@@ -44,6 +47,13 @@ public class ConfigServlets extends ServletModule {
         serve("/changeEmail").with(ChangeEmailServlet.class);
         serve("/findUser").with(FindUserServlet.class);
         serve("/findPost").with(FindPostServlet.class);
+        serve("/isSubscribed").with(IsSubscribedServlet.class);
+        serve("/subscribe").with(SubscribeServlet.class);
+        serve("/getSubscribers").with(GetSubscribersServlet.class);
+        serve("/getSubscribing").with(GetSubscribingServlet.class);
+        serve("/notifications").with(NotificationsServlet.class);
+        serve("/getPostById").with(GetPostByIdServlet.class);
+        serve("/getCommentById").with(GetCommentByIdServlet.class);
 //
 //        serve("/filters").with(FiltersServlet.class);
 //        serve("/hello").with(HelloServlet.class);

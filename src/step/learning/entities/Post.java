@@ -8,7 +8,7 @@ import java.sql.Timestamp;
 
 public class Post {
 
-    public Post(String id, Timestamp addDate, String author, String description, String mediaUrl, String metadata, Timestamp postponePublication, boolean banned, int likes) {
+    public Post(String id, Timestamp addDate, String author, String description, String mediaUrl, String metadata, Timestamp postponePublication, Timestamp banned) {
         this.setId(                  id);
         this.setAddDate(             addDate);
         this.setAuthor(              author);
@@ -16,8 +16,7 @@ public class Post {
         this.setMediaUrl(            mediaUrl);
         this.setMetadata(            metadata);
         this.setPostponePublication( postponePublication);
-        this.setLikes(               likes);
-        this.setBanned(banned);
+        this.setBaned(banned);
     }
 
     public Post(JSONObject post) {
@@ -30,12 +29,7 @@ public class Post {
         this.setMediaUrl(           post.getString("mediaUrl"));
         this.setMetadata(           post.getString("metadata"));
         this.setPostponePublication(Timestamp.valueOf(post.getString("postponePublication")));
-        this.setBanned(false);
-        try {
-            this.setLikes(Integer.parseInt(post.getString("likes")));
-        }catch (Exception ex){
-            this.setLikes(post.getInt("likes"));
-        }
+        this.setBaned(null);
     }
 
     public Post(ResultSet res) throws SQLException {
@@ -45,9 +39,8 @@ public class Post {
         this.setDescription(res.getString("description"));
         this.setMediaUrl(res.getString("mediaUrl"));
         this.setMetadata(res.getString("metadata"));
-        this.setLikes(res.getInt("likes"));
         this.setAddDate(res.getTimestamp("addDate"));
-        this.setBanned(res.getBoolean("banned"));
+        this.setBaned(res.getTimestamp("baned"));
     }
 
     String id;
@@ -57,8 +50,7 @@ public class Post {
     String mediaUrl;
     String metadata;
     Timestamp postponePublication;
-    boolean banned;
-    int likes;
+    Timestamp baned;
 
     public String getId() {
         return id;
@@ -115,18 +107,11 @@ public class Post {
     public void setPostponePublication(Timestamp postponePublication) {
         this.postponePublication = postponePublication;
     }
-    public int getLikes() {
-        return likes;
+    public Timestamp isBaned() {
+        return baned;
     }
-
-    public void setLikes(int likes) {
-        this.likes = likes;
-    }
-    public boolean isBanned() {
-        return banned;
-    }
-    public void setBanned(boolean banned) {
-        this.banned = banned;
+    public void setBaned(Timestamp baned) {
+        this.baned = baned;
     }
 
     @Override
@@ -139,7 +124,6 @@ public class Post {
                 "mediaUrl='" + mediaUrl + ",\n" +
                 "metadata='" + metadata + ",\n" +
                 "postponePublication=" + postponePublication + ",\n" +
-                "likes=" + likes + ",\n" +
                 '}';
     }
 }

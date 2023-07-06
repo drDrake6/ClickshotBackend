@@ -3,6 +3,7 @@ package step.learning.filters;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import step.learning.services.LoadConfigService;
+import step.learning.services.LoggerService;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
@@ -13,6 +14,9 @@ import java.time.format.DateTimeFormatter;
 @Singleton
 public class LogRequestFilter implements Filter {
     private FilterConfig filterConfig;
+
+    @Inject
+    private LoggerService loggerService;
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
@@ -25,7 +29,8 @@ public class LogRequestFilter implements Filter {
         String queryString = ((HttpServletRequest)servletRequest).getQueryString();
         String method = ((HttpServletRequest)servletRequest).getMethod();
         url = url.substring(url.indexOf("app/") + 3);
-        System.out.println(method + " " + url + "?" + queryString + ", time: " + LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
+        loggerService.log(method + " " + url + "?" + queryString + ", time: " + LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")), LoggerService.Status.INFO);
+        //System.out.println(method + " " + url + "?" + queryString + ", time: " + LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
         filterChain.doFilter(servletRequest, servletResponse);
     }
 

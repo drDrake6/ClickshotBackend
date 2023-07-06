@@ -17,7 +17,6 @@ public class LoadJSONConfigService implements LoadConfigService{
     public JSONObject load(){
 
         File configFile = new File(path);
-        System.out.println(configFile.getAbsolutePath());
 
         if (configFile.isFile()) {
             String content;

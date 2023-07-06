@@ -22,7 +22,7 @@ public class UploadService {
             String imageName = UUID.randomUUID() + "." + getExtension(file);
             String path = imageName;
             try {
-                File uploaded = new File(realPath + "/../Uploads/" + path);
+                File uploaded = new File(realPath + "/Uploads/" + path);
                 Files.copy(file.getInputStream(), uploaded.toPath(), StandardCopyOption.REPLACE_EXISTING);
             } catch (Exception ex){
                 throw ex;

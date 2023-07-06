@@ -19,8 +19,17 @@ public class LikesDAO {
         this.dataService = dataService;
     }
 
-    public boolean putLike(String postId, String login){
-        String sql = "INSERT INTO LikedBy (postId, userId) VALUES (?, (SELECT id FROM Users WHERE login = ?))";
+    public Boolean putLike(String postId, String login){
+        Boolean isLiked = isLikedByUser(postId, login, true);
+        String sql;
+        if(isLiked != null){
+            if(isLiked)
+                sql = "UPDATE LikedBy SET deleted = null, date = NOW() WHERE postId = ? AND userId = (SELECT id FROM Users WHERE login = ?)";
+            else
+                sql = "INSERT INTO LikedBy (postId, userId) VALUES (?, (SELECT id FROM Users WHERE login = ?))";
+        }
+        else
+            return null;
         try (PreparedStatement prep =
                      dataService.getConnection().prepareStatement(sql)) {
             prep.setString(1,  postId);
@@ -31,13 +40,13 @@ public class LikesDAO {
         } catch (SQLException ex) {
             System.out.println("LikedDAO::putLike() " + ex.getMessage()
                     + "\n" + sql);
-            return false;
+            return null;
         }
         return true;
     }
 
-    public boolean unLike(String postId, String login){
-        String sql = "DELETE FROM LikedBy WHERE postId = ? AND userId = (SELECT id FROM Users WHERE login = ?)";
+    public Boolean unLike(String postId, String login){
+        String sql = "UPDATE LikedBy SET deleted = NOW() WHERE postId = ? AND userId = (SELECT id FROM Users WHERE login = ?)";
         try (PreparedStatement prep =
                      dataService.getConnection().prepareStatement(sql)) {
             prep.setString(1,  postId);
@@ -48,7 +57,7 @@ public class LikesDAO {
         } catch (SQLException ex) {
             System.out.println("LikedDAO::unLike() " + ex.getMessage()
                     + "\n" + sql);
-            return false;
+            return null;
         }
         return true;
     }
@@ -91,9 +100,11 @@ public class LikesDAO {
         return null;
     }
 
-    public Boolean isLikedByUser(String postId, String login){
+    public Boolean isLikedByUser(String postId, String login, boolean includeDeleted){
 
         String sql = "SELECT * FROM LikedBy WHERE postId = ? AND userId = (SELECT userId FROM Users WHERE login = ?)";
+        if(!includeDeleted)
+            sql += " AND deleted IS NULL";
         try (PreparedStatement prep =
                      dataService.getConnection().prepareStatement(sql)) {
             prep.setString(1,  postId);
@@ -104,43 +115,10 @@ public class LikesDAO {
             }
             else return false;
         } catch (SQLException ex) {
-            System.out.println("LikedDAO::getLikedByOne() " + ex.getMessage()
+            System.out.println("LikedDAO::isLikedByUser() " + ex.getMessage()
                     + "\n" + sql);
         }
         return null;
-    }
-
-    public Boolean deleteLikeByUser(String login){
-        String sql = "DELETE FROM LikedBy WHERE userId = (SELECT userId FROM Users WHERE login = ?)";
-        try(PreparedStatement prep =
-                    dataService.getConnection().prepareStatement(sql)){
-            prep.setString(1, login);
-            if(prep.executeUpdate() == 0){
-                return false;
-            }
-        } catch (SQLException ex) {
-            System.out.println("LikedDAO::deleteLikeByUser() " + ex.getMessage()
-                    + "\n" + sql + " -- " + login);
-            return null;
-        }
-
-        return true;
-    }
-
-    public Boolean deleteLikeByPost(String postId){
-        String sql = "DELETE FROM LikedBy WHERE postId = ?";
-        try(PreparedStatement prep =
-                    dataService.getConnection().prepareStatement(sql)){
-            prep.setString(1, postId);
-            if(prep.executeUpdate() == 0){
-                return false;
-            }
-        } catch (SQLException ex) {
-            System.out.println("LikedDAO::deleteLikeByPost() " + ex.getMessage()
-                    + "\n" + sql + " -- " + postId);
-            return null;
-        }
-        return true;
     }
 
     public int getLikesCount(String postId){

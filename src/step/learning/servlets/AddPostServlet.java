@@ -67,7 +67,6 @@ public class AddPostServlet extends HttpServlet {
             jpost.put("addDate", LocalDateTime.now().
                     format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
             jpost.put("postponePublication", jpost.get("postponePublication"));
-            jpost.put("likes", 0);
             jpost.put("mediaUrl", path);
             Post post = new Post(jpost);
             postDAO.add(post);

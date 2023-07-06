@@ -32,7 +32,7 @@ public class DeleteUserServlet extends HttpServlet {
         res.setHeader("Access-Control-Allow-Origin","*");
         JSONObject body = bodyParseService.parseBody(req);
 
-        String userId = body.getString("id");
+        String login = body.getString("login");
         String token = body.getString("token");
 
         User user = userDAO.getUserByToken(token);
@@ -42,24 +42,20 @@ public class DeleteUserServlet extends HttpServlet {
             return;
         }
 
-        System.out.println(userId);
-        User deleteUser = userDAO.getUserById(userId);
+        System.out.println(login);
+        User deleteUser = userDAO.getUser(login);
 
         if(deleteUser.getRole() == 'a'){
             res.getWriter().write("you can't delete me)");
             return;
         }
 
-        if(!userDAO.deleteUserById(userId)){
+        if(!userDAO.deleteUser(login)){
             System.out.println("DeleteUserServlet::doPost | incorrect id");
             res.sendRedirect(req.getRequestURI());
             return;
         }
 
-        res.sendRedirect(req.getRequestURI());
-    }
-
-    protected void doGet(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
-        res.sendRedirect(req.getRequestURI());
+        res.getWriter().write("deleted successfully");
     }
 }
