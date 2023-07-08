@@ -4,6 +4,7 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import org.json.JSONObject;
 import step.learning.dao.CommentDAO;
+import step.learning.dao.UserDAO;
 import step.learning.entities.Comment;
 import step.learning.entities.Response;
 import step.learning.services.BodyParseService;
@@ -21,9 +22,19 @@ public class AddAnswerServlet extends HttpServlet {
     @Inject
     private CommentDAO commentDAO;
 
+    @Inject
+    private UserDAO userDAO;
+
     protected void doPost(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
         try {
             JSONObject body = bodyParseService.parseBody(req);
+
+            if(userDAO.getUserByToken(body.getString("token")) == null)
+            {
+                res.getWriter().write("2: access denied");
+                return;
+            }
+
             Response response = new Response(body);
             commentDAO.giveAnswer(response);
         }

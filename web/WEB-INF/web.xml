@@ -1,5 +1,18 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <web-app>
+<!--    <servlet>-->
+<!--        <servlet-name>Faces Servlet</servlet-name>-->
+<!--        <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>-->
+<!--        <load-on-startup>1</load-on-startup>-->
+<!--    </servlet>-->
+    <servlet>
+        <servlet-name>default</servlet-name>
+        <multipart-config>
+            <max-file-size>-1</max-file-size>
+            <max-request-size>-1</max-request-size>
+            <file-size-threshold>0</file-size-threshold>
+        </multipart-config>
+    </servlet>
     <listener>
         <listener-class>step.learning.ioc.ConfigListener</listener-class>
     </listener>

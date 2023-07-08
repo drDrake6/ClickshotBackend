@@ -3,10 +3,7 @@ package step.learning.dao;
 import com.google.inject.Inject;
 import org.json.JSONObject;
 import step.learning.entities.User;
-import step.learning.services.DataService;
-import step.learning.services.EmailService;
-import step.learning.services.HashService;
-import step.learning.services.LoadConfigService;
+import step.learning.services.*;
 
 import java.io.FileNotFoundException;
 import java.sql.*;
@@ -24,13 +21,15 @@ public class UserDAO {
     private final SubscribersDAO subscribersDAO;
     private final LoadConfigService loadConfigService;
 
+    private final LoggerService loggerService;
+
     @Inject
     public UserDAO(DataService dataService,
                    HashService hashService,
                    EmailService emailService,
                    PostDAO postDAO,
                    LoadConfigService loadConfigService,
-                   SubscribersDAO subscribersDAO)
+                   SubscribersDAO subscribersDAO, LoggerService loggerService)
     {
         this.dataService = dataService;
         this.hashService = hashService;
@@ -38,6 +37,7 @@ public class UserDAO {
         this.postDAO = postDAO;
         this.loadConfigService = loadConfigService;
         this.subscribersDAO = subscribersDAO;
+        this.loggerService = loggerService;
     }
     public User setAuthorizeToken(String token, String userId){
         String sql = "UPDATE Users SET token = ? WHERE id = ?";
@@ -68,6 +68,8 @@ public class UserDAO {
     }
 
     public User getUserByToken(String token){
+        if(token == null)
+            return null;
         String sql = "SELECT * FROM Users WHERE token = ? AND deleted IS null";
         try(PreparedStatement prep =
                     dataService.getConnection().prepareStatement(sql)){
@@ -251,8 +253,8 @@ public class UserDAO {
         if(user.getEmail() != null) sql += "email = ?, email_code = ?, email_attempt = ?, ";
         if(user.getBirthday() != null) sql += "birthday = ?, ";
         if(user.getBio() != null) sql += "bio = ?, ";
-        if(user.getToken() != null) sql += "token = ?, ";
-        if(user.getRole() == 'u' || user.getRole() == 'a') sql += "role = ?, ";
+        sql += "token = ?, ";
+        if(user.getRole() == 'u' || user.getRole() == 'b') sql += "role = ?, ";
         if(sql.endsWith(", ")) sql = sql.substring(0, sql.lastIndexOf(','));
         sql += " WHERE id = ?";
 
@@ -297,12 +299,10 @@ public class UserDAO {
                 param++;
             }
 
-            if(user.getToken() != null) {
                 prep.setString(param, user.getToken());
                 param++;
-            }
 
-            if(user.getRole() == 'u' || user.getRole() == 'a') {
+            if(user.getRole() == 'u' || user.getRole() == 'b') {
                 prep.setString(param, Character.toString(user.getRole()));
                 param++;
             }
@@ -421,7 +421,7 @@ public class UserDAO {
             jsonObject.put("isEmailConfirmed", true);
         }
         else {
-            jsonObject.put("isEmailConfirmed", !user.getEmail_code().equals("not_confirmed"));
+            jsonObject.put("isEmailConfirmed", false);
         }
 
         jsonObject.put("subscribersAmount", subscribersDAO.subscribersAmount(login, false));

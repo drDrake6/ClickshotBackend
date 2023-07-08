@@ -25,9 +25,16 @@ public class ChangeRoleServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
         JSONObject body = bodyParseService.parseBody(req);
 
-        String adminLogin = body.getString("adminLogin");
+        if(body.isNull("token")){
+            res.getWriter().write("1: access denied");
+            return;
+        }
+
+        String token = body.getString("token");
         String login = body.getString("login");
         char role = body.getString("role").charAt(0);
+
+
 
         if(role != 'b' && role != 'u')
         {
@@ -35,11 +42,21 @@ public class ChangeRoleServlet extends HttpServlet {
             return;
         }
 
-        if(userDAO.isAdmin(adminLogin))
+        User admin = userDAO.getUserByToken(token);
+
+        if(admin == null){
+            res.getWriter().write("1: access denied");
+            return;
+        }
+
+        if(admin.getRole() == 'a')
         {
             User user = userDAO.getUser(login);
             user.setRole(role);
-            userDAO.update(user, user.getLogin());
+            if(role == 'b')
+                user.setToken(null);
+            userDAO.update(user, user.getId());
+
             res.getWriter().write("0: role successfully changed");
         }
         else

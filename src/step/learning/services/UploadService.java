@@ -3,6 +3,7 @@ import com.google.inject.Inject;
 
 import javax.servlet.http.Part;
 import java.io.File;
+import java.io.FileInputStream;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 import java.util.List;
@@ -19,8 +20,8 @@ public class UploadService {
             if(!mimeService.checkMimeTypes(mediaTypes, getExtension(file)))
                 throw new Exception("7: Files with such extension are not supported");
 
-            String imageName = UUID.randomUUID() + "." + getExtension(file);
-            String path = imageName;
+            String fileName = UUID.randomUUID() + "." + getExtension(file);
+            String path = fileName;
             try {
                 File uploaded = new File(realPath + "/Uploads/" + path);
                 Files.copy(file.getInputStream(), uploaded.toPath(), StandardCopyOption.REPLACE_EXISTING);

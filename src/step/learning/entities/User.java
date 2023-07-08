@@ -85,7 +85,7 @@ public class User {
             jsonObject.put("isEmailConfirmed", true);
         }
         else {
-            jsonObject.put("isEmailConfirmed", !getEmail_code().equals("not_confirmed"));
+            jsonObject.put("isEmailConfirmed", false);
         }
         jsonObject.remove("email_code");
 

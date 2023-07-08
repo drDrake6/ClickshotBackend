@@ -4,6 +4,7 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import org.json.JSONObject;
 import step.learning.dao.SubscribersDAO;
+import step.learning.dao.UserDAO;
 import step.learning.services.BodyParseService;
 
 import javax.servlet.ServletException;
@@ -21,8 +22,17 @@ public class SubscribeServlet extends HttpServlet {
     @Inject
     private BodyParseService bodyParseService;
 
+    @Inject
+    private UserDAO userDAO;
+
     protected void doPost(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
         JSONObject body = bodyParseService.parseBody(req);
+
+        if(userDAO.getUserByToken(body.getString("token")) == null)
+        {
+            res.getWriter().write("2: access denied");
+            return;
+        }
 
         String subscriber = body.getString("subscriber");
         String author = body.getString("author");

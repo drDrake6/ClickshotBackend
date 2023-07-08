@@ -4,6 +4,7 @@ import com.google.inject.Inject;
 import org.json.JSONObject;
 import step.learning.entities.Post;
 import step.learning.services.DataService;
+import step.learning.services.MimeService;
 
 import java.sql.*;
 import java.time.LocalDateTime;
@@ -16,13 +17,15 @@ public class PostDAO {
     private final TaggedPeopleDAO taggedPeopleDAO;
     private final LikesDAO likedDAO;
     private final SavesDAO savesDAO;
+    private final MimeService mimeService;
     @Inject
-    public PostDAO(DataService dataService, TaggedPeopleDAO taggedPeopleDAO, LikesDAO likedDAO, SavesDAO savesDAO)
+    public PostDAO(DataService dataService, TaggedPeopleDAO taggedPeopleDAO, LikesDAO likedDAO, SavesDAO savesDAO, MimeService mimeService)
     {
         this.dataService = dataService;
         this.taggedPeopleDAO = taggedPeopleDAO;
         this.likedDAO = likedDAO;
         this.savesDAO = savesDAO;
+        this.mimeService = mimeService;
     }
 
     public boolean canShowPost(Post post){
@@ -283,6 +286,7 @@ public class PostDAO {
         String sql = "SELECT * FROM Posts WHERE deleted IS null AND baned IS null AND";
         if(!params.isNull("author")) sql += " author LIKE ? AND";
         if(!params.isNull("description")) sql += " description LIKE ? AND";
+        if(!params.isNull("onlyMedia")) sql += " mediaUrl REGEXP ? AND";
         if(!params.isNull("addDate")) sql += " addDate BETWEEN ? AND ?";
         if(sql.endsWith("AND")) sql = sql.substring(0, sql.lastIndexOf('A'));
         sql += " ORDER BY addDate LIMIT ?, ?";
@@ -294,6 +298,20 @@ public class PostDAO {
             }
             if(!params.isNull("description")){
                 prep.setString(param, "%" + params.getString("description") + "%");
+                param++;
+            }
+            if(!params.isNull("onlyMedia"))
+            {
+                String par = "";
+                JSONObject jmediaTypes = params.getJSONObject("onlyMedia");
+                for (int i = 0; i < jmediaTypes.length(); i++) {
+                    List<String> mediaTypes = mimeService.getMediaTypes(mimeService.getMediaType(jmediaTypes.getString(String.valueOf(i))));
+                    for (int j = 0; j < mediaTypes.size(); j++) {
+                        par += mediaTypes.get(j) + "$|";
+                    }
+                }
+                par = par.substring(0, par.lastIndexOf('|'));
+                prep.setString(param,  par);
                 param++;
             }
             if(!params.isNull("addDate")){

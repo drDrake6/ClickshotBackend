@@ -40,8 +40,6 @@ public class AvaImageServlet extends HttpServlet {
                 req.setAttribute(Request.__MULTIPART_CONFIG_ELEMENT, new MultipartConfigElement(""));
             }
 
-            java.util.Collection<Part> test = req.getParts();
-
             List<MimeService.MediaType> mediaTypes = new ArrayList<>();
             mediaTypes.add(MimeService.MediaType.IMAGE);
 

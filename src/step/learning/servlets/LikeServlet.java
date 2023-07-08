@@ -4,6 +4,7 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import org.json.JSONObject;
 import step.learning.dao.LikesDAO;
+import step.learning.dao.UserDAO;
 import step.learning.services.BodyParseService;
 
 import javax.servlet.ServletException;
@@ -20,8 +21,17 @@ public class LikeServlet extends HttpServlet {
     @Inject
     private LikesDAO likedDAO;
 
+    @Inject
+    private UserDAO userDAO;
+
     protected void doPost(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
         JSONObject body = bodyParseService.parseBody(req);
+
+        if(userDAO.getUserByToken(body.getString("token")) == null)
+        {
+            res.getWriter().write("2: access denied");
+            return;
+        }
 
         String postId = body.getString("postId");
         String login = body.getString("login");

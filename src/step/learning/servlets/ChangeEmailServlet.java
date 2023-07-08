@@ -33,7 +33,8 @@ public class ChangeEmailServlet extends HttpServlet {
                 throw  new Exception("2: incorrect token");
             }
             if(!code.equals(user.getEmail_code().substring(0, 6))){
-                user.setEmail_code(null);
+                user.setEmail_code("not_confirmed");
+                userDAO.update(user, user.getId());
                 throw  new Exception("1: incorrect code");
             }
 
@@ -56,7 +57,10 @@ public class ChangeEmailServlet extends HttpServlet {
         }
 
         else{
+            user.setEmail_code(null);
+
             if(user.getEmail().equals(newEmail)){
+                userDAO.update(user, user.getId());
                 res.getWriter().write("4: Email can not match previous one");
                 return;
             }
@@ -69,10 +73,10 @@ public class ChangeEmailServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest req, HttpServletResponse res)throws IOException, ServletException {
 
-        String token = req.getParameter("token");
+        String login = req.getParameter("login");
         String code = req.getParameter("code");
 
-        User user = userDAO.getUserByToken(token);
+        User user = userDAO.getUser(login);
 
         if(code.equals(user.getEmail_code())){
             user.setEmail_code(user.getEmail_code() + "_allowed");

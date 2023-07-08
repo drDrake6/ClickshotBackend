@@ -33,8 +33,6 @@ public class MediaServlet extends HttpServlet {
                 req.setAttribute(Request.__MULTIPART_CONFIG_ELEMENT, new MultipartConfigElement(""));
             }
 
-            java.util.Collection<javax.servlet.http.Part> test = req.getParts();
-
             List<MimeService.MediaType> mediaTypes = new ArrayList<>();
             mediaTypes.add(MimeService.MediaType.IMAGE);
             mediaTypes.add(MimeService.MediaType.VIDEO);
@@ -42,7 +40,7 @@ public class MediaServlet extends HttpServlet {
 
             uploadService.Upload(req.getPart("media"), req.getServletContext().getRealPath("/"), mediaTypes); //contentType.substring(contentType.indexOf('/') + 1)
         }catch (Exception ex){
-            res.getWriter().write("1 :" + ex.getClass().getName() + "\n" + ex.getMessage());
+            res.getWriter().write(ex.getMessage());
             return;
         }
         res.getWriter().write("0: successfully loaded");

@@ -37,13 +37,13 @@ public class ConfirmEmailServlet extends HttpServlet {
             res.getWriter().write("2: " + ex.getClass().getName() + "\n" + ex.getMessage());
             return;
         }
-        if(user.getEmail_code() != null
-                && !user.getEmail_code().equals("not_confirmed")
-                && body.isNull("newEmail"))
-        {
-            res.getWriter().write( "1: code has been sent already, please, try later");
-            return;
-        }
+//        if(user.getEmail_code() != null
+//                || !user.getEmail_code().equals("not_confirmed")
+//                || body.isNull("newEmail"))
+//        {
+//            res.getWriter().write( "1: code has been sent already, please, try later");
+//            return;
+//        }
         code = UUID.randomUUID().toString().substring(0, 6);
         if(!userDAO.setEmailCode(user, code)){
             res.getWriter().write( "2: error accused during setting code");
@@ -52,7 +52,7 @@ public class ConfirmEmailServlet extends HttpServlet {
 
         if(!body.isNull("newEmail") && !body.isNull("token")){
             String newEmail = body.getString("newEmail");
-            userDAO.sendConfirmCode(newEmail, "token", body.getString("token"), code, "/changeEmail");
+            userDAO.sendConfirmCode(newEmail, "login", body.getString("token"), code, "/changeEmail");
             res.getWriter().write("0: code is being sent");
         }
         else{

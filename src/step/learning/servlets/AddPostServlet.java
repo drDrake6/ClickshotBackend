@@ -62,6 +62,11 @@ public class AddPostServlet extends HttpServlet {
             postBytes = IOUtils.readAllBytes(is);
             String postSource = new String(postBytes, StandardCharsets.UTF_8);
             JSONObject jpost = new JSONObject(postSource);
+            if(userDAO.getUserByToken(jpost.getString("token")) == null)
+            {
+                res.getWriter().write("2: access denied");
+                return;
+            }
 
             jpost.put("id", UUID.randomUUID().toString());
             jpost.put("addDate", LocalDateTime.now().

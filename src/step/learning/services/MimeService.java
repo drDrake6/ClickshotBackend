@@ -2,9 +2,7 @@ package step.learning.services;
 
 import com.google.inject.Singleton;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Singleton
 public class MimeService {
@@ -15,10 +13,16 @@ public class MimeService {
     private Map<String, String> audioTypes;
 
     private Map<MediaType, Map<String, String>> checker;
+
+    private Map<String, MediaType> mediaTypes;
     public MimeService() {
         imageTypes = new HashMap<>();
         videoTypes = new HashMap<>();
         audioTypes = new HashMap<>();
+        mediaTypes = new HashMap<>();
+        mediaTypes.put("image", MediaType.IMAGE);
+        mediaTypes.put("video", MediaType.VIDEO);
+        mediaTypes.put("audio", MediaType.AUDIO);
         imageTypes.put("bmp",  "image/bmp" );
         imageTypes.put("gif",  "image/gif" );
         imageTypes.put("jpg",  "image/jpeg");
@@ -26,6 +30,7 @@ public class MimeService {
         imageTypes.put("png",  "image/png" );
         imageTypes.put("webp", "image/webp");
         videoTypes.put("mp4",  "video/mp4");
+        videoTypes.put("mov",  "video/quicktime");
         audioTypes.put("mp3",  "audio/mpeg");
         audioTypes.put("mpeg",  "audio/mpeg");
         checker = new HashMap<>();
@@ -52,5 +57,13 @@ public class MimeService {
             return imageTypes.get(extension);
         }
         return null;
+    }
+
+    public List<String> getMediaTypes(MediaType mediaType){
+        return new ArrayList<>(checker.get(mediaType).keySet());
+    }
+
+    public MediaType getMediaType(String mediaType){
+        return mediaTypes.get(mediaType);
     }
 }

@@ -41,6 +41,7 @@ public class ConfigServlets extends ServletModule {
         serve("/addAnswer").with(AddAnswerServlet.class);
         serve("/changeComment").with(ChangeCommentServlet.class);
         serve("/changeUser").with(ChangeUserServlet.class);
+        serve("/changeRole").with(ChangeRoleServlet.class);
         serve("/postsOfUser").with(PostsOfUserServlet.class);
         serve("/changePost").with(ChangePostServlet.class);
         serve("/getPublicUser").with(GetPublicUserServlet.class);
