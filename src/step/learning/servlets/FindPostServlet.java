@@ -43,15 +43,22 @@ public class FindPostServlet extends HttpServlet {
             return;
         }
 
-        if(!params.isNull("addDate") &&
-                Timestamp.valueOf(params.getJSONObject("addDate").getString("from") + " 00:00:00")
-                .after(Timestamp.valueOf(params.getJSONObject("addDate").getString("to") + " 00:00:00"))){
-            String tmp = params.getJSONObject("addDate").getString("from");
-            JSONObject addDate = params.getJSONObject("addDate");
-            addDate.put("from", addDate.getString("to"));
-            addDate.put("to", tmp);
-            params.put("addDate", addDate);
+
+        try{
+            if(!params.isNull("addDate") &&
+                    Timestamp.valueOf(params.getJSONObject("addDate").getString("from") + " 00:00:00")
+                            .after(Timestamp.valueOf(params.getJSONObject("addDate").getString("to") + " 00:00:00"))){
+                String tmp = params.getJSONObject("addDate").getString("from");
+                JSONObject addDate = params.getJSONObject("addDate");
+                addDate.put("from", addDate.getString("to"));
+                addDate.put("to", tmp);
+                params.put("addDate", addDate);
+            }
+        }catch (Exception ex){
+            res.getWriter().write("1: invalid parameters " + ex.getMessage());
+            return;
         }
+
 
         List<Post> posts = postDAO.findSomePosts(from, amount, params);
         JSONArray jPosts = new JSONArray();

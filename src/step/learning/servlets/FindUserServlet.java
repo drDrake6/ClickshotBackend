@@ -43,14 +43,19 @@ public class FindUserServlet extends HttpServlet {
         }
 
 
-        if(!params.isNull("birthday") &&
-                Timestamp.valueOf(params.getJSONObject("birthday").getString("from") + " 00:00:00")
-                .after(Timestamp.valueOf(params.getJSONObject("birthday").getString("to") + " 00:00:00"))){
-            String tmp = params.getJSONObject("birthday").getString("from");
-            JSONObject addDate = params.getJSONObject("birthday");
-            addDate.put("from", addDate.getString("to"));
-            addDate.put("to", tmp);
-            params.put("birthday", addDate);
+        try{
+            if(!params.isNull("birthday") &&
+                    Timestamp.valueOf(params.getJSONObject("birthday").getString("from") + " 00:00:00")
+                    .after(Timestamp.valueOf(params.getJSONObject("birthday").getString("to") + " 00:00:00"))){
+                String tmp = params.getJSONObject("birthday").getString("from");
+                JSONObject addDate = params.getJSONObject("birthday");
+                addDate.put("from", addDate.getString("to"));
+                addDate.put("to", tmp);
+                params.put("birthday", addDate);
+            }
+        }catch (Exception ex){
+            res.getWriter().write("1: invalid parameters " + ex.getMessage());
+            return;
         }
 
         List<User> users = userDAO.findSomeUsers(from, amount, params);
