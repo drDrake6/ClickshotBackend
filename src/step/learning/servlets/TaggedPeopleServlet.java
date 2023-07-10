@@ -27,7 +27,14 @@ public class TaggedPeopleServlet extends HttpServlet {
     private TaggedPeopleDAO taggedPeopleDAO;
 
     protected void doGet(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
-        String postId = req.getParameter("postId");
+        res.setHeader("Access-Control-Allow-Origin","*");
+        String postId;
+        try {
+            postId = req.getParameter("postId");
+        }catch (Exception ex){
+            res.getWriter().write("1: invalid parameters");
+            return;
+        }
 
         List<String> logins = taggedPeopleDAO.getTaggedPeople(postId);
         JSONObject jLogins = new JSONObject();
@@ -39,18 +46,4 @@ public class TaggedPeopleServlet extends HttpServlet {
         res.setCharacterEncoding("UTF-8");
         res.getWriter().write(jLogins.toString());
     }
-
-//    protected void doPost(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
-//        JSONObject body = bodyParseService.parseBody(req);
-//
-//        String[] logins = body.getString("taggedPeople").split(" ");
-//        JSONObject jLogins = new JSONObject();
-//        for (int i = 0; i < logins.size(); i++) {
-//            jLogins.put(String.valueOf(i), logins.get(i));
-//        }
-//
-//        res.setContentType("application/json");
-//        res.setCharacterEncoding("UTF-8");
-//        res.getWriter().write(jLogins.toString());
-//    }
 }

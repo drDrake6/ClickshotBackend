@@ -26,6 +26,7 @@ public class AddAnswerServlet extends HttpServlet {
     private UserDAO userDAO;
 
     protected void doPost(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
+        res.setHeader("Access-Control-Allow-Origin","*");
         try {
             JSONObject body = bodyParseService.parseBody(req);
 

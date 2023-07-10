@@ -2,21 +2,21 @@ package step.learning.services;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
-import org.json.JSONObject;
 
-import java.io.FileNotFoundException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 
 @Singleton
 public class MysqlDataService implements DataService{
     private final LoadConfigService loadConfigService;
+    private final RealPathService realPathService;
 
     @Inject
-    public MysqlDataService(LoadConfigService loadConfigService){
+    public MysqlDataService(LoadConfigService loadConfigService, RealPathService realPathService){
         this.loadConfigService = loadConfigService;
         //this.dbConnection = this.loadConfigService.load().getJSONObject("dbConnection");
 
+        this.realPathService = realPathService;
     }
     public Connection connection;
     public Connection getConnection(){
@@ -24,9 +24,9 @@ public class MysqlDataService implements DataService{
             if(connection == null || connection.isClosed()){
                     Class.forName("com.mysql.cj.jdbc.Driver");
                     connection = DriverManager.getConnection(
-                            this.loadConfigService.load().getJSONObject("dbConnection").getString("connectionString"),
-                            this.loadConfigService.load().getJSONObject("dbConnection").getString("dbUser"),
-                            this.loadConfigService.load().getJSONObject("dbConnection").getString("dbPass")
+                            this.loadConfigService.load(realPathService.getRealPath()).getJSONObject("dbConnection").getString("connectionString"),
+                            this.loadConfigService.load(realPathService.getRealPath()).getJSONObject("dbConnection").getString("dbUser"),
+                            this.loadConfigService.load(realPathService.getRealPath()).getJSONObject("dbConnection").getString("dbPass")
                     );
             }
         } catch (Exception ex){

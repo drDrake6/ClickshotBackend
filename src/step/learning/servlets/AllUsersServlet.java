@@ -12,6 +12,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import step.learning.dao.UserDAO;
 import step.learning.entities.User;
+import step.learning.services.BodyParseService;
 import step.learning.services.LoadConfigService;
 
 //@WebServlet("/test")
@@ -23,10 +24,25 @@ public class AllUsersServlet extends HttpServlet {
     private UserDAO userDAO;
 
     @Inject
-    private LoadConfigService loadConfigService;
+    private BodyParseService bodyParseService;
 
-    protected void doGet(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
-        String s = req.getContextPath();
+    protected void doPost(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
+
+        res.setHeader("Access-Control-Allow-Origin","*");
+        JSONObject body = bodyParseService.parseBody(req);
+
+        if(body.isNull("token")){
+            res.getWriter().write("1: access denied");
+            return;
+        }
+
+        User admin = userDAO.getUserByToken(body.getString("token"));
+
+        if(admin == null){
+            res.getWriter().write("1: access denied");
+            return;
+        }
+
         List<User> users = userDAO.getAllUsers();
         JSONArray jaUsers = new JSONArray();
         for (int i = 0; i < users.size(); i++) {
@@ -34,7 +50,6 @@ public class AllUsersServlet extends HttpServlet {
         }
 
         res.setContentType("application/json");
-        res.setHeader("Access-Control-Allow-Origin","*");
         res.setCharacterEncoding("UTF-8");
         res.getWriter().write(jaUsers.toString());
     }

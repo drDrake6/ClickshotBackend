@@ -25,6 +25,7 @@ public class AddCommentServlet extends HttpServlet {
     @Inject
     private UserDAO userDAO;
     protected void doPost(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
+        res.setHeader("Access-Control-Allow-Origin","*");
         try {
             JSONObject body = bodyParseService.parseBody(req);
             if(userDAO.getUserByToken(body.getString("token")) == null)

@@ -26,6 +26,7 @@ public class SaveServlet extends HttpServlet {
     private UserDAO userDAO;
 
     protected void doPost(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
+        res.setHeader("Access-Control-Allow-Origin","*");
         JSONObject body = bodyParseService.parseBody(req);
 
         if(userDAO.getUserByToken(body.getString("token")) == null)
@@ -49,8 +50,16 @@ public class SaveServlet extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
-        String postId = req.getParameter("postId");
-        String login = req.getParameter("login");
+        res.setHeader("Access-Control-Allow-Origin","*");
+        String postId;
+        String login;
+        try {
+            postId = req.getParameter("postId");
+            login = req.getParameter("login");
+        }catch (Exception ex){
+            res.getWriter().write("1: invalid parameters");
+            return;
+        }
 
         JSONObject answer = new JSONObject();
         answer.put("isSaved", savesDAO.isSavedByUser(postId, login, false));

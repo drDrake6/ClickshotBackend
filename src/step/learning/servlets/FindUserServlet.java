@@ -27,7 +27,7 @@ public class FindUserServlet extends HttpServlet {
     private BodyParseService bodyParseService;
 
     protected void doPost(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
-
+        res.setHeader("Access-Control-Allow-Origin","*");
         JSONObject body = bodyParseService.parseBody(req);
 
         int amount;
@@ -65,7 +65,6 @@ public class FindUserServlet extends HttpServlet {
         }
 
         res.setContentType("application/json");
-        res.setHeader("Access-Control-Allow-Origin","*");
         res.setCharacterEncoding("UTF-8");
         res.getWriter().write(jUsers.toString());
     }

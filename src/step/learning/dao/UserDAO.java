@@ -353,12 +353,12 @@ public class UserDAO {
         return postDAO.restorePostByAuthor(login);
     }
 
-    public boolean sendConfirmCode(String email, String param, String value, String code, String link) throws FileNotFoundException {
+    public boolean sendConfirmCode(String realPath, String email, String param, String value, String code, String link) throws FileNotFoundException {
         if(email != null){
             return emailService.send(email, "Email confirmation code",
                     String.format(
                             "<h2>Hello</h2><p>To confirm your E-mail type a code <b>%s</b></p>" +
-                                    "<p>Or follow this <a href='" + loadConfigService.load().getString("domen") + link + "?" + param + "=%s&code=%s'>link</a></p>",
+                                    "<p>Or follow this <a href='" + loadConfigService.load(realPath).getString("domen") + link + "?" + param + "=%s&code=%s'>link</a></p>",
                             code, value, code));
         }
         return false;

@@ -9,7 +9,6 @@ import step.learning.entities.User;
 import step.learning.services.BodyParseService;
 import step.learning.services.MimeService;
 import step.learning.services.UploadService;
-import sun.misc.IOUtils;
 
 import javax.servlet.MultipartConfigElement;
 import javax.servlet.ServletException;
@@ -35,6 +34,7 @@ public class AvaImageServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+        res.setHeader("Access-Control-Allow-Origin","*");
         try {
             if ("POST".equals(req.getMethod()) && req.getContentType().contains("multipart/form-data")) {
                 req.setAttribute(Request.__MULTIPART_CONFIG_ELEMENT, new MultipartConfigElement(""));
@@ -47,9 +47,11 @@ public class AvaImageServlet extends HttpServlet {
                     req.getServletContext().getRealPath("/"),
                     mediaTypes);
             Part partLogin = req.getPart("login");
-            byte[] loginBytes;
+            byte[] loginBytes = new byte[(int) partLogin.getSize()];
             InputStream is = partLogin.getInputStream();
-            loginBytes = IOUtils.readAllBytes(is);
+            DataInputStream dis = new DataInputStream(is);
+            dis.readFully(loginBytes);
+            dis.close();
             String login = new JSONObject(new String(loginBytes, StandardCharsets.UTF_8)).getString("login");
             User user = userDAO.getUser(login);
             user.setAvatar(path);
@@ -63,6 +65,7 @@ public class AvaImageServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        resp.setHeader("Access-Control-Allow-Origin","*");
         String login = req.getParameter("login");
         User user = userDAO.getUser(login);
         if(user == null){

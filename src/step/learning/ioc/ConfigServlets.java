@@ -17,6 +17,7 @@ public class ConfigServlets extends ServletModule {
         filter("/*").through(DataFilter.class);
 
         serve("/allUsers").with(AllUsersServlet.class);
+        serve("/allPosts").with(AllPostsServlet.class);
         serve("/addUser").with(AddUserServlet.class);
         serve("/deleteUser").with(DeleteUserServlet.class);
         serve("/restoreUser").with(RestoreUserServlet.class);

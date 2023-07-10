@@ -101,7 +101,7 @@ public class SubscribersDAO {
 
     public int subscribingAmount(String author, boolean includeDeleted){
 
-        String sql = "SELECT COUNT(*) as count FROM subscribers WHERE subscriberId = (SELECT id FROM Users WHERE login = ?) AND userId IN (SELECT id FROM Users WHERE Users.deleted IS NULL )";
+        String sql = "SELECT COUNT(*) as count FROM Subscribers WHERE subscriberId = (SELECT id FROM Users WHERE login = ?) AND userId IN (SELECT id FROM Users WHERE Users.deleted IS NULL )";
         if(!includeDeleted)
             sql += " AND deleted IS NULL";
         try (PreparedStatement prep =

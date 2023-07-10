@@ -19,7 +19,7 @@ public class GetCommentByIdServlet extends HttpServlet {
     private CommentDAO commentDAO;
 
     protected void doGet(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
-
+        res.setHeader("Access-Control-Allow-Origin","*");
         Comment comment = commentDAO.getCommentById(req.getParameter("commentId"));
         if(comment == null){
             res.getWriter().write("1: internal error");
@@ -27,7 +27,6 @@ public class GetCommentByIdServlet extends HttpServlet {
         }
 
         res.setContentType("application/json");
-        res.setHeader("Access-Control-Allow-Origin","*");
         res.setCharacterEncoding("UTF-8");
         res.getWriter().write(new JSONObject(comment).toString());
     }

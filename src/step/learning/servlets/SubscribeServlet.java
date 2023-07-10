@@ -26,6 +26,7 @@ public class SubscribeServlet extends HttpServlet {
     private UserDAO userDAO;
 
     protected void doPost(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
+        res.setHeader("Access-Control-Allow-Origin","*");
         JSONObject body = bodyParseService.parseBody(req);
 
         if(userDAO.getUserByToken(body.getString("token")) == null)
@@ -34,9 +35,17 @@ public class SubscribeServlet extends HttpServlet {
             return;
         }
 
-        String subscriber = body.getString("subscriber");
-        String author = body.getString("author");
-        boolean isSubscribing = body.getBoolean("isSubscribing");
+        String subscriber;
+        String author;
+        boolean isSubscribing;
+        try {
+            subscriber = body.getString("subscriber");
+            author    = body.getString("author");
+            isSubscribing = body.getBoolean("isSubscribing");
+        }catch (Exception ex){
+            res.getWriter().write("1: invalid parameters");
+            return;
+        }
 
         if(isSubscribing){
             subscribersDAO.subscribe(author, subscriber);

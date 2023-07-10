@@ -18,6 +18,7 @@ public class HasPostServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+        res.setHeader("Access-Control-Allow-Origin","*");
         String login = req.getParameter("login");
         String postId = req.getParameter("postId");
         Boolean has = postDAO.authorHasPost(postId, login);

@@ -9,7 +9,6 @@ import step.learning.dao.TaggedPeopleDAO;
 import step.learning.dao.UserDAO;
 import step.learning.entities.Post;
 import step.learning.services.*;
-import sun.misc.IOUtils;
 
 import javax.servlet.MultipartConfigElement;
 import javax.servlet.ServletException;
@@ -17,6 +16,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
+import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
@@ -41,6 +41,7 @@ public class AddPostServlet extends HttpServlet {
     private TaggedPeopleDAO taggedPeopleDAO;
 
     protected void doPost(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
+        res.setHeader("Access-Control-Allow-Origin","*");
         try {
             if ("POST".equals(req.getMethod()) && req.getContentType().contains("multipart/form-data")) {
                 req.setAttribute(Request.__MULTIPART_CONFIG_ELEMENT, new MultipartConfigElement(""));
@@ -57,9 +58,11 @@ public class AddPostServlet extends HttpServlet {
                     mediaTypes);
 
             Part postPart = req.getPart("otherInfo");
-            byte[] postBytes;
+            byte[] postBytes = new byte[(int) postPart.getSize()];
             InputStream is = postPart.getInputStream();
-            postBytes = IOUtils.readAllBytes(is);
+            DataInputStream dis = new DataInputStream(is);
+            dis.readFully(postBytes);
+            dis.close();
             String postSource = new String(postBytes, StandardCharsets.UTF_8);
             JSONObject jpost = new JSONObject(postSource);
             if(userDAO.getUserByToken(jpost.getString("token")) == null)
@@ -87,23 +90,4 @@ public class AddPostServlet extends HttpServlet {
         }
         res.getWriter().write("successfully added");
     }
-
-//    try {
-//        if ("POST".equals(req.getMethod()) && req.getContentType().contains("multipart/form-data")) {
-//            req.setAttribute(Request.__MULTIPART_CONFIG_ELEMENT, new MultipartConfigElement(""));
-//        }
-//        String path = uploadImageService.Upload(req.getPart("ava"), req.getServletContext().getRealPath("/"), ".jpg"); //contentType.substring(contentType.indexOf('/') + 1)
-//        Part partLogin = req.getPart("login");
-//
-//        byte[] loginBytes = new byte[(int)partLogin.getSize()];
-//        InputStream is = partLogin.getInputStream();
-//        loginBytes = IOUtils.readAllBytes(is);
-//        String login = new String(loginBytes, StandardCharsets.UTF_8);
-//        User user = userDAO.getUser(login);
-//        user.setAvatar(path);
-//        userDAO.update(user, user.getId());
-//    }catch (Exception ex){
-//        res.getWriter().write("1: " + ex.getStackTrace().toString());
-//    }
-//        res.getWriter().write("0: successfully loaded");
 }

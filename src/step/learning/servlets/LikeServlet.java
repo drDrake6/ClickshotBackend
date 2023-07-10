@@ -25,6 +25,7 @@ public class LikeServlet extends HttpServlet {
     private UserDAO userDAO;
 
     protected void doPost(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
+        res.setHeader("Access-Control-Allow-Origin","*");
         JSONObject body = bodyParseService.parseBody(req);
 
         if(userDAO.getUserByToken(body.getString("token")) == null)
@@ -65,6 +66,7 @@ public class LikeServlet extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
+        res.setHeader("Access-Control-Allow-Origin","*");
         String postId = req.getParameter("postId");
         String login = req.getParameter("login");
 

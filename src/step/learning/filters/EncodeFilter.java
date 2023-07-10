@@ -1,6 +1,8 @@
 package step.learning.filters;
 
+import com.google.inject.Inject;
 import com.google.inject.Singleton;
+import step.learning.services.RealPathService;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
@@ -11,6 +13,9 @@ import java.io.IOException;
 public class EncodeFilter implements Filter {
     private FilterConfig filterConfig;
 
+    @Inject
+    private RealPathService realPathService;
+
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
         this.filterConfig = filterConfig;
@@ -18,6 +23,7 @@ public class EncodeFilter implements Filter {
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
+        realPathService.setRealPath(servletRequest.getServletContext().getRealPath("/"));
         servletRequest.setCharacterEncoding("UTF-8");
         servletResponse.setCharacterEncoding("UTF-8");
         filterChain.doFilter(servletRequest, servletResponse);

@@ -17,6 +17,7 @@ public class GetPublicUserServlet extends HttpServlet {
     private UserDAO userDAO;
 
     protected void doGet(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
+        res.setHeader("Access-Control-Allow-Origin","*");
         String login = req.getParameter("login");
 
         User user = userDAO.getUser(login);

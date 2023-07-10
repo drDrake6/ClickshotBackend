@@ -52,19 +52,19 @@ public class ConfirmEmailServlet extends HttpServlet {
 
         if(!body.isNull("newEmail") && !body.isNull("token")){
             String newEmail = body.getString("newEmail");
-            userDAO.sendConfirmCode(newEmail, "login", body.getString("token"), code, "/changeEmail");
+            userDAO.sendConfirmCode(req.getServletContext().getRealPath("/"), newEmail, "login", body.getString("token"), code, "/changeEmail");
             res.getWriter().write("0: code is being sent");
         }
         else{
-            userDAO.sendConfirmCode(user.getEmail(), "login", user.getLogin(), code, "/restore");
+            userDAO.sendConfirmCode(req.getServletContext().getRealPath("/"), user.getEmail(), "login", user.getLogin(), code, "/restore");
             res.getWriter().write("0: code is being sent");
         }
 
     }
 
     protected void doGet(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
+        res.setHeader("Access-Control-Allow-Origin","*");
         String login = req.getParameter("login");
-
         User user = userDAO.getUser(login);
 
         try {

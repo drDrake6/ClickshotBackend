@@ -23,6 +23,7 @@ public class AnswersServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+        res.setHeader("Access-Control-Allow-Origin","*");
         String commentId = req.getParameter("commentId");
         int amount = Integer.parseInt(req.getParameter("amount"));
         int from = Integer.parseInt(req.getParameter("from"));

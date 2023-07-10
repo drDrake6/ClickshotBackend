@@ -5,5 +5,5 @@ import org.json.JSONObject;
 import java.io.FileNotFoundException;
 
 public interface LoadConfigService {
-    JSONObject load() throws FileNotFoundException;
+    JSONObject load(String realPath) throws FileNotFoundException;
 }

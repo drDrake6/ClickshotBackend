@@ -14,9 +14,9 @@ public class LoadJSONConfigService implements LoadConfigService{
 
     private final String path = "clickshotConfig/configs.json";
     @Override
-    public JSONObject load(){
+    public JSONObject load(String realPath){
 
-        File configFile = new File(path);
+        File configFile = new File(realPath + path);
 
         if (configFile.isFile()) {
             String content;

@@ -29,6 +29,7 @@ public class BanPostServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
+        res.setHeader("Access-Control-Allow-Origin","*");
         JSONObject body = bodyParseService.parseBody(req);
 
         if(body.isNull("token")){
@@ -63,18 +64,5 @@ public class BanPostServlet extends HttpServlet {
         else{
             res.getWriter().write("3: internal error");
         }
-    }
-
-    @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
-        List<Post> posts = postDAO.getAllPosts();
-        JSONArray jaPosts = new JSONArray();
-        for (int i = 0; i < posts.size(); i++) {
-            jaPosts.put(i, new JSONObject(posts.get(i)));
-        }
-
-        res.setContentType("application/json");
-        res.setCharacterEncoding("UTF-8");
-        res.getWriter().write(jaPosts.toString());
     }
 }

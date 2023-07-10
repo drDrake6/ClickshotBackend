@@ -1,0 +1,8 @@
+{
+  "dbConnection": {
+    "connectionString": "jdbc:mysql://localhost:3306/clickshotdb",
+    "dbUser": "root",
+    "dbPass": "admin"
+  },
+  "domen": "https://3ee8-2a09-bac5-5978-52d-00-84-6c.ngrok-free.app/Clickshot"
+}

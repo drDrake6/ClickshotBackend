@@ -25,7 +25,7 @@ public class GetSavedPostsServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-
+        res.setHeader("Access-Control-Allow-Origin","*");
         int amount = Integer.parseInt(req.getParameter("amount"));
         int from = Integer.parseInt(req.getParameter("from"));
         String login = req.getParameter("login");

@@ -24,6 +24,7 @@ public class UsersServlet extends HttpServlet {
     private LoadConfigService loadConfigService;
 
     protected void doGet(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
+        res.setHeader("Access-Control-Allow-Origin","*");
         int amount;
         int from;
 
@@ -42,7 +43,6 @@ public class UsersServlet extends HttpServlet {
         }
 
         res.setContentType("application/json");
-        res.setHeader("Access-Control-Allow-Origin","*");
         res.setCharacterEncoding("UTF-8");
         res.getWriter().write(jaUsers.toString());
     }

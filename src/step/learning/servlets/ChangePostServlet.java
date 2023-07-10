@@ -28,6 +28,7 @@ public class ChangePostServlet extends HttpServlet {
     private UserDAO userDAO;
 
     protected void doPost(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
+        res.setHeader("Access-Control-Allow-Origin","*");
         JSONObject body = bodyParseService.parseBody(req);
         String token = body.getString("token");
         Post post = null;

@@ -21,6 +21,7 @@ public class PostsServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+        res.setHeader("Access-Control-Allow-Origin","*");
         int amount;
         int from;
 
@@ -42,7 +43,6 @@ public class PostsServlet extends HttpServlet {
 
         res.setContentType("application/json");
         res.setHeader("Hello","World");
-        res.setHeader("Access-Control-Allow-Origin","*");
         res.setCharacterEncoding("UTF-8");
         res.getWriter().write(jposts.toString());
     }

@@ -22,6 +22,7 @@ public class AddUserServlet extends HttpServlet {
     private BodyParseService bodyParseService;
 
     protected void doPost(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
+        res.setHeader("Access-Control-Allow-Origin","*");
         JSONObject bodyUser = bodyParseService.parseBody(req);
 
         try {

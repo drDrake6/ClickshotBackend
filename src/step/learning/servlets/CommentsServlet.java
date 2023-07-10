@@ -22,6 +22,7 @@ public class CommentsServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+        res.setHeader("Access-Control-Allow-Origin","*");
         int amount = Integer.parseInt(req.getParameter("amount"));
         int from = Integer.parseInt(req.getParameter("from"));
         String postId = req.getParameter("postId");

@@ -24,6 +24,7 @@ public class AuthorizeServlet extends HttpServlet {
     private BodyParseService bodyParseService;
 
     protected void doPost(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
+        res.setHeader("Access-Control-Allow-Origin","*");
         JSONObject credentialsObj = bodyParseService.parseBody(req);
         String login = "";
         String password = "";
@@ -55,6 +56,7 @@ public class AuthorizeServlet extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest req, HttpServletResponse res)throws IOException, ServletException {
+        res.setHeader("Access-Control-Allow-Origin","*");
         String login = req.getParameter("login");
         User user = userDAO.getUser(login);
         if(user != null){

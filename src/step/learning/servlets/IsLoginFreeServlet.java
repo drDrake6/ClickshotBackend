@@ -20,6 +20,7 @@ public class IsLoginFreeServlet extends HttpServlet {
     private BodyParseService bodyParseService;
 
     protected void doPost(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
+        res.setHeader("Access-Control-Allow-Origin","*");
         JSONObject body = bodyParseService.parseBody(req);
 
         String login = body.getString("login");

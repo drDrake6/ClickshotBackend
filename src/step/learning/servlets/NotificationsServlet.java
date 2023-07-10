@@ -22,6 +22,7 @@ public class NotificationsServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+        res.setHeader("Access-Control-Allow-Origin","*");
         int amount = Integer.parseInt(req.getParameter("amount"));
         int from = Integer.parseInt(req.getParameter("from"));
         String login = req.getParameter("login");
@@ -29,7 +30,6 @@ public class NotificationsServlet extends HttpServlet {
         JSONArray jsonArray = notificationDAO.getSomeNotifications(login, from, amount);
 
         res.setContentType("application/json");
-        res.setHeader("Access-Control-Allow-Origin","*");
         res.setCharacterEncoding("UTF-8");
         res.getWriter().write(jsonArray.toString());
     }

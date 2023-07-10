@@ -28,6 +28,7 @@ public class MediaServlet extends HttpServlet {
     private UploadService uploadService;
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+        res.setHeader("Access-Control-Allow-Origin","*");
         try {
             if ("POST".equals(req.getMethod()) && req.getContentType().contains("multipart/form-data")) {
                 req.setAttribute(Request.__MULTIPART_CONFIG_ELEMENT, new MultipartConfigElement(""));
@@ -48,6 +49,7 @@ public class MediaServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        resp.setHeader("Access-Control-Allow-Origin","*");
         String requestedFile = req.getPathInfo();
         int dotPosition = requestedFile.lastIndexOf('.');
         if(dotPosition == -1){

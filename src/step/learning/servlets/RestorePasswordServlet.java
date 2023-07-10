@@ -23,6 +23,7 @@ public class RestorePasswordServlet extends HttpServlet {
     private BodyParseService bodyParseService;
 
     protected void doPost(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
+        res.setHeader("Access-Control-Allow-Origin","*");
         JSONObject body = bodyParseService.parseBody(req);
 
         User user = null;
@@ -73,7 +74,7 @@ public class RestorePasswordServlet extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest req, HttpServletResponse res)throws IOException, ServletException {
-
+        res.setHeader("Access-Control-Allow-Origin","*");
         String login = req.getParameter("login");
         String code = req.getParameter("code");
 
