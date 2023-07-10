@@ -58,12 +58,14 @@ public class SavesDAO {
         }
     }
 
-    public List<String> getSaves(String login){
+    public List<String> getSaves(int from, int amount, String login){
 
-        String sql = "SELECT postId FROM SavedBy JOIN Users ON Users.id = SavedBy.userId WHERE Users.login = ?";
+        String sql = "SELECT postId FROM SavedBy JOIN Users ON Users.id = SavedBy.userId WHERE Users.login = ? AND SavedBy.deleted IS NULL ORDER BY date LIMIT ?, ?";
         try (PreparedStatement prep =
                      dataService.getConnection().prepareStatement(sql)) {
             prep.setString(1,  login);
+            prep.setInt(2, from);
+            prep.setInt(3, amount);
             ResultSet res = prep.executeQuery();
             List<String> saves = new ArrayList<>();
             while(res.next()){
@@ -79,7 +81,7 @@ public class SavesDAO {
 
     public List<String> getSavers(String postId){
 
-        String sql = "SELECT login FROM Users JOIN SavedBy ON Users.id = SavedBy.userId WHERE SavedBy.postId = ?";
+        String sql = "SELECT login FROM Users JOIN SavedBy WHERE deleted IS NULL ON Users.id = SavedBy.userId WHERE SavedBy.postId = ?";
         try (PreparedStatement prep =
                      dataService.getConnection().prepareStatement(sql)) {
             prep.setString(1,  postId);
@@ -98,7 +100,7 @@ public class SavesDAO {
 
     public List<String> getSaveById(String postId){
 
-        String sql = "SELECT postId FROM SavedBy WHERE SavedBy ON Users.id = SavedBy.userId WHERE SavedBy.postId = ?";
+        String sql = "SELECT postId FROM SavedBy WHERE deleted IS NULL ON Users.id = SavedBy.userId WHERE SavedBy.postId = ?";
         try (PreparedStatement prep =
                      dataService.getConnection().prepareStatement(sql)) {
             prep.setString(1,  postId);
