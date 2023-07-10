@@ -60,7 +60,7 @@ public class SavesDAO {
 
     public List<String> getSaves(int from, int amount, String login){
 
-        String sql = "SELECT postId FROM SavedBy JOIN Users ON Users.id = SavedBy.userId WHERE Users.login = ? AND SavedBy.deleted IS NULL ORDER BY date LIMIT ?, ?";
+        String sql = "SELECT postId FROM SavedBy WHERE SavedBy.userId = (SELECT id FROM Users WHERE login = ?) AND postId IN (SELECT id FROM posts WHERE posts.deleted IS NULL) AND SavedBy.deleted IS NULL ORDER BY date LIMIT ?, ?";
         try (PreparedStatement prep =
                      dataService.getConnection().prepareStatement(sql)) {
             prep.setString(1,  login);
