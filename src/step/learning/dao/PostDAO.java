@@ -4,6 +4,7 @@ import com.google.inject.Inject;
 import org.json.JSONObject;
 import step.learning.entities.Post;
 import step.learning.services.DataService;
+import step.learning.services.LoggerService;
 import step.learning.services.MimeService;
 
 import java.sql.*;
@@ -14,18 +15,14 @@ import java.util.UUID;
 
 public class PostDAO {
     private final DataService dataService;
-    private final TaggedPeopleDAO taggedPeopleDAO;
-    private final LikesDAO likedDAO;
-    private final SavesDAO savesDAO;
     private final MimeService mimeService;
+    private final LoggerService loggerService;
     @Inject
-    public PostDAO(DataService dataService, TaggedPeopleDAO taggedPeopleDAO, LikesDAO likedDAO, SavesDAO savesDAO, MimeService mimeService)
+    public PostDAO(DataService dataService, MimeService mimeService, LoggerService loggerService)
     {
         this.dataService = dataService;
-        this.taggedPeopleDAO = taggedPeopleDAO;
-        this.likedDAO = likedDAO;
-        this.savesDAO = savesDAO;
         this.mimeService = mimeService;
+        this.loggerService = loggerService;
     }
 
     public boolean canShowPost(Post post){
@@ -57,8 +54,8 @@ public class PostDAO {
             prep.executeUpdate();
         }
         catch (SQLException ex) {
-            System.out.println("add | Query error: " + ex.getMessage());
-            System.out.println("sql: " + sql);
+            loggerService.log("UserDAO::add() " + ex.getMessage()
+                    + "\n" + sql, LoggerService.Status.ERROR);
             return null;
         }
         return post.getId();
@@ -111,8 +108,8 @@ public class PostDAO {
             prep.executeUpdate();
         }
         catch (SQLException ex) {
-            System.out.println("update | Query error: " + ex.getMessage());
-            System.out.println("sql: " + sql);
+            loggerService.log("UserDAO::update() " + ex.getMessage()
+                    + "\n" + sql, LoggerService.Status.ERROR);
         }
     }
     public Boolean deletePostById(String postId){
@@ -126,8 +123,8 @@ public class PostDAO {
                 return false;
             }
         } catch (SQLException ex) {
-            System.out.println("UserDAO::deletePostById() " + ex.getMessage()
-                    + "\n" + sql + " -- " + postId);
+            loggerService.log("UserDAO::deletePostById() " + ex.getMessage()
+                    + "\n" + sql, LoggerService.Status.ERROR);
             return null;
         }
 
@@ -146,8 +143,8 @@ public class PostDAO {
                 return false;
             }
         } catch (SQLException ex) {
-            System.out.println("UserDAO::restorePost() " + ex.getMessage()
-                    + "\n" + sql + " -- " + postId);
+            loggerService.log("UserDAO::restorePost() " + ex.getMessage()
+                    + "\n" + sql, LoggerService.Status.ERROR);
             return null;
         }
 
@@ -184,8 +181,8 @@ public class PostDAO {
                     return new Post(res);
             }
         } catch (SQLException ex) {
-            System.out.println("PostDAO::getPostByID() " + ex.getMessage()
-                    + "\n" + sql + " -- " + postId);
+            loggerService.log("PostDAO::getPostByID() " + ex.getMessage()
+                    + "\n" + sql, LoggerService.Status.ERROR);
         }
         return null;
     }
@@ -201,8 +198,8 @@ public class PostDAO {
             }
             return posts;
         } catch (SQLException ex) {
-            System.out.println("PostDAO::getPostsByAuthor() " + ex.getMessage()
-                    + "\n" + sql + " -- " + author);
+            loggerService.log("PostDAO::getPostsByAuthor() " + ex.getMessage()
+                    + "\n" + sql, LoggerService.Status.ERROR);
         }
         return null;
     }
@@ -219,8 +216,8 @@ public class PostDAO {
             }
             return posts;
         } catch (SQLException ex) {
-            System.out.println("PostDAO::getBanedPostsByAuthor() " + ex.getMessage()
-                    + "\n" + sql + " -- " + author);
+            loggerService.log("PostDAO::getBanedPostsByAuthor() " + ex.getMessage()
+                    + "\n" + sql, LoggerService.Status.ERROR);
         }
         return null;
     }
@@ -235,10 +232,11 @@ public class PostDAO {
             while(res.next()){
                 posts.add(new Post(res));
             }
+            Class<?> postClass = Post.class;
             return posts;
         } catch (SQLException ex) {
-            System.out.println("PostDAO::getDeletedPostsByAuthor() " + ex.getMessage()
-                    + "\n" + sql + " -- " + author);
+            loggerService.log("PostDAO::getDeletedPostsByAuthor() " + ex.getMessage()
+                    + "\n" + sql, LoggerService.Status.ERROR);
         }
         return null;
     }
@@ -257,8 +255,8 @@ public class PostDAO {
                 return false;
             }
         } catch (SQLException ex) {
-            System.out.println("PostDAO::AuthorHasPost() " + ex.getMessage()
-                    + "\n" + sql + " -- " + author);
+            loggerService.log("PostDAO::authorHasPost() " + ex.getMessage()
+                    + "\n" + sql, LoggerService.Status.ERROR);
         }
         return null;
     }
@@ -276,8 +274,8 @@ public class PostDAO {
             }
             return posts;
         } catch (SQLException ex) {
-            System.out.println("PostDAO::getSomePosts() " + ex.getMessage()
-                    + "\n" + sql);
+            loggerService.log("PostDAO::getSomePosts() " + ex.getMessage()
+                    + "\n" + sql, LoggerService.Status.ERROR);
         }
         return null;
     }
@@ -332,8 +330,8 @@ public class PostDAO {
             }
             return posts;
         } catch (SQLException ex) {
-            System.out.println("PostDAO::FindSomePosts() " + ex.getMessage()
-                    + "\n" + sql);
+            loggerService.log("PostDAO::findSomePosts() " + ex.getMessage()
+                    + "\n" + sql, LoggerService.Status.ERROR);
         }
         return null;
     }
@@ -352,8 +350,8 @@ public class PostDAO {
             }
             return posts;
         } catch (SQLException ex) {
-            System.out.println("PostDAO::getSomePostsByAuthor() " + ex.getMessage()
-                    + "\n" + sql);
+            loggerService.log("PostDAO::getSomePostsByAuthor() " + ex.getMessage()
+                    + "\n" + sql, LoggerService.Status.ERROR);
         }
         return null;
     }
@@ -369,8 +367,8 @@ public class PostDAO {
             }
             return posts;
         } catch (SQLException ex) {
-            System.out.println("PostDAO::getPostsByAuthor() " + ex.getMessage()
-                    + "\n" + sql);
+            loggerService.log("PostDAO::getAllPosts() " + ex.getMessage()
+                    + "\n" + sql, LoggerService.Status.ERROR);
         }
         return null;
     }
@@ -389,8 +387,8 @@ public class PostDAO {
                 return -1;
         }
         catch (SQLException ex) {
-            System.out.println("setEmailCode() | Query error: " + ex.getMessage());
-            System.out.println("sql: " + sql);
+            loggerService.log("PostDAO::postsAmount() " + ex.getMessage()
+                    + "\n" + sql, LoggerService.Status.ERROR);
             return -1;
         }
     }
@@ -408,8 +406,8 @@ public class PostDAO {
             prep.setString(1, postId);
             return prep.executeUpdate() != 0;
         } catch (SQLException ex) {
-            System.out.println("PostDAO::banPosts()" + ex.getMessage()
-                    + "\n" + sql);
+            loggerService.log("PostDAO::banPosts() " + ex.getMessage()
+                    + "\n" + sql, LoggerService.Status.ERROR);
             return null;
         }
     }

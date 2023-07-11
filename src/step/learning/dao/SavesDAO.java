@@ -2,7 +2,7 @@ package step.learning.dao;
 
 import com.google.inject.Inject;
 import step.learning.services.DataService;
-import step.learning.services.HashService;
+import step.learning.services.LoggerService;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -13,13 +13,13 @@ import java.util.List;
 public class SavesDAO {
 
     private final DataService dataService;
-    private final HashService hashService;
+    private final LoggerService loggerService;
 
     @Inject
-    public SavesDAO(DataService dataService, HashService hashService)
+    public SavesDAO(DataService dataService, LoggerService loggerService)
     {
         this.dataService = dataService;
-        this.hashService = hashService;
+        this.loggerService = loggerService;
     }
 
     public void addSave(String postId, String login){
@@ -40,8 +40,8 @@ public class SavesDAO {
             prep.setString(2,  login);
             prep.executeUpdate();
         } catch (SQLException ex) {
-            System.out.println("SavesDAO::addSave() " + ex.getMessage()
-                    + "\n" + sql);
+            loggerService.log("SavesDAO::addSave() " + ex.getMessage()
+                    + "\n" + sql, LoggerService.Status.ERROR);
         }
     }
 
@@ -53,8 +53,8 @@ public class SavesDAO {
             prep.setString(2,  login);
             prep.executeUpdate();
         } catch (SQLException ex) {
-            System.out.println("SavesDAO::unSave() " + ex.getMessage()
-                    + "\n" + sql);
+            loggerService.log("SavesDAO::unSave() " + ex.getMessage()
+                    + "\n" + sql, LoggerService.Status.ERROR);
         }
     }
 
@@ -73,8 +73,8 @@ public class SavesDAO {
             }
             return saves;
         } catch (SQLException ex) {
-            System.out.println("SavesDAO::getSaves() " + ex.getMessage()
-                    + "\n" + sql);
+            loggerService.log("SavesDAO::getSaves() " + ex.getMessage()
+                    + "\n" + sql, LoggerService.Status.ERROR);
         }
         return null;
     }
@@ -92,8 +92,8 @@ public class SavesDAO {
             }
             return savers;
         } catch (SQLException ex) {
-            System.out.println("SavesDAO::getSavers() " + ex.getMessage()
-                    + "\n" + sql);
+            loggerService.log("SavesDAO::getSavers() " + ex.getMessage()
+                    + "\n" + sql, LoggerService.Status.ERROR);
         }
         return null;
     }
@@ -111,8 +111,8 @@ public class SavesDAO {
             }
             return savers;
         } catch (SQLException ex) {
-            System.out.println("SavesDAO::getSaveById() " + ex.getMessage()
-                    + "\n" + sql);
+            loggerService.log("SavesDAO::getSaveById() " + ex.getMessage()
+                    + "\n" + sql, LoggerService.Status.ERROR);
         }
         return null;
     }
@@ -132,8 +132,8 @@ public class SavesDAO {
             }
             else return false;
         } catch (SQLException ex) {
-            System.out.println("LikedDAO::isLikedByUser() " + ex.getMessage()
-                    + "\n" + sql);
+            loggerService.log("SavesDAO::isSavedByUser() " + ex.getMessage()
+                    + "\n" + sql, LoggerService.Status.ERROR);
         }
         return null;
     }

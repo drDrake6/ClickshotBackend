@@ -4,22 +4,23 @@ import com.google.inject.Inject;
 import step.learning.entities.Response;
 import step.learning.entities.Comment;
 import step.learning.services.DataService;
+import step.learning.services.LoggerService;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Timestamp;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
 public class CommentDAO {
     private final DataService dataService;
+    private final LoggerService loggerService;
     @Inject
-    public CommentDAO(DataService dataService)
+    public CommentDAO(DataService dataService, LoggerService loggerService)
     {
         this.dataService = dataService;
+        this.loggerService = loggerService;
     }
 
     public String makeComment(Comment comment){
@@ -45,8 +46,8 @@ public class CommentDAO {
             prep.setString(param, comment.getPostId());
             prep.executeUpdate();
         } catch (SQLException ex) {
-            System.out.println("CommentDAO::makeComment() " + ex.getMessage()
-                    + "\n" + sql);
+            loggerService.log("CommentDAO::makeComment() " + ex.getMessage()
+                    + "\n" + sql, LoggerService.Status.ERROR);
         }
         return comment.getId();
     }
@@ -83,8 +84,8 @@ public class CommentDAO {
 
             prep.executeUpdate();
         } catch (SQLException ex) {
-            System.out.println("CommentDAO::updateComment() " + ex.getMessage()
-                    + "\n" + sql);
+            loggerService.log("CommentDAO::updateComment() " + ex.getMessage()
+                    + "\n" + sql, LoggerService.Status.ERROR);
         }
     }
 
@@ -101,8 +102,8 @@ public class CommentDAO {
                 return true;
             }
         } catch (SQLException ex) {
-            System.out.println("CommentDAO::deleteCommentById() " + ex.getMessage()
-                    + "\n" + sql + " -- " + id);
+            loggerService.log("CommentDAO::deleteCommentById() " + ex.getMessage()
+                    + "\n" + sql, LoggerService.Status.ERROR);
             return null;
         }
     }
@@ -117,8 +118,8 @@ public class CommentDAO {
                 return false;
             }
         } catch (SQLException ex) {
-            System.out.println("UserDAO::restoreComment() " + ex.getMessage()
-                    + "\n" + sql + " -- " + id);
+            loggerService.log("CommentDAO::restoreComment() " + ex.getMessage()
+                    + "\n" + sql, LoggerService.Status.ERROR);
             return null;
         }
 
@@ -134,8 +135,8 @@ public class CommentDAO {
             ResultSet res = prep.executeQuery();
             return res.next();
         } catch (SQLException ex) {
-            System.out.println("CommentDAO::іsAnswer() " + ex.getMessage()
-                    + "\n" + sql + " -- " + id);
+            loggerService.log("CommentDAO::isAnswer() " + ex.getMessage()
+                    + "\n" + sql, LoggerService.Status.ERROR);
             return null;
         }
     }
@@ -152,8 +153,8 @@ public class CommentDAO {
             else
                 return null;
         } catch (SQLException ex) {
-            System.out.println("CommentDAO::getCommentIdOfAnswer() " + ex.getMessage()
-                    + "\n" + sql + " -- " + id);
+            loggerService.log("CommentDAO::getCommentIdOfAnswer() " + ex.getMessage()
+                    + "\n" + sql, LoggerService.Status.ERROR);
             return null;
         }
     }
@@ -167,8 +168,8 @@ public class CommentDAO {
             ResultSet res = prep.executeQuery();
             return res.next();
         } catch (SQLException ex) {
-            System.out.println("CommentDAO::deleteComment() " + ex.getMessage()
-                    + "\n" + sql + " -- " + id);
+            loggerService.log("CommentDAO::hasAnswer() " + ex.getMessage()
+                    + "\n" + sql, LoggerService.Status.ERROR);
             return null;
         }
     }
@@ -185,8 +186,8 @@ public class CommentDAO {
             else
                 return null;
         } catch (SQLException ex) {
-            System.out.println("CommentDAO::getAnswer() " + ex.getMessage()
-                    + "\n" + sql + " -- " + id);
+            loggerService.log("CommentDAO::getAnswer() " + ex.getMessage()
+                    + "\n" + sql, LoggerService.Status.ERROR);
             return null;
         }
     }
@@ -205,8 +206,8 @@ public class CommentDAO {
                 return false;
             }
         } catch (SQLException ex) {
-            System.out.println("CommentDAO::authorHasComment() " + ex.getMessage()
-                    + "\n" + sql + " -- " + author);
+            loggerService.log("CommentDAO::authorHasComment() " + ex.getMessage()
+                    + "\n" + sql, LoggerService.Status.ERROR);
         }
         return null;
     }
@@ -222,8 +223,8 @@ public class CommentDAO {
                 return new Comment(res);
             }
         } catch (Exception ex) {
-            System.out.println("PostDAO::getSomePosts() " + ex.getMessage()
-                    + "\n" + sql);
+            loggerService.log("CommentDAO::getCommentById() " + ex.getMessage()
+                    + "\n" + sql, LoggerService.Status.ERROR);
         }
         return null;
     }
@@ -242,8 +243,8 @@ public class CommentDAO {
             prep.setString(2, response.getAnswerComment().getId());
             prep.executeUpdate();
         } catch (SQLException ex) {
-            System.out.println("CommentDAO::makeComment() " + ex.getMessage()
-                    + "\n" + sql);
+            loggerService.log("CommentDAO::giveAnswer() " + ex.getMessage()
+                    + "\n" + sql, LoggerService.Status.ERROR);
         }
     }
 
@@ -262,8 +263,8 @@ public class CommentDAO {
             }
             return comments;
         } catch (Exception ex) {
-            System.out.println("PostDAO::getSomeCommentsByPost() " + ex.getMessage()
-                    + "\n" + sql);
+            loggerService.log("CommentDAO::getCommentsByUser() " + ex.getMessage()
+                    + "\n" + sql, LoggerService.Status.ERROR);
         }
         return null;
     }
@@ -282,8 +283,8 @@ public class CommentDAO {
             }
             return comments;
         } catch (Exception ex) {
-            System.out.println("PostDAO::getSomeCommentsByPost() " + ex.getMessage()
-                    + "\n" + sql);
+            loggerService.log("CommentDAO::getAllCommentsOfPost() " + ex.getMessage()
+                    + "\n" + sql, LoggerService.Status.ERROR);
         }
         return null;
     }
@@ -301,8 +302,8 @@ public class CommentDAO {
             }
             return comments;
         } catch (Exception ex) {
-            System.out.println("PostDAO::getSomePosts() " + ex.getMessage()
-                    + "\n" + sql);
+            loggerService.log("CommentDAO::getSomeComments() " + ex.getMessage()
+                    + "\n" + sql, LoggerService.Status.ERROR);
         }
         return null;
     }
@@ -321,8 +322,8 @@ public class CommentDAO {
             }
             return comments;
         } catch (Exception ex) {
-            System.out.println("PostDAO::getSomeCommentsByPost() " + ex.getMessage()
-                    + "\n" + sql);
+            loggerService.log("CommentDAO::getSomeCommentsByPost() " + ex.getMessage()
+                    + "\n" + sql, LoggerService.Status.ERROR);
         }
         return null;
     }

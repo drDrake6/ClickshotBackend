@@ -3,6 +3,7 @@ package step.learning.dao;
 import com.google.inject.Inject;
 import step.learning.entities.User;
 import step.learning.services.DataService;
+import step.learning.services.LoggerService;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -13,11 +14,13 @@ import java.util.List;
 public class SubscribersDAO {
 
     private final DataService dataService;
+    private final LoggerService loggerService;
 
     @Inject
-    public SubscribersDAO(DataService dataService)
+    public SubscribersDAO(DataService dataService, LoggerService loggerService)
     {
         this.dataService = dataService;
+        this.loggerService = loggerService;
     }
 
     public void subscribe(String author, String subscriber){
@@ -39,8 +42,8 @@ public class SubscribersDAO {
             prep.executeUpdate();
 
         } catch (SQLException ex) {
-            System.out.println("SubscribersDAO::subscribe() " + ex.getMessage()
-                    + "\n" + sql);
+            loggerService.log("SubscribersDAO::subscribe() " + ex.getMessage()
+                    + "\n" + sql, LoggerService.Status.ERROR);
         }
     }
 
@@ -53,8 +56,8 @@ public class SubscribersDAO {
             prep.executeUpdate();
 
         } catch (SQLException ex) {
-            System.out.println("SubscribersDAO::unsubscribe() " + ex.getMessage()
-                    + "\n" + sql);
+            loggerService.log("SubscribersDAO::unsubscribe() " + ex.getMessage()
+                    + "\n" + sql, LoggerService.Status.ERROR);
         }
     }
 
@@ -73,8 +76,8 @@ public class SubscribersDAO {
             }
             else return false;
         } catch (SQLException ex) {
-            System.out.println("SubscribersDAO::isSubscribedTo() " + ex.getMessage()
-                    + "\n" + sql);
+            loggerService.log("SubscribersDAO::isSubscribedTo() " + ex.getMessage()
+                    + "\n" + sql, LoggerService.Status.ERROR);
         }
         return null;
     }
@@ -93,8 +96,8 @@ public class SubscribersDAO {
             }
             else return 0;
         } catch (SQLException ex) {
-            System.out.println("SubscribersDAO::subscribersAmount() " + ex.getMessage()
-                    + "\n" + sql);
+            loggerService.log("SubscribersDAO::subscribersAmount() " + ex.getMessage()
+                    + "\n" + sql, LoggerService.Status.ERROR);
         }
         return -1;
     }
@@ -113,8 +116,8 @@ public class SubscribersDAO {
             }
             else return 0;
         } catch (SQLException ex) {
-            System.out.println("SubscribersDAO::subscribingAmount() " + ex.getMessage()
-                    + "\n" + sql);
+            loggerService.log("SubscribersDAO::subscribingAmount() " + ex.getMessage()
+                    + "\n" + sql, LoggerService.Status.ERROR);
         }
         return -1;
     }
@@ -142,8 +145,8 @@ public class SubscribersDAO {
             }
             return users;
         } catch (SQLException ex) {
-            System.out.println("SubscribersDAO::getSubscribers() " + ex.getMessage()
-                    + "\n" + sql);
+            loggerService.log("SubscribersDAO::getSubscribers() " + ex.getMessage()
+                    + "\n" + sql, LoggerService.Status.ERROR);
         }
         return null;
     }
@@ -171,8 +174,8 @@ public class SubscribersDAO {
             }
             return users;
         } catch (SQLException ex) {
-            System.out.println("SubscribersDAO::getSubscribing() " + ex.getMessage()
-                    + "\n" + sql);
+            loggerService.log("SubscribersDAO::getSubscribing() " + ex.getMessage()
+                    + "\n" + sql, LoggerService.Status.ERROR);
         }
         return null;
     }

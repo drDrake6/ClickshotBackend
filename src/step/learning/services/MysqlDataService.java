@@ -21,7 +21,7 @@ public class MysqlDataService implements DataService{
     public Connection connection;
     public Connection getConnection(){
         try{
-            if(connection == null || connection.isClosed()){
+            if(connection == null){
                     Class.forName("com.mysql.cj.jdbc.Driver");
                     connection = DriverManager.getConnection(
                             this.loadConfigService.load(realPathService.getRealPath()).getJSONObject("dbConnection").getString("connectionString"),

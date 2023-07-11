@@ -4,25 +4,25 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import org.json.JSONArray;
 import org.json.JSONObject;
-import step.learning.entities.Post;
 import step.learning.services.DataService;
+import step.learning.services.LoggerService;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 
 @Singleton
 public class NotificationDAO {
 
     private final DataService dataService;
+    private final LoggerService loggerService;
     String sql;
 
     @Inject
-    public NotificationDAO(DataService dataService)
+    public NotificationDAO(DataService dataService, LoggerService loggerService)
     {
         this.dataService = dataService;
+        this.loggerService = loggerService;
         sql = "SELECT postId,\n" +
                 "       commentId,\n" +
                 "       author,\n" +
@@ -122,8 +122,8 @@ public class NotificationDAO {
             }
             return notifications;
         } catch (SQLException ex) {
-            System.out.println("NotificationDAO::getSomeNotifications() " + ex.getMessage()
-                    + "\n" + sql);
+            loggerService.log("NotificationDAO::getSomeNotifications() " + ex.getMessage()
+                    + "\n" + sql, LoggerService.Status.ERROR);
         }
         return null;
     }

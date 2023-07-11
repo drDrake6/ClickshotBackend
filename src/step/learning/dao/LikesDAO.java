@@ -2,6 +2,7 @@ package step.learning.dao;
 
 import com.google.inject.Inject;
 import step.learning.services.DataService;
+import step.learning.services.LoggerService;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -12,11 +13,13 @@ import java.util.List;
 public class LikesDAO {
 
     private final DataService dataService;
+    private final LoggerService loggerService;
 
     @Inject
-    public LikesDAO(DataService dataService)
+    public LikesDAO(DataService dataService, LoggerService loggerService)
     {
         this.dataService = dataService;
+        this.loggerService = loggerService;
     }
 
     public Boolean putLike(String postId, String login){
@@ -38,8 +41,8 @@ public class LikesDAO {
                 return false;
             }
         } catch (SQLException ex) {
-            System.out.println("LikedDAO::putLike() " + ex.getMessage()
-                    + "\n" + sql);
+            loggerService.log("LikesDAO::putLike() " + ex.getMessage()
+                    + "\n" + sql, LoggerService.Status.ERROR);
             return null;
         }
         return true;
@@ -55,8 +58,8 @@ public class LikesDAO {
                 return false;
             }
         } catch (SQLException ex) {
-            System.out.println("LikedDAO::unLike() " + ex.getMessage()
-                    + "\n" + sql);
+            loggerService.log("LikesDAO::unLike() " + ex.getMessage()
+                    + "\n" + sql, LoggerService.Status.ERROR);
             return null;
         }
         return true;
@@ -75,8 +78,8 @@ public class LikesDAO {
             }
             return taggedPeople;
         } catch (SQLException ex) {
-            System.out.println("LikedDAO::getLiked() " + ex.getMessage()
-                    + "\n" + sql);
+            loggerService.log("LikesDAO::getLiked() " + ex.getMessage()
+                    + "\n" + sql, LoggerService.Status.ERROR);
         }
         return null;
     }
@@ -94,8 +97,8 @@ public class LikesDAO {
             }
             return likedPosts;
         } catch (SQLException ex) {
-            System.out.println("LikedDAO::getLikedByOne() " + ex.getMessage()
-                    + "\n" + sql);
+            loggerService.log("LikesDAO::getLikedByUser() " + ex.getMessage()
+                    + "\n" + sql, LoggerService.Status.ERROR);
         }
         return null;
     }
@@ -115,8 +118,8 @@ public class LikesDAO {
             }
             else return false;
         } catch (SQLException ex) {
-            System.out.println("LikedDAO::isLikedByUser() " + ex.getMessage()
-                    + "\n" + sql);
+            loggerService.log("LikesDAO::isLikedByUser() " + ex.getMessage()
+                    + "\n" + sql, LoggerService.Status.ERROR);
         }
         return null;
     }
@@ -132,8 +135,8 @@ public class LikesDAO {
             }
             return -1;
         } catch (SQLException ex) {
-            System.out.println("LikedDAO::deleteLikeByPost() " + ex.getMessage()
-                    + "\n" + sql + " -- " + postId);
+            loggerService.log("LikesDAO::getLikesCount() " + ex.getMessage()
+                    + "\n" + sql, LoggerService.Status.ERROR);
             return -1;
         }
     }

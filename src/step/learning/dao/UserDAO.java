@@ -48,8 +48,8 @@ public class UserDAO {
             ResultSet res = prep.executeQuery();
             if(res.next()) return new User(res);
         } catch (SQLException ex) {
-            System.out.println("UserDAO::setAuthorizeToken() " + ex.getMessage()
-                    + "\n" + sql + " -- " + userId);
+            loggerService.log("UserDAO::setAuthorizeToken() " + ex.getMessage()
+                    + "\n" + sql + " -- " + userId, LoggerService.Status.ERROR);
         }
         return null;
     }
@@ -61,8 +61,8 @@ public class UserDAO {
             ResultSet res = prep.executeQuery();
             if(res.next()) return new User(res);
         } catch (SQLException ex) {
-            System.out.println("UserDAO::getUserById() " + ex.getMessage()
-                    + "\n" + sql + " -- " + userId);
+            loggerService.log("UserDAO::getUserById() " + ex.getMessage()
+                    + "\n" + sql + " -- " + userId, LoggerService.Status.ERROR);
         }
         return null;
     }
@@ -77,8 +77,8 @@ public class UserDAO {
             ResultSet res = prep.executeQuery();
             if(res.next()) return new User(res);
         } catch (SQLException ex) {
-            System.out.println("UserDAO::getUserByToken() " + ex.getMessage()
-                    + "\n" + sql + " -- " + token);
+            loggerService.log("UserDAO::getUserByToken() " + ex.getMessage()
+                    + "\n" + sql + " -- " + token, LoggerService.Status.ERROR);
         }
         return null;
     }
@@ -94,8 +94,8 @@ public class UserDAO {
             }
             return users;
         } catch (SQLException ex) {
-            System.out.println("UserDAO::getAllUsers() " + ex.getMessage()
-                    + "\n" + sql);
+            loggerService.log("UserDAO::getAllUsers() " + ex.getMessage()
+                    + "\n" + sql, LoggerService.Status.ERROR);
         }
         return null;
     }
@@ -112,8 +112,8 @@ public class UserDAO {
             }
             return users;
         } catch (SQLException ex) {
-            System.out.println("UserDAO::getSemeUsers() " + ex.getMessage()
-                    + "\n" + sql);
+            loggerService.log("UserDAO::getSomeUsers() " + ex.getMessage()
+                    + "\n" + sql, LoggerService.Status.ERROR);
         }
         return null;
     }
@@ -168,8 +168,8 @@ public class UserDAO {
             }
             return users;
         } catch (SQLException ex) {
-            System.out.println("UserDAO::FindSomeUsers() " + ex.getMessage()
-                    + "\n" + sql);
+            loggerService.log("UserDAO::findSomeUsers() " + ex.getMessage()
+                    + "\n" + sql, LoggerService.Status.ERROR);
         }
         return null;
     }
@@ -185,8 +185,8 @@ public class UserDAO {
             }
             return user;
         } catch (SQLException ex) {
-            System.out.println("UserDAO::getUser() " + ex.getMessage()
-                    + "\n" + sql);
+            loggerService.log("UserDAO::getUser() " + ex.getMessage()
+                    + "\n" + sql, LoggerService.Status.ERROR);
         }
         return null;
     }
@@ -237,8 +237,8 @@ public class UserDAO {
             prep.executeUpdate();
         }
         catch (SQLException ex) {
-            System.out.println("add | Query error: " + ex.getMessage());
-            System.out.println("sql: " + sql);
+            loggerService.log("UserDAO::add() " + ex.getMessage()
+                    + "\n" + sql, LoggerService.Status.ERROR);
             return null;
         }
         return user.getId();
@@ -311,8 +311,8 @@ public class UserDAO {
             prep.executeUpdate();
         }
         catch (SQLException ex) {
-            System.out.println("update | Query error: " + ex.getMessage());
-            System.out.println("sql: " + sql);
+            loggerService.log("UserDAO::update() " + ex.getMessage()
+                    + "\n" + sql, LoggerService.Status.ERROR);
         }
     }
 
@@ -327,8 +327,8 @@ public class UserDAO {
                 return false;
             }
         } catch (SQLException ex) {
-            System.out.println("UserDAO::deleteUser() " + ex.getMessage()
-                    + "\n" + sql + " -- " + login);
+            loggerService.log("UserDAO::deleteUser() " + ex.getMessage()
+                    + "\n" + sql, LoggerService.Status.ERROR);
             return null;
         }
 
@@ -345,8 +345,8 @@ public class UserDAO {
                 return false;
             }
         } catch (SQLException ex) {
-            System.out.println("UserDAO::restoreUser() " + ex.getMessage()
-                    + "\n" + sql + " -- " + login);
+            loggerService.log("UserDAO::restoreUser() " + ex.getMessage()
+                    + "\n" + sql, LoggerService.Status.ERROR);
             return null;
         }
 

@@ -2,7 +2,7 @@ package step.learning.dao;
 
 import com.google.inject.Inject;
 import step.learning.services.DataService;
-import step.learning.services.HashService;
+import step.learning.services.LoggerService;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -12,11 +12,12 @@ import java.util.List;
 
 public class TaggedPeopleDAO {
     private final DataService dataService;
-
+    private final LoggerService loggerService;
     @Inject
-    public TaggedPeopleDAO(DataService dataService)
+    public TaggedPeopleDAO(DataService dataService, LoggerService loggerService)
     {
         this.dataService = dataService;
+        this.loggerService = loggerService;
     }
 
     public void setTaggedPeople(String postId, String[] logins){
@@ -29,8 +30,8 @@ public class TaggedPeopleDAO {
                 prep.executeUpdate();
             }
         } catch (SQLException ex) {
-            System.out.println("TaggedPeopleDAO::setTaggedPeople() " + ex.getMessage()
-                    + "\n" + sql);
+            loggerService.log("TaggedPeopleDAO::setTaggedPeople() " + ex.getMessage()
+                    + "\n" + sql, LoggerService.Status.ERROR);
         }
     }
     public List<String> getTaggedPeople(String postId){
@@ -46,8 +47,8 @@ public class TaggedPeopleDAO {
             }
             return taggedPeople;
         } catch (SQLException ex) {
-            System.out.println("TaggedPeopleDAO::getTaggedPeople() " + ex.getMessage()
-                    + "\n" + sql);
+            loggerService.log("TaggedPeopleDAO::getTaggedPeople() " + ex.getMessage()
+                    + "\n" + sql, LoggerService.Status.ERROR);
         }
         return null;
     }

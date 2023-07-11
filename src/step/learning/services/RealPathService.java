@@ -6,9 +6,10 @@ import javax.servlet.http.HttpServletRequest;
 
 @Singleton
 public class RealPathService {
-    private String realPath;
+    private String realPath = "";
     public void setRealPath(String realPath){
-        this.realPath = realPath;
+        if(this.realPath.equals(""))
+            this.realPath = realPath;
     }
     public String getRealPath(){
         return realPath;
