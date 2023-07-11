@@ -364,6 +364,24 @@ public class UserDAO {
         return false;
     }
 
+    public Boolean emailExists(String email) throws FileNotFoundException {
+
+        String sql = "SELECT * FROM Users WHERE email = ?";
+        try(PreparedStatement prep = dataService.getConnection().prepareStatement(sql)){
+            prep.setString(1, email);
+            ResultSet res = prep.executeQuery();
+            User user = null;
+            if(res.next()){
+                return true;
+            }
+            return false;
+        } catch (SQLException ex) {
+            System.out.println("UserDAO::getUser() " + ex.getMessage()
+                    + "\n" + sql);
+        }
+        return null;
+    }
+
     private String makePasswordHash(String password, String salt){
         return hashService.hash(salt + password + salt);
     }

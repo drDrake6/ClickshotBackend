@@ -53,6 +53,17 @@ public class AddUserServlet extends HttpServlet {
             return;
         }
 
+        Boolean emailExists = userDAO.emailExists(user.getEmail());
+
+        if(emailExists == null){
+            res.getWriter().write("4: internal error");
+            return;
+        } else if (emailExists) {
+            res.getWriter().write("3: user with such email exists");
+            return;
+        }
+
+
         user.setAvatar("user_icon_without_photo.PNG");
 
         try {

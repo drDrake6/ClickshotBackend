@@ -122,7 +122,7 @@ public class SubscribersDAO {
     public List<User> getSubscribers(String author, int from, int amount, boolean includeDeleted){
 
         String sql = "SELECT * FROM Users WHERE id IN " +
-                "(SELECT subscriberId FROM subscribers " +
+                "(SELECT subscriberId FROM Subscribers " +
                 "WHERE userId = " +
                 "(SELECT id FROM Users WHERE login = ?) " +
                 "AND subscriberId IN " +
@@ -151,7 +151,7 @@ public class SubscribersDAO {
     public List<User> getSubscribing(String author, int from, int amount, boolean includeDeleted){
 
         String sql = "SELECT * FROM Users WHERE id IN " +
-                "(SELECT userId FROM subscribers " +
+                "(SELECT userId FROM Subscribers " +
                 "WHERE subscriberId = " +
                 "(SELECT id FROM Users WHERE login = ?) " +
                 "AND userId IN " +
