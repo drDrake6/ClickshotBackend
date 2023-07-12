@@ -46,7 +46,6 @@ public class SubscribersDAO {
                     + "\n" + sql, LoggerService.Status.ERROR);
         }
     }
-
     public void unsubscribe(String author, String subscriber){
         String sql = "UPDATE Subscribers SET deleted = NOW() WHERE subscriberId = (SELECT id FROM Users WHERE login = ?) AND userId = (SELECT id FROM Users WHERE login = ?)";
         try (PreparedStatement prep =
@@ -60,7 +59,6 @@ public class SubscribersDAO {
                     + "\n" + sql, LoggerService.Status.ERROR);
         }
     }
-
     public Boolean isSubscribedTo(String author, String subscriber, boolean includeDeleted){
 
         String sql = "SELECT * FROM Subscribers WHERE subscriberId = (SELECT id FROM Users WHERE login = ?) AND userId = (SELECT id FROM Users WHERE login = ?)";
@@ -71,17 +69,13 @@ public class SubscribersDAO {
             prep.setString(1,  subscriber);
             prep.setString(2,  author);
             ResultSet res = prep.executeQuery();
-            if(res.next()){
-                return true;
-            }
-            else return false;
+            return res.next();
         } catch (SQLException ex) {
             loggerService.log("SubscribersDAO::isSubscribedTo() " + ex.getMessage()
                     + "\n" + sql, LoggerService.Status.ERROR);
         }
         return null;
     }
-
     public int subscribersAmount(String author, boolean includeDeleted){
 
         String sql = "SELECT COUNT(*) as count FROM Subscribers WHERE userId = (SELECT id FROM Users WHERE login = ?) AND subscriberId IN (SELECT id FROM Users WHERE Users.deleted IS NULL )";
@@ -101,7 +95,6 @@ public class SubscribersDAO {
         }
         return -1;
     }
-
     public int subscribingAmount(String author, boolean includeDeleted){
 
         String sql = "SELECT COUNT(*) as count FROM Subscribers WHERE subscriberId = (SELECT id FROM Users WHERE login = ?) AND userId IN (SELECT id FROM Users WHERE Users.deleted IS NULL )";
@@ -121,7 +114,6 @@ public class SubscribersDAO {
         }
         return -1;
     }
-
     public List<User> getSubscribers(String author, int from, int amount, boolean includeDeleted){
 
         String sql = "SELECT * FROM Users WHERE id IN " +
@@ -150,7 +142,6 @@ public class SubscribersDAO {
         }
         return null;
     }
-
     public List<User> getSubscribing(String author, int from, int amount, boolean includeDeleted){
 
         String sql = "SELECT * FROM Users WHERE id IN " +

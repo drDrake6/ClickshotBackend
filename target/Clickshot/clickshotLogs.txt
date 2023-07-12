@@ -150,3 +150,915 @@
 [INFO] GET /Clickshot/confirm?login=Suslik, time: 2023-07-11 20:05:36
 [INFO] GET /Clickshot/confirm?login=Suslik, time: 2023-07-11 20:05:41
 [INFO] GET /Clickshot/confirm?login=Suslik, time: 2023-07-11 20:05:46
+[INFO] POST /Clickshot/authorize?null, time: 2023-07-11 20:33:50
+[ERROR] UserDAO::getUser() Communications link failure
+
+The last packet successfully received from the server was 1 683 591 milliseconds ago. The last packet sent successfully to the server was 1 683 672 milliseconds ago.
+SELECT * FROM Users WHERE login = ? AND deleted IS null
+[INFO] POST /Clickshot/authorize?null, time: 2023-07-11 20:34:39
+[ERROR] UserDAO::getUser() No operations allowed after connection closed.
+SELECT * FROM Users WHERE login = ? AND deleted IS null
+[INFO] POST /Clickshot/authorize?null, time: 2023-07-11 20:34:42
+[ERROR] UserDAO::getUser() No operations allowed after connection closed.
+SELECT * FROM Users WHERE login = ? AND deleted IS null
+[INFO] POST /Clickshot/authorize?null, time: 2023-07-11 20:35:47
+[ERROR] UserDAO::getUser() No operations allowed after connection closed.
+SELECT * FROM Users WHERE login = ? AND deleted IS null
+[INFO] POST /Clickshot/authorize?null, time: 2023-07-11 20:36:02
+[ERROR] UserDAO::getUser() No operations allowed after connection closed.
+SELECT * FROM Users WHERE login = ? AND deleted IS null
+[INFO] POST /Clickshot/authorize?null, time: 2023-07-11 20:36:18
+[INFO] GET /Clickshot/ava?login=Andry, time: 2023-07-11 20:36:20
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 20:36:20
+[INFO] GET /Clickshot/media/b00fa6b3-f42c-4e65-9bd1-eeb289923f4e.jpg?null, time: 2023-07-11 20:36:20
+[INFO] POST /Clickshot/addPost?null, time: 2023-07-11 20:36:41
+[INFO] GET /Clickshot/ava?login=Andry, time: 2023-07-11 20:36:42
+[INFO] GET /Clickshot/media/b00fa6b3-f42c-4e65-9bd1-eeb289923f4e.jpg?null, time: 2023-07-11 20:36:42
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 20:36:45
+[INFO] GET /Clickshot/media/1651a955-cf10-4d02-962c-efb5f75f5d0e.mp3?null, time: 2023-07-11 20:36:46
+[INFO] GET /Clickshot/save?postId=edf61946-0a87-4241-8ab6-60a5b94e3130&login=Andry, time: 2023-07-11 20:36:48
+[INFO] GET /Clickshot/ava?login=Andry, time: 2023-07-11 20:36:48
+[INFO] GET /Clickshot/like?postId=edf61946-0a87-4241-8ab6-60a5b94e3130&login=Andry, time: 2023-07-11 20:36:48
+[INFO] GET /Clickshot/media/b00fa6b3-f42c-4e65-9bd1-eeb289923f4e.jpg?null, time: 2023-07-11 20:36:48
+[INFO] GET /Clickshot/taggedPeople?postId=edf61946-0a87-4241-8ab6-60a5b94e3130, time: 2023-07-11 20:37:25
+[INFO] POST /Clickshot/like?null, time: 2023-07-11 20:37:27
+[INFO] GET /Clickshot/media/1651a955-cf10-4d02-962c-efb5f75f5d0e.mp3?null, time: 2023-07-11 20:37:28
+[INFO] GET /Clickshot/ava?login=Andry, time: 2023-07-11 20:37:28
+[INFO] GET /Clickshot/media/b00fa6b3-f42c-4e65-9bd1-eeb289923f4e.jpg?null, time: 2023-07-11 20:37:29
+[INFO] POST /Clickshot/save?null, time: 2023-07-11 20:37:30
+[INFO] GET /Clickshot/media/1651a955-cf10-4d02-962c-efb5f75f5d0e.mp3?null, time: 2023-07-11 20:37:30
+[INFO] GET /Clickshot/ava?login=Andry, time: 2023-07-11 20:37:31
+[INFO] GET /Clickshot/media/b00fa6b3-f42c-4e65-9bd1-eeb289923f4e.jpg?null, time: 2023-07-11 20:37:32
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 20:38:02
+[INFO] GET /Clickshot/ava?login=Andry, time: 2023-07-11 20:38:02
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 20:38:02
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 20:38:02
+[INFO] GET /Clickshot/ava?login=Andry, time: 2023-07-11 20:38:02
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 20:38:02
+[INFO] GET /Clickshot/media/1651a955-cf10-4d02-962c-efb5f75f5d0e.mp3?null, time: 2023-07-11 20:38:03
+[INFO] GET /Clickshot/media/b00fa6b3-f42c-4e65-9bd1-eeb289923f4e.jpg?null, time: 2023-07-11 20:38:03
+[INFO] GET /Clickshot/ava?login=Andry, time: 2023-07-11 20:38:03
+[INFO] GET /Clickshot/like?postId=edf61946-0a87-4241-8ab6-60a5b94e3130&login=Andry, time: 2023-07-11 20:38:03
+[INFO] GET /Clickshot/save?postId=edf61946-0a87-4241-8ab6-60a5b94e3130&login=Andry, time: 2023-07-11 20:38:03
+[INFO] GET /Clickshot/media/1651a955-cf10-4d02-962c-efb5f75f5d0e.mp3?null, time: 2023-07-11 20:38:03
+[INFO] GET /Clickshot/ava?login=Andry, time: 2023-07-11 20:38:05
+[INFO] GET /Clickshot/like?postId=edf61946-0a87-4241-8ab6-60a5b94e3130&login=Andry, time: 2023-07-11 20:38:05
+[INFO] GET /Clickshot/save?postId=edf61946-0a87-4241-8ab6-60a5b94e3130&login=Andry, time: 2023-07-11 20:38:05
+[INFO] GET /Clickshot/media/b00fa6b3-f42c-4e65-9bd1-eeb289923f4e.jpg?null, time: 2023-07-11 20:38:05
+[INFO] GET /Clickshot/media/b00fa6b3-f42c-4e65-9bd1-eeb289923f4e.jpg?null, time: 2023-07-11 20:38:05
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 20:38:07
+[INFO] GET /Clickshot/ava?login=Andry, time: 2023-07-11 20:38:07
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 20:38:07
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 20:38:07
+[INFO] GET /Clickshot/ava?login=Andry, time: 2023-07-11 20:38:07
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 20:38:08
+[INFO] GET /Clickshot/media/1651a955-cf10-4d02-962c-efb5f75f5d0e.mp3?null, time: 2023-07-11 20:38:08
+[INFO] GET /Clickshot/media/b00fa6b3-f42c-4e65-9bd1-eeb289923f4e.jpg?null, time: 2023-07-11 20:38:08
+[INFO] GET /Clickshot/ava?login=Andry, time: 2023-07-11 20:38:09
+[INFO] GET /Clickshot/save?postId=edf61946-0a87-4241-8ab6-60a5b94e3130&login=Andry, time: 2023-07-11 20:38:09
+[INFO] GET /Clickshot/like?postId=edf61946-0a87-4241-8ab6-60a5b94e3130&login=Andry, time: 2023-07-11 20:38:09
+[INFO] GET /Clickshot/media/1651a955-cf10-4d02-962c-efb5f75f5d0e.mp3?null, time: 2023-07-11 20:38:09
+[INFO] GET /Clickshot/ava?login=Andry, time: 2023-07-11 20:38:10
+[INFO] GET /Clickshot/like?postId=edf61946-0a87-4241-8ab6-60a5b94e3130&login=Andry, time: 2023-07-11 20:38:10
+[INFO] GET /Clickshot/save?postId=edf61946-0a87-4241-8ab6-60a5b94e3130&login=Andry, time: 2023-07-11 20:38:10
+[INFO] GET /Clickshot/media/b00fa6b3-f42c-4e65-9bd1-eeb289923f4e.jpg?null, time: 2023-07-11 20:38:10
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 20:38:13
+[INFO] GET /Clickshot/media/1651a955-cf10-4d02-962c-efb5f75f5d0e.mp3?null, time: 2023-07-11 20:38:14
+[INFO] GET /Clickshot/save?postId=edf61946-0a87-4241-8ab6-60a5b94e3130&login=Andry, time: 2023-07-11 20:38:15
+[INFO] GET /Clickshot/ava?login=Andry, time: 2023-07-11 20:38:15
+[INFO] GET /Clickshot/like?postId=edf61946-0a87-4241-8ab6-60a5b94e3130&login=Andry, time: 2023-07-11 20:38:15
+[INFO] GET /Clickshot/media/b00fa6b3-f42c-4e65-9bd1-eeb289923f4e.jpg?null, time: 2023-07-11 20:38:16
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 20:38:18
+[INFO] GET /Clickshot/media/1651a955-cf10-4d02-962c-efb5f75f5d0e.mp3?null, time: 2023-07-11 20:38:19
+[INFO] GET /Clickshot/save?postId=edf61946-0a87-4241-8ab6-60a5b94e3130&login=Andry, time: 2023-07-11 20:38:20
+[INFO] GET /Clickshot/like?postId=edf61946-0a87-4241-8ab6-60a5b94e3130&login=Andry, time: 2023-07-11 20:38:20
+[INFO] GET /Clickshot/ava?login=Andry, time: 2023-07-11 20:38:20
+[INFO] GET /Clickshot/media/b00fa6b3-f42c-4e65-9bd1-eeb289923f4e.jpg?null, time: 2023-07-11 20:38:21
+[INFO] POST /Clickshot/authorize?null, time: 2023-07-11 20:38:29
+[INFO] GET /Clickshot/ava?login=Andry, time: 2023-07-11 20:38:30
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 20:38:30
+[INFO] GET /Clickshot/media/b00fa6b3-f42c-4e65-9bd1-eeb289923f4e.jpg?null, time: 2023-07-11 20:38:31
+[INFO] GET /Clickshot/media/1651a955-cf10-4d02-962c-efb5f75f5d0e.mp3?null, time: 2023-07-11 20:38:31
+[INFO] GET /Clickshot/ava?login=Andry, time: 2023-07-11 20:38:32
+[INFO] GET /Clickshot/like?postId=edf61946-0a87-4241-8ab6-60a5b94e3130&login=Andry, time: 2023-07-11 20:38:32
+[INFO] GET /Clickshot/save?postId=edf61946-0a87-4241-8ab6-60a5b94e3130&login=Andry, time: 2023-07-11 20:38:32
+[INFO] GET /Clickshot/media/b00fa6b3-f42c-4e65-9bd1-eeb289923f4e.jpg?null, time: 2023-07-11 20:38:33
+[INFO] GET tp://localhost:8080/Clickshot/media/b00fa6b3-f42c-4e65-9bd1-eeb289923f4e.jpg?null, time: 2023-07-11 20:38:41
+[INFO] POST /Clickshot/authorize?null, time: 2023-07-11 20:46:37
+[ERROR] UserDAO::getUser() Communications link failure
+
+The last packet successfully received from the server was 484 447 milliseconds ago. The last packet sent successfully to the server was 484 528 milliseconds ago.
+SELECT * FROM Users WHERE login = ? AND deleted IS null
+[INFO] POST /Clickshot/authorize?null, time: 2023-07-11 20:46:39
+[ERROR] UserDAO::getUser() No operations allowed after connection closed.
+SELECT * FROM Users WHERE login = ? AND deleted IS null
+[INFO] POST /Clickshot/authorize?null, time: 2023-07-11 20:49:04
+[ERROR] UserDAO::getUser() No operations allowed after connection closed.
+SELECT * FROM Users WHERE login = ? AND deleted IS null
+[INFO] POST /Clickshot/authorize?null, time: 2023-07-11 20:49:35
+[ERROR] UserDAO::getUser() No operations allowed after connection closed.
+SELECT * FROM Users WHERE login = ? AND deleted IS null
+[INFO] POST /Clickshot/authorize?null, time: 2023-07-11 20:49:54
+[ERROR] UserDAO::getUser() No operations allowed after connection closed.
+SELECT * FROM Users WHERE login = ? AND deleted IS null
+[INFO] POST /Clickshot/authorize?null, time: 2023-07-11 20:50:09
+[ERROR] UserDAO::getUser() No operations allowed after connection closed.
+SELECT * FROM Users WHERE login = ? AND deleted IS null
+[INFO] POST /Clickshot/authorize?null, time: 2023-07-11 20:50:13
+[ERROR] UserDAO::getUser() No operations allowed after connection closed.
+SELECT * FROM Users WHERE login = ? AND deleted IS null
+[INFO] POST tp://localhost:8080/Clickshot/authorize?null, time: 2023-07-11 20:51:03
+[ERROR] UserDAO::getUser() No operations allowed after connection closed.
+SELECT * FROM Users WHERE login = ? AND deleted IS null
+[INFO] POST tp://localhost:8080/Clickshot/authorize?null, time: 2023-07-11 20:51:16
+[ERROR] UserDAO::getUser() No operations allowed after connection closed.
+SELECT * FROM Users WHERE login = ? AND deleted IS null
+[INFO] POST /Clickshot/authorize?null, time: 2023-07-11 20:55:47
+[INFO] GET /Clickshot/ava?login=Andry, time: 2023-07-11 20:55:54
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 20:55:54
+[INFO] POST /Clickshot/authorize?null, time: 2023-07-11 20:58:16
+[INFO] GET /Clickshot/ava?login=Andry, time: 2023-07-11 20:58:17
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 20:58:17
+[INFO] GET /Clickshot/media/b00fa6b3-f42c-4e65-9bd1-eeb289923f4e.jpg?null, time: 2023-07-11 20:58:18
+[INFO] GET /Clickshot/media/1651a955-cf10-4d02-962c-efb5f75f5d0e.mp3?null, time: 2023-07-11 20:58:18
+[INFO] GET /Clickshot/ava?login=Andry, time: 2023-07-11 20:58:19
+[INFO] GET /Clickshot/like?postId=edf61946-0a87-4241-8ab6-60a5b94e3130&login=Andry, time: 2023-07-11 20:58:19
+[INFO] GET /Clickshot/save?postId=edf61946-0a87-4241-8ab6-60a5b94e3130&login=Andry, time: 2023-07-11 20:58:19
+[INFO] GET /Clickshot/media/b00fa6b3-f42c-4e65-9bd1-eeb289923f4e.jpg?null, time: 2023-07-11 20:58:20
+[INFO] GET /Clickshot/getPublicUser?login=Andry, time: 2023-07-11 20:58:30
+[INFO] GET /Clickshot/postsOfUser?from=0&amount=30&login=Andry, time: 2023-07-11 20:58:31
+[INFO] GET /Clickshot/media/b00fa6b3-f42c-4e65-9bd1-eeb289923f4e.jpg?null, time: 2023-07-11 20:58:32
+[INFO] GET /Clickshot/media/b00fa6b3-f42c-4e65-9bd1-eeb289923f4e.jpg?null, time: 2023-07-11 20:58:32
+[INFO] GET /Clickshot/media/b00fa6b3-f42c-4e65-9bd1-eeb289923f4e.jpg?null, time: 2023-07-11 20:58:35
+[INFO] GET /Clickshot/confirm?login=Andry, time: 2023-07-11 20:58:40
+[INFO] GET /Clickshot/media/b00fa6b3-f42c-4e65-9bd1-eeb289923f4e.jpg?null, time: 2023-07-11 20:58:40
+[INFO] GET /Clickshot/confirm?login=Andry, time: 2023-07-11 20:58:45
+[INFO] GET /Clickshot/confirm?login=Andry, time: 2023-07-11 20:58:50
+[INFO] GET /Clickshot/confirm?login=Andry, time: 2023-07-11 20:58:55
+[INFO] GET /Clickshot/confirm?login=Andry, time: 2023-07-11 20:59:00
+[INFO] GET /Clickshot/confirm?login=Andry, time: 2023-07-11 20:59:05
+[INFO] GET /Clickshot/confirm?login=Andry, time: 2023-07-11 20:59:10
+[INFO] POST /Clickshot/authorize?null, time: 2023-07-11 20:59:55
+[INFO] GET /Clickshot/ava?login=Andry, time: 2023-07-11 20:59:56
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 20:59:56
+[INFO] GET /Clickshot/media/b00fa6b3-f42c-4e65-9bd1-eeb289923f4e.jpg?null, time: 2023-07-11 20:59:57
+[INFO] GET /Clickshot/media/1651a955-cf10-4d02-962c-efb5f75f5d0e.mp3?null, time: 2023-07-11 20:59:57
+[INFO] GET /Clickshot/ava?login=Andry, time: 2023-07-11 20:59:58
+[INFO] GET /Clickshot/like?postId=edf61946-0a87-4241-8ab6-60a5b94e3130&login=Andry, time: 2023-07-11 20:59:58
+[INFO] GET /Clickshot/save?postId=edf61946-0a87-4241-8ab6-60a5b94e3130&login=Andry, time: 2023-07-11 20:59:58
+[INFO] GET /Clickshot/media/b00fa6b3-f42c-4e65-9bd1-eeb289923f4e.jpg?null, time: 2023-07-11 20:59:58
+[INFO] GET /Clickshot/getPublicUser?login=Andry, time: 2023-07-11 21:00:00
+[INFO] GET /Clickshot/postsOfUser?from=0&amount=30&login=Andry, time: 2023-07-11 21:00:01
+[INFO] GET /Clickshot/media/b00fa6b3-f42c-4e65-9bd1-eeb289923f4e.jpg?null, time: 2023-07-11 21:00:01
+[INFO] GET /Clickshot/media/b00fa6b3-f42c-4e65-9bd1-eeb289923f4e.jpg?null, time: 2023-07-11 21:00:02
+[INFO] GET /Clickshot/media/b00fa6b3-f42c-4e65-9bd1-eeb289923f4e.jpg?null, time: 2023-07-11 21:00:05
+[INFO] GET /Clickshot/confirm?login=Andry, time: 2023-07-11 21:00:09
+[INFO] GET /Clickshot/media/b00fa6b3-f42c-4e65-9bd1-eeb289923f4e.jpg?null, time: 2023-07-11 21:00:09
+[INFO] GET /Clickshot/confirm?login=Andry, time: 2023-07-11 21:00:14
+[INFO] GET /Clickshot/media/b00fa6b3-f42c-4e65-9bd1-eeb289923f4e.jpg?null, time: 2023-07-11 21:00:17
+[INFO] GET /Clickshot/confirm?login=Andry, time: 2023-07-11 21:00:19
+[INFO] POST /Clickshot/authorize?null, time: 2023-07-11 21:00:32
+[INFO] GET /Clickshot/ava?login=Andry, time: 2023-07-11 21:00:33
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:00:46
+[INFO] GET /Clickshot/media/b00fa6b3-f42c-4e65-9bd1-eeb289923f4e.jpg?null, time: 2023-07-11 21:00:50
+[INFO] GET /Clickshot/media/1651a955-cf10-4d02-962c-efb5f75f5d0e.mp3?null, time: 2023-07-11 21:00:53
+[INFO] GET /Clickshot/ava?login=Andry, time: 2023-07-11 21:00:54
+[INFO] GET /Clickshot/like?postId=edf61946-0a87-4241-8ab6-60a5b94e3130&login=Andry, time: 2023-07-11 21:00:54
+[INFO] GET /Clickshot/save?postId=edf61946-0a87-4241-8ab6-60a5b94e3130&login=Andry, time: 2023-07-11 21:00:54
+[INFO] GET /Clickshot/getPublicUser?login=Andry, time: 2023-07-11 21:01:09
+[INFO] GET /Clickshot/getPublicUser?login=Andry, time: 2023-07-11 21:01:10
+[INFO] GET /Clickshot/media/b00fa6b3-f42c-4e65-9bd1-eeb289923f4e.jpg?null, time: 2023-07-11 21:01:10
+[INFO] GET /Clickshot/postsOfUser?from=0&amount=30&login=Andry, time: 2023-07-11 21:01:14
+[INFO] GET /Clickshot/media/b00fa6b3-f42c-4e65-9bd1-eeb289923f4e.jpg?null, time: 2023-07-11 21:01:16
+[INFO] GET /Clickshot/media/b00fa6b3-f42c-4e65-9bd1-eeb289923f4e.jpg?null, time: 2023-07-11 21:01:16
+[INFO] GET /Clickshot/postsOfUser?from=0&amount=30&login=Andry, time: 2023-07-11 21:01:20
+[INFO] GET /Clickshot/media/b00fa6b3-f42c-4e65-9bd1-eeb289923f4e.jpg?null, time: 2023-07-11 21:01:22
+[INFO] GET /Clickshot/media/b00fa6b3-f42c-4e65-9bd1-eeb289923f4e.jpg?null, time: 2023-07-11 21:01:22
+[INFO] GET /Clickshot/media/b00fa6b3-f42c-4e65-9bd1-eeb289923f4e.jpg?null, time: 2023-07-11 21:01:26
+[INFO] GET /Clickshot/confirm?login=Andry, time: 2023-07-11 21:01:30
+[INFO] GET /Clickshot/media/b00fa6b3-f42c-4e65-9bd1-eeb289923f4e.jpg?null, time: 2023-07-11 21:01:31
+[INFO] GET /Clickshot/confirm?login=Andry, time: 2023-07-11 21:01:35
+[INFO] GET /Clickshot/confirm?login=Andry, time: 2023-07-11 21:01:40
+[INFO] GET /Clickshot/media/b00fa6b3-f42c-4e65-9bd1-eeb289923f4e.jpg?null, time: 2023-07-11 21:01:44
+[INFO] GET /Clickshot/confirm?login=Andry, time: 2023-07-11 21:01:45
+[INFO] GET /Clickshot/confirm?login=Andry, time: 2023-07-11 21:01:50
+[INFO] GET /Clickshot/confirm?login=Andry, time: 2023-07-11 21:01:55
+[INFO] GET /Clickshot/confirm?login=Andry, time: 2023-07-11 21:02:00
+[INFO] GET /Clickshot/confirm?login=Andry, time: 2023-07-11 21:02:05
+[INFO] GET /Clickshot/confirm?login=Andry, time: 2023-07-11 21:02:10
+[INFO] GET /Clickshot/confirm?login=Andry, time: 2023-07-11 21:02:33
+[INFO] GET /Clickshot/media/b00fa6b3-f42c-4e65-9bd1-eeb289923f4e.jpg?null, time: 2023-07-11 21:02:33
+[INFO] GET /Clickshot/confirm?login=Andry, time: 2023-07-11 21:02:38
+[INFO] GET /Clickshot/confirm?login=Andry, time: 2023-07-11 21:02:43
+[INFO] GET /Clickshot/confirm?login=Andry, time: 2023-07-11 21:02:48
+[INFO] GET /Clickshot/confirm?login=Andry, time: 2023-07-11 21:02:53
+[INFO] GET /Clickshot/confirm?login=Andry, time: 2023-07-11 21:02:58
+[INFO] GET /Clickshot/confirm?login=Andry, time: 2023-07-11 21:03:03
+[INFO] GET /Clickshot/confirm?login=Andry, time: 2023-07-11 21:03:08
+[INFO] GET /Clickshot/confirm?login=Andry, time: 2023-07-11 21:03:13
+[INFO] GET /Clickshot/confirm?login=Andry, time: 2023-07-11 21:03:18
+[INFO] GET /Clickshot/confirm?login=Andry, time: 2023-07-11 21:03:23
+[INFO] GET /Clickshot/media/b00fa6b3-f42c-4e65-9bd1-eeb289923f4e.jpg?null, time: 2023-07-11 21:03:32
+[INFO] GET /Clickshot/confirm?login=Andry, time: 2023-07-11 21:03:32
+[INFO] GET /Clickshot/confirm?login=Andry, time: 2023-07-11 21:03:37
+[INFO] GET /Clickshot/confirm?login=Andry, time: 2023-07-11 21:03:42
+[INFO] GET /Clickshot/confirm?login=Andry, time: 2023-07-11 21:03:47
+[INFO] GET /Clickshot/confirm?login=Andry, time: 2023-07-11 21:03:52
+[INFO] GET /Clickshot/confirm?login=Andry, time: 2023-07-11 21:03:57
+[INFO] GET /Clickshot/confirm?login=Andry, time: 2023-07-11 21:04:02
+[INFO] GET /Clickshot/confirm?login=Andry, time: 2023-07-11 21:04:07
+[INFO] GET /Clickshot/confirm?login=Andry, time: 2023-07-11 21:04:12
+[INFO] GET /Clickshot/confirm?login=Andry, time: 2023-07-11 21:04:17
+[INFO] GET /Clickshot/confirm?login=Andry, time: 2023-07-11 21:04:22
+[INFO] GET /Clickshot/confirm?login=Andry, time: 2023-07-11 21:04:27
+[INFO] GET /Clickshot/confirm?login=Andry, time: 2023-07-11 21:04:32
+[INFO] GET /Clickshot/confirm?login=Andry, time: 2023-07-11 21:04:37
+[INFO] GET /Clickshot/confirm?login=Andry, time: 2023-07-11 21:04:42
+[INFO] GET /Clickshot/confirm?login=Andry, time: 2023-07-11 21:04:47
+[INFO] GET /Clickshot/confirm?login=Andry, time: 2023-07-11 21:04:52
+[INFO] GET /Clickshot/confirm?login=Andry, time: 2023-07-11 21:04:57
+[INFO] GET /Clickshot/confirm?login=Andry, time: 2023-07-11 21:05:02
+[INFO] GET /Clickshot/confirm?login=Andry, time: 2023-07-11 21:05:07
+[INFO] GET /Clickshot/confirm?login=Andry, time: 2023-07-11 21:05:12
+[INFO] GET /Clickshot/confirm?login=Andry, time: 2023-07-11 21:05:17
+[INFO] GET /Clickshot/confirm?login=Andry, time: 2023-07-11 21:05:22
+[INFO] GET /Clickshot/confirm?login=Andry, time: 2023-07-11 21:05:27
+[INFO] POST /Clickshot/authorize?null, time: 2023-07-11 21:05:54
+[INFO] GET /Clickshot/ava?login=Andry, time: 2023-07-11 21:05:55
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:05:55
+[INFO] GET /Clickshot/media/b00fa6b3-f42c-4e65-9bd1-eeb289923f4e.jpg?null, time: 2023-07-11 21:06:00
+[INFO] GET /Clickshot/media/1651a955-cf10-4d02-962c-efb5f75f5d0e.mp3?null, time: 2023-07-11 21:06:00
+[INFO] GET /Clickshot/ava?login=Andry, time: 2023-07-11 21:06:01
+[INFO] GET /Clickshot/like?postId=edf61946-0a87-4241-8ab6-60a5b94e3130&login=Andry, time: 2023-07-11 21:06:01
+[INFO] GET /Clickshot/save?postId=edf61946-0a87-4241-8ab6-60a5b94e3130&login=Andry, time: 2023-07-11 21:06:01
+[INFO] GET /Clickshot/media/b00fa6b3-f42c-4e65-9bd1-eeb289923f4e.jpg?null, time: 2023-07-11 21:06:02
+[INFO] GET /Clickshot/getPublicUser?login=Andry, time: 2023-07-11 21:06:06
+[INFO] GET /Clickshot/postsOfUser?from=0&amount=30&login=Andry, time: 2023-07-11 21:06:07
+[INFO] GET /Clickshot/media/b00fa6b3-f42c-4e65-9bd1-eeb289923f4e.jpg?null, time: 2023-07-11 21:06:07
+[INFO] GET /Clickshot/media/b00fa6b3-f42c-4e65-9bd1-eeb289923f4e.jpg?null, time: 2023-07-11 21:06:07
+[INFO] GET /Clickshot/media/b00fa6b3-f42c-4e65-9bd1-eeb289923f4e.jpg?null, time: 2023-07-11 21:06:09
+[INFO] GET /Clickshot/confirm?login=Andry, time: 2023-07-11 21:06:14
+[INFO] GET /Clickshot/media/b00fa6b3-f42c-4e65-9bd1-eeb289923f4e.jpg?null, time: 2023-07-11 21:06:19
+[INFO] GET /Clickshot/confirm?login=Andry, time: 2023-07-11 21:06:19
+[INFO] GET /Clickshot/confirm?login=Andry, time: 2023-07-11 21:06:24
+[INFO] GET /Clickshot/confirm?login=Andry, time: 2023-07-11 21:06:29
+[INFO] POST /Clickshot/authorize?null, time: 2023-07-11 21:10:13
+[INFO] GET /Clickshot/ava?login=Andry, time: 2023-07-11 21:10:14
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:10:14
+[INFO] GET /Clickshot/media/b00fa6b3-f42c-4e65-9bd1-eeb289923f4e.jpg?null, time: 2023-07-11 21:10:16
+[INFO] GET /Clickshot/media/1651a955-cf10-4d02-962c-efb5f75f5d0e.mp3?null, time: 2023-07-11 21:10:16
+[INFO] GET /Clickshot/ava?login=Andry, time: 2023-07-11 21:10:16
+[INFO] GET /Clickshot/save?postId=edf61946-0a87-4241-8ab6-60a5b94e3130&login=Andry, time: 2023-07-11 21:10:16
+[INFO] GET /Clickshot/like?postId=edf61946-0a87-4241-8ab6-60a5b94e3130&login=Andry, time: 2023-07-11 21:10:16
+[INFO] GET /Clickshot/media/b00fa6b3-f42c-4e65-9bd1-eeb289923f4e.jpg?null, time: 2023-07-11 21:10:17
+[INFO] GET /Clickshot/getPublicUser?login=Andry, time: 2023-07-11 21:10:18
+[INFO] GET /Clickshot/postsOfUser?from=0&amount=30&login=Andry, time: 2023-07-11 21:10:19
+[INFO] GET /Clickshot/media/b00fa6b3-f42c-4e65-9bd1-eeb289923f4e.jpg?null, time: 2023-07-11 21:10:19
+[INFO] GET /Clickshot/media/b00fa6b3-f42c-4e65-9bd1-eeb289923f4e.jpg?null, time: 2023-07-11 21:10:19
+[INFO] GET /Clickshot/media/b00fa6b3-f42c-4e65-9bd1-eeb289923f4e.jpg?null, time: 2023-07-11 21:10:21
+[INFO] GET /Clickshot/confirm?login=Andry, time: 2023-07-11 21:10:27
+[INFO] GET /Clickshot/media/b00fa6b3-f42c-4e65-9bd1-eeb289923f4e.jpg?null, time: 2023-07-11 21:10:27
+[INFO] GET /Clickshot/confirm?login=Andry, time: 2023-07-11 21:10:32
+[INFO] GET /Clickshot/confirm?login=Andry, time: 2023-07-11 21:10:37
+[INFO] GET /Clickshot/confirm?login=Andry, time: 2023-07-11 21:10:42
+[INFO] GET /Clickshot/confirm?login=Andry, time: 2023-07-11 21:10:47
+[INFO] GET /Clickshot/confirm?login=Andry, time: 2023-07-11 21:10:52
+[INFO] GET /Clickshot/confirm?login=Andry, time: 2023-07-11 21:10:57
+[INFO] GET /Clickshot/confirm?login=Andry, time: 2023-07-11 21:11:02
+[INFO] GET /Clickshot/confirm?login=Andry, time: 2023-07-11 21:11:07
+[INFO] GET /Clickshot/confirm?login=Andry, time: 2023-07-11 21:11:12
+[INFO] GET /Clickshot/confirm?login=Andry, time: 2023-07-11 21:11:17
+[INFO] GET /Clickshot/confirm?login=Andry, time: 2023-07-11 21:11:22
+[INFO] GET /Clickshot/confirm?login=Andry, time: 2023-07-11 21:11:27
+[INFO] GET /Clickshot/confirm?login=Andry, time: 2023-07-11 21:11:32
+[INFO] GET /Clickshot/confirm?login=Andry, time: 2023-07-11 21:11:37
+[INFO] GET /Clickshot/confirm?login=Andry, time: 2023-07-11 21:11:42
+[INFO] GET /Clickshot/confirm?login=Andry, time: 2023-07-11 21:11:47
+[INFO] GET /Clickshot/confirm?login=Andry, time: 2023-07-11 21:11:52
+[INFO] GET /Clickshot/confirm?login=Andry, time: 2023-07-11 21:11:57
+[INFO] GET /Clickshot/confirm?login=Andry, time: 2023-07-11 21:12:02
+[INFO] GET /Clickshot/confirm?login=Andry, time: 2023-07-11 21:12:07
+[INFO] GET /Clickshot/confirm?login=Andry, time: 2023-07-11 21:12:12
+[INFO] GET /Clickshot/confirm?login=Andry, time: 2023-07-11 21:12:17
+[INFO] GET /Clickshot/confirm?login=Andry, time: 2023-07-11 21:12:22
+[INFO] GET /Clickshot/confirm?login=Andry, time: 2023-07-11 21:12:27
+[INFO] GET /Clickshot/confirm?login=Andry, time: 2023-07-11 21:12:32
+[INFO] GET /Clickshot/confirm?login=Andry, time: 2023-07-11 21:12:37
+[INFO] GET /Clickshot/confirm?login=Andry, time: 2023-07-11 21:12:42
+[INFO] GET /Clickshot/confirm?login=Andry, time: 2023-07-11 21:12:47
+[INFO] POST /Clickshot/authorize?null, time: 2023-07-11 21:12:58
+[INFO] GET /Clickshot/ava?login=Andry, time: 2023-07-11 21:12:58
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:12:59
+[INFO] GET /Clickshot/media/b00fa6b3-f42c-4e65-9bd1-eeb289923f4e.jpg?null, time: 2023-07-11 21:13:00
+[INFO] GET /Clickshot/media/1651a955-cf10-4d02-962c-efb5f75f5d0e.mp3?null, time: 2023-07-11 21:13:00
+[INFO] GET /Clickshot/ava?login=Andry, time: 2023-07-11 21:13:00
+[INFO] GET /Clickshot/like?postId=edf61946-0a87-4241-8ab6-60a5b94e3130&login=Andry, time: 2023-07-11 21:13:00
+[INFO] GET /Clickshot/save?postId=edf61946-0a87-4241-8ab6-60a5b94e3130&login=Andry, time: 2023-07-11 21:13:00
+[INFO] GET /Clickshot/media/b00fa6b3-f42c-4e65-9bd1-eeb289923f4e.jpg?null, time: 2023-07-11 21:13:01
+[INFO] GET /Clickshot/getPublicUser?login=Andry, time: 2023-07-11 21:13:02
+[INFO] GET /Clickshot/postsOfUser?from=0&amount=30&login=Andry, time: 2023-07-11 21:13:03
+[INFO] GET /Clickshot/media/b00fa6b3-f42c-4e65-9bd1-eeb289923f4e.jpg?null, time: 2023-07-11 21:13:04
+[INFO] GET /Clickshot/media/b00fa6b3-f42c-4e65-9bd1-eeb289923f4e.jpg?null, time: 2023-07-11 21:13:04
+[INFO] GET /Clickshot/media/b00fa6b3-f42c-4e65-9bd1-eeb289923f4e.jpg?null, time: 2023-07-11 21:13:05
+[INFO] GET /Clickshot/media/b00fa6b3-f42c-4e65-9bd1-eeb289923f4e.jpg?null, time: 2023-07-11 21:13:09
+[INFO] GET /Clickshot/confirm?login=Andry, time: 2023-07-11 21:13:10
+[INFO] GET /Clickshot/confirm?login=Andry, time: 2023-07-11 21:13:15
+[INFO] GET /Clickshot/confirm?login=Andry, time: 2023-07-11 21:13:20
+[INFO] GET /Clickshot/confirm?login=Andry, time: 2023-07-11 21:13:25
+[INFO] GET /Clickshot/confirm?login=Andry, time: 2023-07-11 21:13:30
+[INFO] POST /Clickshot/authorize?null, time: 2023-07-11 21:13:36
+[INFO] GET /Clickshot/ava?login=Andry, time: 2023-07-11 21:13:37
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:13:37
+[INFO] GET /Clickshot/media/b00fa6b3-f42c-4e65-9bd1-eeb289923f4e.jpg?null, time: 2023-07-11 21:13:38
+[INFO] GET /Clickshot/media/1651a955-cf10-4d02-962c-efb5f75f5d0e.mp3?null, time: 2023-07-11 21:13:38
+[INFO] GET /Clickshot/ava?login=Andry, time: 2023-07-11 21:13:39
+[INFO] GET /Clickshot/like?postId=edf61946-0a87-4241-8ab6-60a5b94e3130&login=Andry, time: 2023-07-11 21:13:39
+[INFO] GET /Clickshot/save?postId=edf61946-0a87-4241-8ab6-60a5b94e3130&login=Andry, time: 2023-07-11 21:13:39
+[INFO] GET /Clickshot/media/b00fa6b3-f42c-4e65-9bd1-eeb289923f4e.jpg?null, time: 2023-07-11 21:13:40
+[INFO] GET /Clickshot/getPublicUser?login=Andry, time: 2023-07-11 21:13:41
+[INFO] GET /Clickshot/postsOfUser?from=0&amount=30&login=Andry, time: 2023-07-11 21:13:41
+[INFO] GET /Clickshot/media/b00fa6b3-f42c-4e65-9bd1-eeb289923f4e.jpg?null, time: 2023-07-11 21:13:42
+[INFO] GET /Clickshot/media/b00fa6b3-f42c-4e65-9bd1-eeb289923f4e.jpg?null, time: 2023-07-11 21:13:42
+[INFO] GET /Clickshot/media/b00fa6b3-f42c-4e65-9bd1-eeb289923f4e.jpg?null, time: 2023-07-11 21:13:44
+[INFO] GET /Clickshot/media/b00fa6b3-f42c-4e65-9bd1-eeb289923f4e.jpg?null, time: 2023-07-11 21:13:48
+[INFO] GET /Clickshot/confirm?login=Andry, time: 2023-07-11 21:13:49
+[INFO] GET /Clickshot/confirm?login=Andry, time: 2023-07-11 21:13:54
+[INFO] GET /Clickshot/confirm?login=Andry, time: 2023-07-11 21:13:59
+[INFO] GET /Clickshot/confirm?login=Andry, time: 2023-07-11 21:14:04
+[INFO] POST /Clickshot/authorize?null, time: 2023-07-11 21:20:41
+[ERROR] UserDAO::getUser() Communications link failure
+
+The last packet successfully received from the server was 396 711 milliseconds ago. The last packet sent successfully to the server was 396 815 milliseconds ago.
+SELECT * FROM Users WHERE login = ? AND deleted IS null
+[INFO] POST /Clickshot/authorize?null, time: 2023-07-11 21:21:11
+[ERROR] UserDAO::getUser() No operations allowed after connection closed.
+SELECT * FROM Users WHERE login = ? AND deleted IS null
+[INFO] POST /Clickshot/authorize?null, time: 2023-07-11 21:21:14
+[ERROR] UserDAO::getUser() No operations allowed after connection closed.
+SELECT * FROM Users WHERE login = ? AND deleted IS null
+[INFO] POST /Clickshot/authorize?null, time: 2023-07-11 21:22:06
+[INFO] GET /Clickshot/ava?login=Andry, time: 2023-07-11 21:22:07
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:22:07
+[INFO] GET /Clickshot/ava?login=Andry, time: 2023-07-11 21:22:07
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:22:08
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:22:08
+[INFO] GET /Clickshot/ava?login=Andry, time: 2023-07-11 21:22:08
+[INFO] GET /Clickshot/ava?login=Andry, time: 2023-07-11 21:22:08
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:22:08
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:22:08
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:22:08
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:22:09
+[INFO] GET /Clickshot/ava?login=Andry, time: 2023-07-11 21:22:09
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:22:09
+[INFO] GET /Clickshot/ava?login=Andry, time: 2023-07-11 21:22:09
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:22:09
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:22:09
+[INFO] GET /Clickshot/ava?login=Andry, time: 2023-07-11 21:22:09
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:22:09
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:22:09
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:22:09
+[INFO] GET /Clickshot/ava?login=Andry, time: 2023-07-11 21:22:10
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:22:10
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:22:10
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:22:10
+[INFO] GET /Clickshot/ava?login=Andry, time: 2023-07-11 21:22:10
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:22:10
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:22:10
+[INFO] GET /Clickshot/ava?login=Andry, time: 2023-07-11 21:22:10
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:22:10
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:22:10
+[INFO] GET /Clickshot/ava?login=Andry, time: 2023-07-11 21:22:11
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:22:11
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:22:11
+[INFO] GET /Clickshot/ava?login=Andry, time: 2023-07-11 21:22:11
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:22:11
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:22:12
+[INFO] GET /Clickshot/ava?login=Andry, time: 2023-07-11 21:22:12
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:22:12
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:22:12
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:22:12
+[INFO] GET /Clickshot/ava?login=Andry, time: 2023-07-11 21:22:12
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:22:12
+[INFO] GET /Clickshot/ava?login=Andry, time: 2023-07-11 21:22:12
+[INFO] GET /Clickshot/ava?login=Andry, time: 2023-07-11 21:22:13
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:22:13
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:22:13
+[INFO] GET /Clickshot/ava?login=Andry, time: 2023-07-11 21:22:13
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:22:13
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:22:13
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:22:13
+[INFO] GET /Clickshot/ava?login=Andry, time: 2023-07-11 21:22:13
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:22:13
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:22:13
+[INFO] GET /Clickshot/ava?login=Andry, time: 2023-07-11 21:22:14
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:22:14
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:22:14
+[INFO] GET /Clickshot/ava?login=Andry, time: 2023-07-11 21:22:14
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:22:14
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:22:14
+[INFO] GET /Clickshot/ava?login=Andry, time: 2023-07-11 21:22:14
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:22:15
+[INFO] GET /Clickshot/ava?login=Andry, time: 2023-07-11 21:22:15
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:22:15
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:22:15
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:22:15
+[INFO] GET /Clickshot/ava?login=Andry, time: 2023-07-11 21:22:15
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:22:15
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:22:15
+[INFO] GET /Clickshot/ava?login=Andry, time: 2023-07-11 21:22:15
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:22:15
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:22:15
+[INFO] GET /Clickshot/ava?login=Andry, time: 2023-07-11 21:22:16
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:22:16
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:22:16
+[INFO] GET /Clickshot/ava?login=Andry, time: 2023-07-11 21:22:16
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:22:16
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:22:17
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:22:17
+[INFO] GET /Clickshot/ava?login=Andry, time: 2023-07-11 21:22:17
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:22:17
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:22:17
+[INFO] GET /Clickshot/ava?login=Andry, time: 2023-07-11 21:22:17
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:22:17
+[INFO] GET /Clickshot/ava?login=Andry, time: 2023-07-11 21:22:17
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:22:17
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:22:17
+[INFO] GET /Clickshot/ava?login=Andry, time: 2023-07-11 21:22:17
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:22:18
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:22:18
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:22:18
+[INFO] GET /Clickshot/ava?login=Andry, time: 2023-07-11 21:22:18
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:22:18
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:22:18
+[INFO] GET /Clickshot/ava?login=Andry, time: 2023-07-11 21:22:18
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:22:18
+[INFO] GET /Clickshot/ava?login=Andry, time: 2023-07-11 21:22:19
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:22:19
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:22:19
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:22:19
+[INFO] GET /Clickshot/ava?login=Andry, time: 2023-07-11 21:22:19
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:22:19
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:22:19
+[INFO] GET /Clickshot/ava?login=Andry, time: 2023-07-11 21:22:19
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:22:19
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:22:19
+[INFO] GET /Clickshot/ava?login=Andry, time: 2023-07-11 21:22:19
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:22:20
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:22:20
+[INFO] GET /Clickshot/ava?login=Andry, time: 2023-07-11 21:22:20
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:22:20
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:22:20
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:22:20
+[INFO] GET /Clickshot/ava?login=Andry, time: 2023-07-11 21:22:20
+[INFO] GET /Clickshot/ava?login=Andry, time: 2023-07-11 21:22:20
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:22:21
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:22:21
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:22:21
+[INFO] GET /Clickshot/ava?login=Andry, time: 2023-07-11 21:22:21
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:22:21
+[INFO] GET /Clickshot/ava?login=Andry, time: 2023-07-11 21:22:21
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:22:21
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:22:22
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:22:22
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:22:22
+[INFO] GET /Clickshot/ava?login=Andry, time: 2023-07-11 21:22:22
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:22:22
+[INFO] GET /Clickshot/ava?login=Andry, time: 2023-07-11 21:22:22
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:22:22
+[INFO] GET /Clickshot/ava?login=Andry, time: 2023-07-11 21:22:22
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:22:22
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:22:22
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:22:23
+[INFO] GET /Clickshot/ava?login=Andry, time: 2023-07-11 21:22:23
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:22:23
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:22:23
+[INFO] GET /Clickshot/ava?login=Andry, time: 2023-07-11 21:22:23
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:22:24
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:22:24
+[INFO] GET /Clickshot/ava?login=Andry, time: 2023-07-11 21:22:24
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:22:24
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:22:24
+[INFO] GET /Clickshot/ava?login=Andry, time: 2023-07-11 21:22:24
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:22:25
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:22:25
+[INFO] GET /Clickshot/ava?login=Andry, time: 2023-07-11 21:22:25
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:22:25
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:22:25
+[INFO] GET /Clickshot/ava?login=Andry, time: 2023-07-11 21:22:25
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:22:25
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:22:25
+[INFO] GET /Clickshot/ava?login=Andry, time: 2023-07-11 21:22:25
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:22:25
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:22:25
+[INFO] GET /Clickshot/ava?login=Andry, time: 2023-07-11 21:22:26
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:22:26
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:22:26
+[INFO] GET /Clickshot/ava?login=Andry, time: 2023-07-11 21:22:26
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:22:26
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:22:27
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:22:27
+[INFO] GET /Clickshot/ava?login=Andry, time: 2023-07-11 21:22:27
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:22:27
+[INFO] GET /Clickshot/ava?login=Andry, time: 2023-07-11 21:22:27
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:22:27
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:22:27
+[INFO] GET /Clickshot/ava?login=Andry, time: 2023-07-11 21:22:27
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:22:28
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:22:28
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:22:28
+[INFO] GET /Clickshot/ava?login=Andry, time: 2023-07-11 21:22:28
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:22:28
+[INFO] GET /Clickshot/ava?login=Andry, time: 2023-07-11 21:22:28
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:22:28
+[INFO] GET /Clickshot/ava?login=Andry, time: 2023-07-11 21:22:28
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:22:28
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:22:28
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:22:29
+[INFO] GET /Clickshot/ava?login=Andry, time: 2023-07-11 21:22:29
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:22:29
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:22:29
+[INFO] GET /Clickshot/ava?login=Andry, time: 2023-07-11 21:22:29
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:22:29
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:22:30
+[INFO] GET /Clickshot/ava?login=Andry, time: 2023-07-11 21:22:30
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:22:30
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:22:30
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:22:30
+[INFO] GET /Clickshot/ava?login=Andry, time: 2023-07-11 21:22:30
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:22:30
+[INFO] GET /Clickshot/ava?login=Andry, time: 2023-07-11 21:22:31
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:22:31
+[INFO] GET /Clickshot/ava?login=Andry, time: 2023-07-11 21:22:31
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:22:31
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:22:31
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:22:31
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:22:31
+[INFO] GET /Clickshot/ava?login=Andry, time: 2023-07-11 21:22:31
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:22:31
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:22:32
+[INFO] GET /Clickshot/ava?login=Andry, time: 2023-07-11 21:22:32
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:22:32
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:22:32
+[INFO] GET /Clickshot/ava?login=Andry, time: 2023-07-11 21:22:32
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:22:32
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:22:32
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:22:32
+[INFO] GET /Clickshot/ava?login=Andry, time: 2023-07-11 21:22:32
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:22:32
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:22:33
+[INFO] GET /Clickshot/ava?login=Andry, time: 2023-07-11 21:22:33
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:22:33
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:22:33
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:22:33
+[INFO] GET /Clickshot/ava?login=Andry, time: 2023-07-11 21:22:33
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:22:33
+[INFO] GET /Clickshot/ava?login=Andry, time: 2023-07-11 21:22:34
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:22:34
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:22:34
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:22:34
+[INFO] GET /Clickshot/ava?login=Andry, time: 2023-07-11 21:22:34
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:22:35
+[INFO] GET /Clickshot/ava?login=Andry, time: 2023-07-11 21:22:35
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:22:35
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:22:35
+[INFO] GET /Clickshot/ava?login=Andry, time: 2023-07-11 21:22:35
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:22:35
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:22:35
+[INFO] GET /Clickshot/ava?login=Andry, time: 2023-07-11 21:22:35
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:22:35
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:22:35
+[INFO] GET /Clickshot/ava?login=Andry, time: 2023-07-11 21:22:35
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:22:36
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:22:36
+[INFO] GET /Clickshot/ava?login=Andry, time: 2023-07-11 21:22:36
+[INFO] GET /Clickshot/ava?login=Andry, time: 2023-07-11 21:22:36
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:22:36
+[INFO] GET /Clickshot/ava?login=Andry, time: 2023-07-11 21:22:36
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:22:36
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:22:36
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:22:36
+[INFO] GET /Clickshot/ava?login=Andry, time: 2023-07-11 21:22:36
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:22:37
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:22:37
+[INFO] GET /Clickshot/ava?login=Andry, time: 2023-07-11 21:22:37
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:22:37
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:22:37
+[INFO] GET /Clickshot/ava?login=Andry, time: 2023-07-11 21:22:37
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:22:37
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:22:37
+[INFO] GET /Clickshot/ava?login=Andry, time: 2023-07-11 21:22:38
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:22:38
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:22:38
+[INFO] GET /Clickshot/ava?login=Andry, time: 2023-07-11 21:22:38
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:22:38
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:22:38
+[INFO] GET /Clickshot/ava?login=Andry, time: 2023-07-11 21:22:38
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:22:38
+[INFO] GET /Clickshot/ava?login=Andry, time: 2023-07-11 21:22:39
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:22:39
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:22:39
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:22:39
+[INFO] GET /Clickshot/ava?login=Andry, time: 2023-07-11 21:22:39
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:22:39
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:22:39
+[INFO] GET /Clickshot/ava?login=Andry, time: 2023-07-11 21:22:39
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:22:39
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:22:40
+[INFO] GET /Clickshot/ava?login=Andry, time: 2023-07-11 21:22:40
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:22:40
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:22:40
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:22:40
+[INFO] GET /Clickshot/ava?login=Andry, time: 2023-07-11 21:22:40
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:22:40
+[INFO] GET /Clickshot/ava?login=Andry, time: 2023-07-11 21:22:40
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:22:40
+[INFO] GET /Clickshot/ava?login=Andry, time: 2023-07-11 21:22:40
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:22:41
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:22:41
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:22:41
+[INFO] GET /Clickshot/ava?login=Andry, time: 2023-07-11 21:22:41
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:22:41
+[INFO] POST /Clickshot/authorize?null, time: 2023-07-11 21:23:16
+[INFO] GET /Clickshot/ava?login=Suslik, time: 2023-07-11 21:23:17
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:23:17
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:23:17
+[INFO] GET /Clickshot/ava?login=Suslik, time: 2023-07-11 21:23:17
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:23:17
+[INFO] GET /Clickshot/ava?login=Suslik, time: 2023-07-11 21:23:17
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:23:18
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:23:18
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:23:18
+[INFO] GET /Clickshot/ava?login=Suslik, time: 2023-07-11 21:23:18
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:23:18
+[INFO] GET /Clickshot/ava?login=Suslik, time: 2023-07-11 21:23:18
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:23:18
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:23:18
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:23:18
+[INFO] GET /Clickshot/ava?login=Suslik, time: 2023-07-11 21:23:18
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:23:19
+[INFO] GET /Clickshot/ava?login=Suslik, time: 2023-07-11 21:23:19
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:23:19
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:23:19
+[INFO] GET /Clickshot/ava?login=Suslik, time: 2023-07-11 21:23:19
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:23:19
+[INFO] GET /Clickshot/ava?login=Suslik, time: 2023-07-11 21:23:19
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:23:19
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:23:19
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:23:19
+[INFO] GET /Clickshot/ava?login=Suslik, time: 2023-07-11 21:23:20
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:23:20
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:23:20
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:23:20
+[INFO] GET /Clickshot/ava?login=Suslik, time: 2023-07-11 21:23:20
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:23:20
+[INFO] GET /Clickshot/ava?login=Suslik, time: 2023-07-11 21:23:20
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:23:21
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:23:21
+[INFO] GET /Clickshot/ava?login=Suslik, time: 2023-07-11 21:23:21
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:23:21
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:23:21
+[INFO] GET /Clickshot/ava?login=Suslik, time: 2023-07-11 21:23:21
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:23:21
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:23:21
+[INFO] GET /Clickshot/ava?login=Suslik, time: 2023-07-11 21:23:22
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:23:22
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:23:22
+[INFO] GET /Clickshot/ava?login=Suslik, time: 2023-07-11 21:23:22
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:23:22
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:23:22
+[INFO] GET /Clickshot/ava?login=Suslik, time: 2023-07-11 21:23:22
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:23:22
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:23:22
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:23:22
+[INFO] GET /Clickshot/ava?login=Suslik, time: 2023-07-11 21:23:22
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:23:23
+[INFO] GET /Clickshot/ava?login=Suslik, time: 2023-07-11 21:23:23
+[INFO] GET /Clickshot/ava?login=Suslik, time: 2023-07-11 21:23:23
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:23:23
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:23:23
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:23:23
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:23:24
+[INFO] GET /Clickshot/ava?login=Suslik, time: 2023-07-11 21:23:24
+[INFO] GET /Clickshot/ava?login=Suslik, time: 2023-07-11 21:23:24
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:23:24
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:23:24
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:23:24
+[INFO] GET /Clickshot/ava?login=Suslik, time: 2023-07-11 21:23:24
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:23:24
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:23:24
+[INFO] GET /Clickshot/ava?login=Suslik, time: 2023-07-11 21:23:24
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:23:25
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:23:25
+[INFO] GET /Clickshot/ava?login=Suslik, time: 2023-07-11 21:23:25
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:23:25
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:23:25
+[INFO] GET /Clickshot/ava?login=Suslik, time: 2023-07-11 21:23:25
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:23:25
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:23:26
+[INFO] GET /Clickshot/ava?login=Suslik, time: 2023-07-11 21:23:26
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:23:26
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:23:26
+[INFO] GET /Clickshot/ava?login=Suslik, time: 2023-07-11 21:23:26
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:23:26
+[INFO] GET /Clickshot/ava?login=Suslik, time: 2023-07-11 21:23:26
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:23:26
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:23:26
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:23:27
+[INFO] GET /Clickshot/ava?login=Suslik, time: 2023-07-11 21:23:27
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:23:27
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:23:27
+[INFO] GET /Clickshot/ava?login=Suslik, time: 2023-07-11 21:23:27
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:23:27
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:23:27
+[INFO] GET /Clickshot/ava?login=Suslik, time: 2023-07-11 21:23:27
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:23:27
+[INFO] POST /Clickshot/authorize?null, time: 2023-07-11 21:40:07
+[INFO] GET /Clickshot/ava?login=Suslik, time: 2023-07-11 21:40:08
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-11 21:40:08
+[INFO] GET /Clickshot/media/user_icon_without_photo.PNG?null, time: 2023-07-11 21:40:09
+[INFO] GET /Clickshot/media/1651a955-cf10-4d02-962c-efb5f75f5d0e.mp3?null, time: 2023-07-11 21:40:09
+[INFO] GET /Clickshot/ava?login=Andry, time: 2023-07-11 21:40:13
+[INFO] GET /Clickshot/media/1651a955-cf10-4d02-962c-efb5f75f5d0e.mp3?null, time: 2023-07-11 21:41:01
+[INFO] GET /Clickshot/media/1651a955-cf10-4d02-962c-efb5f75f5d0e.mp3?null, time: 2023-07-11 21:41:01
+[INFO] POST /Clickshot/authorize?null, time: 2023-07-12 13:41:42
+[INFO] GET /Clickshot/ava?login=Andry, time: 2023-07-12 13:41:44
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-12 13:41:45
+[INFO] POST /Clickshot/authorize?null, time: 2023-07-12 13:42:52
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-12 13:42:53
+[INFO] POST /Clickshot/authorize?null, time: 2023-07-12 13:43:04
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-12 13:43:05
+[INFO] POST /Clickshot/authorize?null, time: 2023-07-12 13:44:26
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-12 13:44:27
+[INFO] POST /Clickshot/findUser?null, time: 2023-07-12 13:44:29
+[INFO] GET /Clickshot/ava?login=Andry, time: 2023-07-12 13:44:30
+[INFO] GET /Clickshot/ava?login=Ivan, time: 2023-07-12 13:44:30
+[INFO] POST /Clickshot/isSubscribed?null, time: 2023-07-12 13:44:30
+[INFO] POST /Clickshot/isSubscribed?null, time: 2023-07-12 13:44:31
+[INFO] GET /Clickshot/ava?login=Mira, time: 2023-07-12 13:44:31
+[INFO] GET /Clickshot/ava?login=Suslik, time: 2023-07-12 13:44:31
+[INFO] POST /Clickshot/isSubscribed?null, time: 2023-07-12 13:44:31
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-12 13:44:41
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-12 13:44:44
+[INFO] POST /Clickshot/authorize?null, time: 2023-07-12 13:46:09
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-12 13:46:12
+[INFO] POST /Clickshot/authorize?null, time: 2023-07-12 13:47:24
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-12 13:47:25
+[INFO] POST /Clickshot/authorize?null, time: 2023-07-12 13:47:56
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-12 13:47:56
+[INFO] GET /Clickshot/?null, time: 2023-07-12 13:48:28
+[INFO] GET /Clickshot/media?null, time: 2023-07-12 13:48:32
+[INFO] POST /Clickshot/authorize?null, time: 2023-07-12 13:50:10
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-12 13:50:19
+[INFO] GET /Clickshot/getPublicUser?login=Andry, time: 2023-07-12 13:50:21
+[INFO] GET /Clickshot/postsOfUser?from=0&amount=30&login=Andry, time: 2023-07-12 13:50:24
+[INFO] GET /Clickshot/confirm?login=Andry, time: 2023-07-12 13:50:38
+[INFO] GET /Clickshot/confirm?login=Andry, time: 2023-07-12 13:50:43
+[INFO] GET /Clickshot/confirm?login=Andry, time: 2023-07-12 13:50:48
+[INFO] GET /Clickshot/confirm?login=Andry, time: 2023-07-12 13:50:53
+[INFO] POST /Clickshot/authorize?null, time: 2023-07-12 13:54:23
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-12 13:54:24
+[INFO] GET /Clickshot/getPublicUser?login=Andry, time: 2023-07-12 13:54:26
+[INFO] GET /Clickshot/postsOfUser?from=0&amount=30&login=Andry, time: 2023-07-12 13:54:27
+[INFO] GET /Clickshot/confirm?login=Andry, time: 2023-07-12 13:54:35
+[INFO] POST /Clickshot/ava?null, time: 2023-07-12 13:54:37
+[INFO] GET /Clickshot/postsOfUser?from=0&amount=30&login=Andry, time: 2023-07-12 13:54:37
+[INFO] POST /Clickshot/changeUser?null, time: 2023-07-12 13:54:37
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-12 13:59:34
+[INFO] GET /Clickshot/confirm?login=Andry, time: 2023-07-12 13:59:34
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-12 13:59:34
+[INFO] GET /Clickshot/confirm?login=Andry, time: 2023-07-12 13:59:34
+[INFO] GET /Clickshot/confirm?login=Andry, time: 2023-07-12 13:59:34
+[INFO] GET /Clickshot/confirm?login=Andry, time: 2023-07-12 13:59:34
+[INFO] GET /Clickshot/confirm?login=Andry, time: 2023-07-12 13:59:34
+[INFO] GET /Clickshot/confirm?login=Andry, time: 2023-07-12 13:59:34
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-12 13:59:34
+[INFO] GET /Clickshot/getPublicUser?login=Andry, time: 2023-07-12 13:59:34
+[INFO] GET /Clickshot/confirm?login=Andry, time: 2023-07-12 13:59:34
+[INFO] POST /Clickshot/authorize?null, time: 2023-07-12 13:59:34
+[INFO] GET /Clickshot/confirm?login=Andry, time: 2023-07-12 13:59:34
+[INFO] GET /Clickshot/confirm?login=Andry, time: 2023-07-12 13:59:34
+[INFO] GET /Clickshot/confirm?login=Andry, time: 2023-07-12 13:59:34
+[INFO] GET /Clickshot/confirm?login=Andry, time: 2023-07-12 13:59:34
+[INFO] POST /Clickshot/authorize?null, time: 2023-07-12 13:59:34
+[INFO] GET /Clickshot/confirm?login=Andry, time: 2023-07-12 13:59:34
+[INFO] POST /Clickshot/authorize?null, time: 2023-07-12 13:59:34
+[INFO] POST /Clickshot/authorize?null, time: 2023-07-12 13:59:34
+[INFO] POST /Clickshot/authorize?null, time: 2023-07-12 13:59:34
+[ERROR] UserDAO::getUserByToken() Communications link failure
+
+The last packet successfully received from the server was 18 milliseconds ago. The last packet sent successfully to the server was 297 587 milliseconds ago.
+SELECT * FROM Users WHERE token = ? AND deleted IS null -- 4a47b046-60cd-4852-8c2b-c97afb49be8c
+[ERROR] UserDAO::getUser() No operations allowed after connection closed.
+SELECT * FROM Users WHERE login = ? AND deleted IS null
+[ERROR] UserDAO::getUser() No operations allowed after connection closed.
+SELECT * FROM Users WHERE login = ? AND deleted IS null
+[ERROR] UserDAO::getUser() No operations allowed after connection closed.
+SELECT * FROM Users WHERE login = ? AND deleted IS null
+[ERROR] UserDAO::getUser() No operations allowed after connection closed.
+SELECT * FROM Users WHERE login = ? AND deleted IS null
+[ERROR] UserDAO::getUser() No operations allowed after connection closed.
+SELECT * FROM Users WHERE login = ? AND deleted IS null
+[ERROR] UserDAO::getUser() No operations allowed after connection closed.
+SELECT * FROM Users WHERE login = ? AND deleted IS null
+[ERROR] UserDAO::getUser() No operations allowed after connection closed.
+SELECT * FROM Users WHERE login = ? AND deleted IS null
+[ERROR] UserDAO::getUser() No operations allowed after connection closed.
+SELECT * FROM Users WHERE login = ? AND deleted IS null
+[ERROR] UserDAO::getUser() No operations allowed after connection closed.
+SELECT * FROM Users WHERE login = ? AND deleted IS null
+[ERROR] PostDAO::findSomePosts() No operations allowed after connection closed.
+SELECT * FROM Posts WHERE deleted IS null AND baned IS null AND author LIKE ? AND mediaUrl REGEXP ?  ORDER BY addDate LIMIT ?, ?
+[ERROR] UserDAO::getUser() No operations allowed after connection closed.
+SELECT * FROM Users WHERE login = ? AND deleted IS null
+[ERROR] UserDAO::getUser() No operations allowed after connection closed.
+SELECT * FROM Users WHERE login = ? AND deleted IS null
+[ERROR] UserDAO::getUser() No operations allowed after connection closed.
+SELECT * FROM Users WHERE login = ? AND deleted IS null
+[ERROR] UserDAO::getUser() No operations allowed after connection closed.
+SELECT * FROM Users WHERE login = ? AND deleted IS null
+[ERROR] UserDAO::getUser() No operations allowed after connection closed.
+SELECT * FROM Users WHERE login = ? AND deleted IS null
+[ERROR] UserDAO::getUser() No operations allowed after connection closed.
+SELECT * FROM Users WHERE login = ? AND deleted IS null
+[ERROR] UserDAO::getUser() No operations allowed after connection closed.
+SELECT * FROM Users WHERE login = ? AND deleted IS null
+[ERROR] PostDAO::findSomePosts() No operations allowed after connection closed.
+SELECT * FROM Posts WHERE deleted IS null AND baned IS null AND author LIKE ? AND mediaUrl REGEXP ?  ORDER BY addDate LIMIT ?, ?
+[ERROR] PostDAO::findSomePosts() No operations allowed after connection closed.
+SELECT * FROM Posts WHERE deleted IS null AND baned IS null AND author LIKE ? AND mediaUrl REGEXP ?  ORDER BY addDate LIMIT ?, ?
+[ERROR] UserDAO::getUser() No operations allowed after connection closed.
+SELECT * FROM Users WHERE login = ? AND deleted IS null
+[ERROR] UserDAO::getUser() No operations allowed after connection closed.
+SELECT * FROM Users WHERE login = ? AND deleted IS null
+[ERROR] UserDAO::getUser() No operations allowed after connection closed.
+SELECT * FROM Users WHERE login = ? AND deleted IS null
+[INFO] POST /Clickshot/authorize?null, time: 2023-07-12 14:00:12
+[ERROR] UserDAO::getUser() No operations allowed after connection closed.
+SELECT * FROM Users WHERE login = ? AND deleted IS null
+[INFO] POST /Clickshot/authorize?null, time: 2023-07-12 14:00:16
+[ERROR] UserDAO::getUser() No operations allowed after connection closed.
+SELECT * FROM Users WHERE login = ? AND deleted IS null
+[INFO] POST /Clickshot/authorize?null, time: 2023-07-12 14:00:26
+[ERROR] UserDAO::getUser() No operations allowed after connection closed.
+SELECT * FROM Users WHERE login = ? AND deleted IS null
+[INFO] POST /Clickshot/authorize?null, time: 2023-07-12 14:02:10
+[INFO] GET /Clickshot/ava?login=Andry, time: 2023-07-12 14:02:11
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-12 14:02:11
+[INFO] GET /Clickshot/ava?login=Andry, time: 2023-07-12 14:02:11
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-12 14:02:12
+[INFO] GET /Clickshot/media/b00fa6b3-f42c-4e65-9bd1-eeb289923f4e.jpg?null, time: 2023-07-12 14:02:13
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-12 14:02:15
+[INFO] POST /Clickshot/findUser?null, time: 2023-07-12 14:02:26
+[INFO] GET /Clickshot/ava?login=Andry, time: 2023-07-12 14:02:28
+[INFO] POST /Clickshot/isSubscribed?null, time: 2023-07-12 14:02:28
+[INFO] GET /Clickshot/ava?login=Ivan, time: 2023-07-12 14:02:28
+[INFO] GET /Clickshot/ava?login=Mira, time: 2023-07-12 14:02:28
+[INFO] POST /Clickshot/isSubscribed?null, time: 2023-07-12 14:02:28
+[INFO] GET /Clickshot/ava?login=Suslik, time: 2023-07-12 14:02:28
+[INFO] POST /Clickshot/isSubscribed?null, time: 2023-07-12 14:02:28
+[INFO] GET /Clickshot/media/user_icon_without_photo.PNG?null, time: 2023-07-12 14:02:29
+[INFO] GET /Clickshot/media/b00fa6b3-f42c-4e65-9bd1-eeb289923f4e.jpg?null, time: 2023-07-12 14:02:38
+[INFO] POST /Clickshot/authorize?null, time: 2023-07-12 14:17:05
+[ERROR] UserDAO::getUser() Communications link failure
+
+The last packet successfully received from the server was 876 927 milliseconds ago. The last packet sent successfully to the server was 877 015 milliseconds ago.
+SELECT * FROM Users WHERE login = ? AND deleted IS null
+[INFO] POST /Clickshot/authorize?null, time: 2023-07-12 14:17:08
+[ERROR] UserDAO::getUser() No operations allowed after connection closed.
+SELECT * FROM Users WHERE login = ? AND deleted IS null
+[INFO] POST /Clickshot/authorize?null, time: 2023-07-12 14:17:18
+[ERROR] UserDAO::getUser() No operations allowed after connection closed.
+SELECT * FROM Users WHERE login = ? AND deleted IS null
+[INFO] POST /Clickshot/authorize?null, time: 2023-07-12 14:17:34
+[ERROR] UserDAO::getUser() No operations allowed after connection closed.
+SELECT * FROM Users WHERE login = ? AND deleted IS null
+[INFO] POST /Clickshot/authorize?null, time: 2023-07-12 14:17:53
+[ERROR] UserDAO::getUser() No operations allowed after connection closed.
+SELECT * FROM Users WHERE login = ? AND deleted IS null
+[INFO] POST /Clickshot/authorize?null, time: 2023-07-12 14:18:16
+[ERROR] UserDAO::getUser() No operations allowed after connection closed.
+SELECT * FROM Users WHERE login = ? AND deleted IS null
+[INFO] POST /Clickshot/authorize?null, time: 2023-07-12 14:18:23
+[ERROR] UserDAO::getUser() No operations allowed after connection closed.
+SELECT * FROM Users WHERE login = ? AND deleted IS null
+[INFO] POST /Clickshot/authorize?null, time: 2023-07-12 14:21:06
+[ERROR] UserDAO::getUser() No operations allowed after connection closed.
+SELECT * FROM Users WHERE login = ? AND deleted IS null
+[INFO] POST /Clickshot/authorize?null, time: 2023-07-12 14:21:14
+[ERROR] UserDAO::getUser() No operations allowed after connection closed.
+SELECT * FROM Users WHERE login = ? AND deleted IS null
+[INFO] POST /Clickshot/authorize?null, time: 2023-07-12 14:23:09
+[ERROR] UserDAO::getUser() No operations allowed after connection closed.
+SELECT * FROM Users WHERE login = ? AND deleted IS null
+[INFO] POST /Clickshot/authorize?null, time: 2023-07-12 14:24:55
+[ERROR] UserDAO::getUser() No operations allowed after connection closed.
+SELECT * FROM Users WHERE login = ? AND deleted IS null
+[INFO] GET /Clickshot/media/user_icon_without_photo.PNG?null, time: 2023-07-12 18:18:30
+[INFO] GET /Clickshot/media/user_icon_without_photo.PNG?null, time: 2023-07-12 18:19:29
+[INFO] GET /Clickshot/media/user_icon_without_photo.PNG?null, time: 2023-07-12 18:21:00
+[INFO] GET /Clickshot/media/user_icon_without_photo.PNG?null, time: 2023-07-12 18:22:32
+[INFO] GET tp://localhost:8080/Clickshot/getPublicUser?login=Andry, time: 2023-07-12 21:54:04
+[INFO] GET /Clickshot/getSavedPosts?login=Andry&from=0&amount=10, time: 2023-07-12 22:16:06
+[ERROR] SavesDAO::getSaves() Table 'clickshotdb.posts' doesn't exist
+SELECT postId FROM SavedBy WHERE SavedBy.userId = (SELECT id FROM Users WHERE login = ?) AND postId IN (SELECT id FROM posts WHERE posts.deleted IS NULL) AND SavedBy.deleted IS NULL ORDER BY date LIMIT ?, ?
+[INFO] POST /Clickshot/confirm?null, time: 2023-07-12 22:30:15

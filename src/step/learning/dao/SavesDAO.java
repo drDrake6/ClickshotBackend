@@ -44,7 +44,6 @@ public class SavesDAO {
                     + "\n" + sql, LoggerService.Status.ERROR);
         }
     }
-
     public void unSave(String postId, String login){
         String sql = "UPDATE SavedBy SET deleted = NOW() WHERE postId = ? AND userId = (SELECT id FROM Users WHERE login = ?)";
         try (PreparedStatement prep =
@@ -57,10 +56,9 @@ public class SavesDAO {
                     + "\n" + sql, LoggerService.Status.ERROR);
         }
     }
-
     public List<String> getSaves(int from, int amount, String login){
 
-        String sql = "SELECT postId FROM SavedBy WHERE SavedBy.userId = (SELECT id FROM Users WHERE login = ?) AND postId IN (SELECT id FROM posts WHERE posts.deleted IS NULL) AND SavedBy.deleted IS NULL ORDER BY date LIMIT ?, ?";
+        String sql = "SELECT postId FROM SavedBy WHERE SavedBy.userId = (SELECT id FROM Users WHERE login = ?) AND postId IN (SELECT id FROM Posts WHERE Posts.deleted IS NULL) AND SavedBy.deleted IS NULL ORDER BY date LIMIT ?, ?";
         try (PreparedStatement prep =
                      dataService.getConnection().prepareStatement(sql)) {
             prep.setString(1,  login);
@@ -74,6 +72,23 @@ public class SavesDAO {
             return saves;
         } catch (SQLException ex) {
             loggerService.log("SavesDAO::getSaves() " + ex.getMessage()
+                    + "\n" + sql, LoggerService.Status.ERROR);
+        }
+        return null;
+    }
+    public Boolean isSavedByUser(String postId, String login, boolean includeDeleted){
+        String sql = "SELECT * FROM SavedBy WHERE postId = ? AND userId = (SELECT userId FROM Users WHERE login = ?)";
+        if(!includeDeleted)
+            sql += " AND deleted IS NULL";
+
+        try (PreparedStatement prep =
+                     dataService.getConnection().prepareStatement(sql)) {
+            prep.setString(1,  postId);
+            prep.setString(2,  login);
+            ResultSet res = prep.executeQuery();
+            return res.next();
+        } catch (SQLException ex) {
+            loggerService.log("SavesDAO::isSavedByUser() " + ex.getMessage()
                     + "\n" + sql, LoggerService.Status.ERROR);
         }
         return null;
@@ -97,7 +112,6 @@ public class SavesDAO {
         }
         return null;
     }
-
     public List<String> getSaveById(String postId){
 
         String sql = "SELECT postId FROM SavedBy WHERE deleted IS NULL ON Users.id = SavedBy.userId WHERE SavedBy.postId = ?";
@@ -112,27 +126,6 @@ public class SavesDAO {
             return savers;
         } catch (SQLException ex) {
             loggerService.log("SavesDAO::getSaveById() " + ex.getMessage()
-                    + "\n" + sql, LoggerService.Status.ERROR);
-        }
-        return null;
-    }
-
-    public Boolean isSavedByUser(String postId, String login, boolean includeDeleted){
-        String sql = "SELECT * FROM SavedBy WHERE postId = ? AND userId = (SELECT userId FROM Users WHERE login = ?)";
-        if(!includeDeleted)
-            sql += " AND deleted IS NULL";
-
-        try (PreparedStatement prep =
-                     dataService.getConnection().prepareStatement(sql)) {
-            prep.setString(1,  postId);
-            prep.setString(2,  login);
-            ResultSet res = prep.executeQuery();
-            if(res.next()){
-                return true;
-            }
-            else return false;
-        } catch (SQLException ex) {
-            loggerService.log("SavesDAO::isSavedByUser() " + ex.getMessage()
                     + "\n" + sql, LoggerService.Status.ERROR);
         }
         return null;

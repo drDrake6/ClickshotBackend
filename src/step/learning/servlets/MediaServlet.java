@@ -50,14 +50,14 @@ public class MediaServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setHeader("Access-Control-Allow-Origin","*");
-        String requestedFile = req.getPathInfo();
+        String requestedFile = req.getPathInfo().toLowerCase();;
         int dotPosition = requestedFile.lastIndexOf('.');
         if(dotPosition == -1){
             resp.getWriter().print("1: Files without extension not allowed");
             return;
         }
 
-        String extension = requestedFile.substring(dotPosition + 1);
+        String extension = requestedFile.substring(dotPosition + 1).toLowerCase();
         if(!mimeService.checkMimeType(MimeService.MediaType.IMAGE, extension) &&
            !mimeService.checkMimeType(MimeService.MediaType.VIDEO, extension) &&
            !mimeService.checkMimeType(MimeService.MediaType.AUDIO, extension)){

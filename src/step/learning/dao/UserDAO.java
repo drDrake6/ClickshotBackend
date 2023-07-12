@@ -29,8 +29,8 @@ public class UserDAO {
                    EmailService emailService,
                    PostDAO postDAO,
                    LoadConfigService loadConfigService,
-                   SubscribersDAO subscribersDAO, LoggerService loggerService)
-    {
+                   SubscribersDAO subscribersDAO,
+                   LoggerService loggerService) {
         this.dataService = dataService;
         this.hashService = hashService;
         this.emailService = emailService;
@@ -38,33 +38,6 @@ public class UserDAO {
         this.loadConfigService = loadConfigService;
         this.subscribersDAO = subscribersDAO;
         this.loggerService = loggerService;
-    }
-    public User setAuthorizeToken(String token, String userId){
-        String sql = "UPDATE Users SET token = ? WHERE id = ?";
-        try(PreparedStatement prep =
-                    dataService.getConnection().prepareStatement(sql)){
-            prep.setString(1, token);
-            prep.setString(2, userId);
-            ResultSet res = prep.executeQuery();
-            if(res.next()) return new User(res);
-        } catch (SQLException ex) {
-            loggerService.log("UserDAO::setAuthorizeToken() " + ex.getMessage()
-                    + "\n" + sql + " -- " + userId, LoggerService.Status.ERROR);
-        }
-        return null;
-    }
-    public User getUserById(String userId){
-        String sql = "SELECT * FROM Users WHERE id = ? AND deleted IS null";
-        try(PreparedStatement prep =
-                    dataService.getConnection().prepareStatement(sql)){
-            prep.setString(1, userId);
-            ResultSet res = prep.executeQuery();
-            if(res.next()) return new User(res);
-        } catch (SQLException ex) {
-            loggerService.log("UserDAO::getUserById() " + ex.getMessage()
-                    + "\n" + sql + " -- " + userId, LoggerService.Status.ERROR);
-        }
-        return null;
     }
 
     public User getUserByToken(String token){
@@ -82,7 +55,6 @@ public class UserDAO {
         }
         return null;
     }
-
     public List<User> getAllUsers(){
         String sql = "SELECT * FROM Users";
         try(Statement statement =
@@ -99,7 +71,6 @@ public class UserDAO {
         }
         return null;
     }
-
     public List<User> getSomeUsers(int from, int amount){
         String sql = "SELECT * FROM Users WHERE deleted IS null ORDER BY login LIMIT ?, ?";
         try(PreparedStatement prep = dataService.getConnection().prepareStatement(sql)){
@@ -117,7 +88,6 @@ public class UserDAO {
         }
         return null;
     }
-
     public List<User> findSomeUsers(int from, int amount, JSONObject params){
         String sql = "SELECT * FROM Users WHERE deleted IS null AND";
                 if(!params.isNull("login")) sql += " login LIKE ? AND";
@@ -173,9 +143,8 @@ public class UserDAO {
         }
         return null;
     }
-
     public User getUser(String login){
-        String sql = "SELECT * FROM Users WHERE login = ? AND deleted IS null";
+        String sql = "SELECT * FROM Users WHERE Users.login = ? AND deleted IS null";
         try(PreparedStatement prep = dataService.getConnection().prepareStatement(sql)){
             prep.setString(1, login);
             ResultSet res = prep.executeQuery();
@@ -190,17 +159,6 @@ public class UserDAO {
         }
         return null;
     }
-
-    private String genSalt(){
-        return hashService.hash(UUID.randomUUID().toString());
-    }
-
-    public void makePassword(User user, String password){
-        user.setSalt(genSalt());
-        user.setPassword(this.makePasswordHash(password, user.getSalt()));
-        this.update(user, user.getId());
-    }
-
     public String add(User user){
         user.setId(UUID.randomUUID().toString());
         user.setSalt(genSalt());
@@ -243,7 +201,6 @@ public class UserDAO {
         }
         return user.getId();
     }
-
     public void update(User user, String id){
         String sql = "UPDATE Users SET ";
         if(user.getPassword() != null) sql += "password = ?, salt = ?, ";
@@ -315,7 +272,6 @@ public class UserDAO {
                     + "\n" + sql, LoggerService.Status.ERROR);
         }
     }
-
     public Boolean deleteUser(String login){
         String sql = "UPDATE Users SET deleted = ? WHERE login = ?";
         try(PreparedStatement prep =
@@ -334,7 +290,6 @@ public class UserDAO {
 
         return postDAO.deletePostByAuthor(login);
     }
-
     public Boolean restoreUser(String login){
         String sql = "UPDATE Users SET deleted = null WHERE login = ?";
         try(PreparedStatement prep =
@@ -352,51 +307,24 @@ public class UserDAO {
 
         return postDAO.restorePostByAuthor(login);
     }
+    public JSONObject getPublicUserInfo(String login){
+        User user = getUser(login);
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("login", user.getLogin());
+        jsonObject.put("name", user.getName());
+        jsonObject.put("surname", user.getSurname());
+        jsonObject.put("bio", user.getBio());
+        jsonObject.put("email", user.getEmail());
+        jsonObject.put("birthday", user.getBirthday());
+        jsonObject.put("postsAmount", postDAO.postsAmount(login, false));
 
-    public boolean sendConfirmCode(String realPath, String email, String param, String value, String code, String link) throws FileNotFoundException {
-        if(email != null){
-            return emailService.send(email, "Email confirmation code",
-                    String.format(
-                            "<h2>Hello</h2><p>To confirm your E-mail type a code <b>%s</b></p>" +
-                                    "<p>Or follow this <a href='" + loadConfigService.load(realPath).getString("domen") + link + "?" + param + "=%s&code=%s'>link</a></p>",
-                            code, value, code));
-        }
-        return false;
+        jsonObject.put("isEmailConfirmed", user.getEmail_code() == null);
+
+        jsonObject.put("subscribersAmount", subscribersDAO.subscribersAmount(login, false));
+        jsonObject.put("subscribingAmount", subscribersDAO.subscribingAmount(login, false));
+
+        return jsonObject;
     }
-
-    public Boolean emailExists(String email) throws FileNotFoundException {
-
-        String sql = "SELECT * FROM Users WHERE email = ?";
-        try(PreparedStatement prep = dataService.getConnection().prepareStatement(sql)){
-            prep.setString(1, email);
-            ResultSet res = prep.executeQuery();
-            User user = null;
-            if(res.next()){
-                return true;
-            }
-            return false;
-        } catch (SQLException ex) {
-            System.out.println("UserDAO::getUser() " + ex.getMessage()
-                    + "\n" + sql);
-        }
-        return null;
-    }
-
-    private String makePasswordHash(String password, String salt){
-        return hashService.hash(salt + password + salt);
-    }
-
-    public boolean isPrevPassword(User user, String password){
-        if(makePasswordHash(password, user.getSalt()).equals(user.getPassword())) return true;
-        else return false;
-    }
-
-    public boolean CheckCredentials(User user, String password){
-        String pass = makePasswordHash(password, user.getSalt());
-        if(pass.equals(user.getPassword())) return true;
-        else return false;
-    }
-
     public boolean setEmailCode(User user, String code){
         if(user == null || user.getId() == null) return false;
 
@@ -414,37 +342,46 @@ public class UserDAO {
         //user.setEmail_code(null);
         return true;
     }
+    public Boolean emailExists(String email){
 
-    public boolean isAdmin(String login){
-        User user = getUser(login);
-
-        if(user.getRole() == 'a')
-            return true;
-        else
-            return false;
+        String sql = "SELECT * FROM Users WHERE email = ?";
+        try(PreparedStatement prep = dataService.getConnection().prepareStatement(sql)){
+            prep.setString(1, email);
+            ResultSet res = prep.executeQuery();
+            User user = null;
+            return res.next();
+        } catch (SQLException ex) {
+            System.out.println("UserDAO::getUser() " + ex.getMessage()
+                    + "\n" + sql);
+        }
+        return null;
+    }
+    public void sendConfirmCode(String realPath, String email, String param, String value, String code, String link) throws FileNotFoundException {
+        if(email != null){
+            emailService.send(email, "Email confirmation code",
+                    String.format(
+                            "<h2>Hello</h2><p>To confirm your E-mail type a code <b>%s</b></p>" +
+                                    "<p>Or follow this <a href='" + loadConfigService.load(realPath).getString("domen") + link + "?" + param + "=%s&code=%s'>link</a></p>",
+                            code, value, code));
+        }
+    }
+    private String makePasswordHash(String password, String salt){
+        return hashService.hash(salt + password + salt);
+    }
+    public boolean isPrevPassword(User user, String password){
+        return makePasswordHash(password, user.getSalt()).equals(user.getPassword());
+    }
+    public boolean CheckCredentials(User user, String password){
+        String pass = makePasswordHash(password, user.getSalt());
+        return pass.equals(user.getPassword());
+    }
+    private String genSalt(){
+        return hashService.hash(UUID.randomUUID().toString());
+    }
+    public void makePassword(User user, String password){
+        user.setSalt(genSalt());
+        user.setPassword(this.makePasswordHash(password, user.getSalt()));
+        this.update(user, user.getId());
     }
 
-    public JSONObject getPublicUserInfo(String login){
-        User user = getUser(login);
-        JSONObject jsonObject = new JSONObject();
-        jsonObject.put("login", user.getLogin());
-        jsonObject.put("name", user.getName());
-        jsonObject.put("surname", user.getSurname());
-        jsonObject.put("bio", user.getBio());
-        jsonObject.put("email", user.getEmail());
-        jsonObject.put("birthday", user.getBirthday());
-        jsonObject.put("postsAmount", postDAO.postsAmount(login, false));
-
-        if(user.getEmail_code() == null){
-            jsonObject.put("isEmailConfirmed", true);
-        }
-        else {
-            jsonObject.put("isEmailConfirmed", false);
-        }
-
-        jsonObject.put("subscribersAmount", subscribersDAO.subscribersAmount(login, false));
-        jsonObject.put("subscribingAmount", subscribersDAO.subscribingAmount(login, false));
-
-        return jsonObject;
-    }
 }

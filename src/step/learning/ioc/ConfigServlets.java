@@ -57,6 +57,7 @@ public class ConfigServlets extends ServletModule {
         serve("/getPostById").with(GetPostByIdServlet.class);
         serve("/getCommentById").with(GetCommentByIdServlet.class);
         serve("/getSavedPosts").with(GetSavedPostsServlet.class);
+        serve("/users").with(UsersServlet.class);
 //
 //        serve("/filters").with(FiltersServlet.class);
 //        serve("/hello").with(HelloServlet.class);

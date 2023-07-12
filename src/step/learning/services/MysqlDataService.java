@@ -19,6 +19,8 @@ public class MysqlDataService implements DataService{
         this.realPathService = realPathService;
     }
     public Connection connection;
+
+
     public Connection getConnection(){
         try{
             if(connection == null){
