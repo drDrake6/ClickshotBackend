@@ -29,9 +29,14 @@ public class LogRequestFilter implements Filter {
         String queryString = ((HttpServletRequest)servletRequest).getQueryString();
         String method = ((HttpServletRequest)servletRequest).getMethod();
         url = url.substring(url.indexOf("app/") + 3);
-        loggerService.log(method + " " + url + "?" + queryString + ", time: " + LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")), LoggerService.Status.INFO);
-        //System.out.println(method + " " + url + "?" + queryString + ", time: " + LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
-        filterChain.doFilter(servletRequest, servletResponse);
+        if(url.endsWith("configs.json"))
+            servletRequest.getRequestDispatcher("/WEB-INF/static.jsp").forward(servletRequest, servletResponse);
+        else{
+            loggerService.log(method + " " + url + "?" + queryString + ", time: " + LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")), LoggerService.Status.INFO);
+            //System.out.println(method + " " + url + "?" + queryString + ", time: " + LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
+            filterChain.doFilter(servletRequest, servletResponse);
+        }
+
     }
 
     @Override

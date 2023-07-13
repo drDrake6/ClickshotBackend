@@ -65,7 +65,7 @@ public class LikesDAO {
     }
     public Boolean isLikedByUser(String postId, String login, boolean includeDeleted){
 
-        String sql = "SELECT * FROM LikedBy WHERE postId = ? AND userId = (SELECT userId FROM Users WHERE login = ? AND deleted IS NOT NULL)";
+        String sql = "SELECT * FROM LikedBy WHERE postId = ? AND userId = (SELECT userId FROM Users WHERE login = ?)";
         if(!includeDeleted)
             sql += " AND deleted IS NULL";
         try (PreparedStatement prep =
@@ -81,7 +81,7 @@ public class LikesDAO {
         return null;
     }
     public int getLikesCount(String postId){
-        String sql = "SELECT COUNT(*) as 'count' FROM LikedBy WHERE postId = ?";
+        String sql = "SELECT COUNT(*) as 'count' FROM LikedBy WHERE postId = ? AND deleted IS NULL";
         try(PreparedStatement prep =
                     dataService.getConnection().prepareStatement(sql)){
             prep.setString(1, postId);
