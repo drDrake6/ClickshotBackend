@@ -65,7 +65,7 @@ public class LikesDAO {
     }
     public Boolean isLikedByUser(String postId, String login, boolean includeDeleted){
 
-        String sql = "SELECT * FROM LikedBy WHERE postId = ? AND userId = (SELECT userId FROM Users WHERE login = ?)";
+        String sql = "SELECT * FROM LikedBy WHERE postId = ? AND userId = (SELECT userId FROM Users WHERE login = ? AND deleted IS NOT NULL)";
         if(!includeDeleted)
             sql += " AND deleted IS NULL";
         try (PreparedStatement prep =
@@ -95,6 +95,21 @@ public class LikesDAO {
                     + "\n" + sql, LoggerService.Status.ERROR);
             return -1;
         }
+    }
+    public Boolean unLikeAll(String login){
+        String sql = "UPDATE LikedBy SET deleted = NOW() WHERE userId = (SELECT id FROM Users WHERE login = ?)";
+        try (PreparedStatement prep =
+                     dataService.getConnection().prepareStatement(sql)) {
+            prep.setString(1,  login);
+            if(prep.executeUpdate() == 0){
+                return false;
+            }
+        } catch (SQLException ex) {
+            loggerService.log("LikesDAO::unLikeAll() " + ex.getMessage()
+                    + "\n" + sql, LoggerService.Status.ERROR);
+            return null;
+        }
+        return true;
     }
 
     public List<String> getLiked(String postId){

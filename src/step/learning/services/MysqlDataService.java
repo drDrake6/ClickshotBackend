@@ -20,16 +20,34 @@ public class MysqlDataService implements DataService{
     }
     public Connection connection;
 
+    public Connection connect() throws ClassNotFoundException {
+        Connection connection = null;
+        try{
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            connection = DriverManager.getConnection(
+                    this.loadConfigService.load(realPathService.getRealPath()).getJSONObject("dbConnection").getString("connectionString"),
+                    this.loadConfigService.load(realPathService.getRealPath()).getJSONObject("dbConnection").getString("dbUser"),
+                    this.loadConfigService.load(realPathService.getRealPath()).getJSONObject("dbConnection").getString("dbPass")
+            );
+        } catch (Exception ex){
+            System.out.println("Exception MysqlDataService::getConnection " +
+                    ex.getMessage());
+            return null;
+        }
+        return connection;
+    }
 
     public Connection getConnection(){
         try{
             if(connection == null){
-                    Class.forName("com.mysql.cj.jdbc.Driver");
-                    connection = DriverManager.getConnection(
-                            this.loadConfigService.load(realPathService.getRealPath()).getJSONObject("dbConnection").getString("connectionString"),
-                            this.loadConfigService.load(realPathService.getRealPath()).getJSONObject("dbConnection").getString("dbUser"),
-                            this.loadConfigService.load(realPathService.getRealPath()).getJSONObject("dbConnection").getString("dbPass")
-                    );
+                connection = connect();
+            }
+            else{
+                try{
+                    connection.getCatalog();
+                } catch (Exception ex){
+                    connection = connect();
+                }
             }
         } catch (Exception ex){
             System.out.println("Exception MysqlDataService::getConnection " +

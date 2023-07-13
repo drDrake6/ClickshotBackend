@@ -93,6 +93,17 @@ public class SavesDAO {
         }
         return null;
     }
+    public void unSaveAll(String login){
+        String sql = "UPDATE SavedBy SET deleted = NOW() WHERE userId = (SELECT id FROM Users WHERE login = ?)";
+        try (PreparedStatement prep =
+                     dataService.getConnection().prepareStatement(sql)) {
+            prep.setString(1,  login);
+            prep.executeUpdate();
+        } catch (SQLException ex) {
+            loggerService.log("SavesDAO::unSaveAll() " + ex.getMessage()
+                    + "\n" + sql, LoggerService.Status.ERROR);
+        }
+    }
 
     public List<String> getSavers(String postId){
 

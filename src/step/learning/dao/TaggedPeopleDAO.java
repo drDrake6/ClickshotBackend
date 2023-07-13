@@ -53,4 +53,16 @@ public class TaggedPeopleDAO {
         return null;
     }
 
+    public void unTaggedPeople(String login){
+
+        String sql = "UPDATE TaggedPeople SET deleted = NOW() WHERE userId = (SELECT id FROM Users WHERE login = ?)";
+        try (PreparedStatement prep =
+                     dataService.getConnection().prepareStatement(sql)) {
+            prep.setString(1,  login);
+            prep.executeUpdate();
+        } catch (SQLException ex) {
+            loggerService.log("TaggedPeople::unTaggedPeople() " + ex.getMessage()
+                    + "\n" + sql, LoggerService.Status.ERROR);
+        }
+    }
 }

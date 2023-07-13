@@ -37,7 +37,7 @@ public class AvaImageServlet extends HttpServlet {
         res.setHeader("Access-Control-Allow-Origin","*");
         try {
             if ("POST".equals(req.getMethod()) && req.getContentType().contains("multipart/form-data")) {
-                req.setAttribute(Request.__MULTIPART_CONFIG_ELEMENT, new MultipartConfigElement(""));
+                req.setAttribute(Request.MULTIPART_CONFIG_ELEMENT, new MultipartConfigElement(""));
             }
 
             List<MimeService.MediaType> mediaTypes = new ArrayList<>();

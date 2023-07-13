@@ -9,16 +9,17 @@ public class Sha1HashService implements HashService{
     @Override
     public String hash(String data){
         try {
-            MessageDigest md = MessageDigest.getInstance( "SHA" ) ;
-            byte[] hash = md.digest( data.getBytes() ) ;
-            StringBuilder sb = new StringBuilder() ;
-            for( byte b : hash ) {
-                sb.append( String.format("%02x", b & 0xFF ) ) ;
+            MessageDigest md = MessageDigest.getInstance( "SHA" );
+            byte[] hash = md.digest( data.getBytes());
+            StringBuilder sb = new StringBuilder();
+            for(byte b : hash) {
+                sb.append(String.format("%02x", b & 0xFF));
             }
+
             return sb.toString() ;
         }
-        catch( NoSuchAlgorithmException ex ) {
-            System.out.println( ex.getMessage() ) ;
+        catch(NoSuchAlgorithmException ex) {
+            System.out.println(ex.getMessage());
             return null ;
         }
     }

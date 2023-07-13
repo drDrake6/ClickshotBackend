@@ -10,6 +10,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import static java.util.UUID.randomUUID;
+
 public class UploadService {
 
     @Inject
@@ -20,14 +22,9 @@ public class UploadService {
             if(!mimeService.checkMimeTypes(mediaTypes, getExtension(file)))
                 throw new Exception("7: Files with such extension are not supported");
 
-            String fileName = UUID.randomUUID() + "." + getExtension(file);
-            String path = fileName;
-            try {
-                File uploaded = new File(realPath + "/Uploads/" + path);
-                Files.copy(file.getInputStream(), uploaded.toPath(), StandardCopyOption.REPLACE_EXISTING);
-            } catch (Exception ex){
-                throw ex;
-            }
+            String path = randomUUID() + "." + getExtension(file);
+            File uploaded = new File(realPath + "/Uploads/" + path);
+            Files.copy(file.getInputStream(), uploaded.toPath(), StandardCopyOption.REPLACE_EXISTING);
             return path;
         }
         else throw new Exception("6: Empty file are not supported");

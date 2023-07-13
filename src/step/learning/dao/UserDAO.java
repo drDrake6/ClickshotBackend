@@ -17,6 +17,10 @@ public class UserDAO {
     private final HashService hashService;
     private final EmailService emailService;
     private final PostDAO postDAO;
+    private final LikesDAO likedDAO;
+    private final SavesDAO savedDAO;
+    private final TaggedPeopleDAO taggedPeopleDAO;
+    private final CommentDAO commentDAO;
 
     private final SubscribersDAO subscribersDAO;
     private final LoadConfigService loadConfigService;
@@ -28,13 +32,17 @@ public class UserDAO {
                    HashService hashService,
                    EmailService emailService,
                    PostDAO postDAO,
-                   LoadConfigService loadConfigService,
+                   LikesDAO likedDAO, SavesDAO savedDAO, TaggedPeopleDAO taggedPeopleDAO, CommentDAO commentDAO, LoadConfigService loadConfigService,
                    SubscribersDAO subscribersDAO,
                    LoggerService loggerService) {
         this.dataService = dataService;
         this.hashService = hashService;
         this.emailService = emailService;
         this.postDAO = postDAO;
+        this.likedDAO = likedDAO;
+        this.savedDAO = savedDAO;
+        this.taggedPeopleDAO = taggedPeopleDAO;
+        this.commentDAO = commentDAO;
         this.loadConfigService = loadConfigService;
         this.subscribersDAO = subscribersDAO;
         this.loggerService = loggerService;
@@ -144,7 +152,7 @@ public class UserDAO {
         return null;
     }
     public User getUser(String login){
-        String sql = "SELECT * FROM Users WHERE Users.login = ? AND deleted IS null";
+        String sql = "SELECT * FROM Users WHERE Users.login = ?";
         try(PreparedStatement prep = dataService.getConnection().prepareStatement(sql)){
             prep.setString(1, login);
             ResultSet res = prep.executeQuery();
@@ -288,7 +296,9 @@ public class UserDAO {
             return null;
         }
 
-        return postDAO.deletePostByAuthor(login);
+        cascade(login);
+
+        return true;
     }
     public Boolean restoreUser(String login){
         String sql = "UPDATE Users SET deleted = null WHERE login = ?";
@@ -365,15 +375,25 @@ public class UserDAO {
                             code, value, code));
         }
     }
-    private String makePasswordHash(String password, String salt){
-        return hashService.hash(salt + password + salt);
-    }
+
     public boolean isPrevPassword(User user, String password){
         return makePasswordHash(password, user.getSalt()).equals(user.getPassword());
     }
     public boolean CheckCredentials(User user, String password){
         String pass = makePasswordHash(password, user.getSalt());
         return pass.equals(user.getPassword());
+    }
+
+    public void cascade(String login){
+        likedDAO.unLikeAll(login);
+        savedDAO.unSaveAll(login);
+        taggedPeopleDAO.unTaggedPeople(login);
+        subscribersDAO.unsubscribeAll(login);
+        commentDAO.deleteCommentByAuthor(login);
+        postDAO.deletePostByAuthor(login);
+    }
+    private String makePasswordHash(String password, String salt){
+        return hashService.hash(salt + password + salt);
     }
     private String genSalt(){
         return hashService.hash(UUID.randomUUID().toString());

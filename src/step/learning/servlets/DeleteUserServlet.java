@@ -45,6 +45,11 @@ public class DeleteUserServlet extends HttpServlet {
         System.out.println(login);
         User deleteUser = userDAO.getUser(login);
 
+        if(deleteUser == null){
+            res.getWriter().write("no such user");
+            return;
+        }
+
         if(deleteUser.getRole() == 'a'){
             res.getWriter().write("you can't delete me)");
             return;

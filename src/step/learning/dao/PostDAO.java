@@ -231,7 +231,7 @@ public class PostDAO {
         return null;
     }
     public List<Post> getSomePosts(int from, int amount){
-        String sql = "SELECT * FROM Posts WHERE deleted IS null AND baned IS null ORDER BY addDate LIMIT ?, ?";
+        String sql = "SELECT * FROM Posts WHERE deleted IS null AND baned IS null ORDER BY addDate DESC LIMIT ?, ?";
         try (PreparedStatement prep =
                      dataService.getConnection().prepareStatement(sql)) {
             prep.setInt(1, from);
@@ -255,7 +255,7 @@ public class PostDAO {
         if(!params.isNull("onlyMedia")) sql += " mediaUrl REGEXP ? AND";
         if(!params.isNull("addDate")) sql += " addDate BETWEEN ? AND ?";
         if(sql.endsWith("AND")) sql = sql.substring(0, sql.lastIndexOf('A'));
-        sql += " ORDER BY addDate LIMIT ?, ?";
+        sql += " ORDER BY addDate DESC LIMIT ?, ?";
         try(PreparedStatement prep = dataService.getConnection().prepareStatement(sql)){
             int param = 1;
             if(!params.isNull("author")){
@@ -304,7 +304,7 @@ public class PostDAO {
         return null;
     }
     public List<Post> getSomePostsByAuthor(String login, int from, int amount){
-        String sql = "SELECT * FROM Posts WHERE author = ? AND deleted IS null AND baned IS null ORDER BY addDate LIMIT ?, ?";
+        String sql = "SELECT * FROM Posts WHERE author = ? AND deleted IS null AND baned IS null ORDER BY addDate DESC LIMIT ?, ?";
         try (PreparedStatement prep =
                      dataService.getConnection().prepareStatement(sql)) {
             prep.setString(1, login);

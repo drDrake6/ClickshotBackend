@@ -43,20 +43,15 @@ public class AddPostServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
         res.setHeader("Access-Control-Allow-Origin","*");
         try {
-            if ("POST".equals(req.getMethod()) && req.getContentType().contains("multipart/form-data")) {
-                req.setAttribute(Request.__MULTIPART_CONFIG_ELEMENT, new MultipartConfigElement(""));
+            if (req.getContentType().contains("multipart/form-data")) {
+                req.setAttribute(Request.MULTIPART_CONFIG_ELEMENT, new MultipartConfigElement(""));
             }
             Part imagePart = req.getPart("media");
-
             List<MimeService.MediaType> mediaTypes = new ArrayList<>();
             mediaTypes.add(MimeService.MediaType.IMAGE);
             mediaTypes.add(MimeService.MediaType.VIDEO);
             mediaTypes.add(MimeService.MediaType.AUDIO);
-
-            String path = uploadService.Upload(imagePart,
-                    req.getServletContext().getRealPath("/"),
-                    mediaTypes);
-
+            String path = uploadService.Upload(imagePart, req.getServletContext().getRealPath("/"), mediaTypes);
             Part postPart = req.getPart("otherInfo");
             byte[] postBytes = new byte[(int) postPart.getSize()];
             InputStream is = postPart.getInputStream();
@@ -70,15 +65,12 @@ public class AddPostServlet extends HttpServlet {
                 res.getWriter().write("2: access denied");
                 return;
             }
-
             jpost.put("id", UUID.randomUUID().toString());
-            jpost.put("addDate", LocalDateTime.now().
-                    format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
+            jpost.put("addDate", LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
             jpost.put("postponePublication", jpost.get("postponePublication"));
             jpost.put("mediaUrl", path);
             Post post = new Post(jpost);
             postDAO.add(post);
-
             if(!jpost.isNull("taggedPeople")){
                 String tmp = jpost.getString("taggedPeople");
                 String[] logins = tmp.split(" ");

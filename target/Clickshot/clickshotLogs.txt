@@ -1062,3 +1062,46 @@ SELECT * FROM Users WHERE login = ? AND deleted IS null
 [ERROR] SavesDAO::getSaves() Table 'clickshotdb.posts' doesn't exist
 SELECT postId FROM SavedBy WHERE SavedBy.userId = (SELECT id FROM Users WHERE login = ?) AND postId IN (SELECT id FROM posts WHERE posts.deleted IS NULL) AND SavedBy.deleted IS NULL ORDER BY date LIMIT ?, ?
 [INFO] POST /Clickshot/confirm?null, time: 2023-07-12 22:30:15
+[INFO] GET tp://localhost:8080/Clickshot/?null, time: 2023-07-13 10:36:53
+[INFO] GET tp://localhost:8080/Clickshot/posts?from=0&amount=10, time: 2023-07-13 10:36:56
+[INFO] POST /Clickshot/authorize?null, time: 2023-07-13 10:54:10
+[INFO] GET /Clickshot/ava?login=Suslik, time: 2023-07-13 10:54:12
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-13 10:54:12
+[INFO] GET /Clickshot/media/bc7b8128-7c39-4717-b85e-76379b353a14.jpg?null, time: 2023-07-13 10:54:13
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-13 10:54:15
+[INFO] GET /Clickshot/getPublicUser?login=Suslik, time: 2023-07-13 10:54:17
+[INFO] GET /Clickshot/ava?login=Suslik, time: 2023-07-13 10:54:18
+[INFO] GET /Clickshot/postsOfUser?from=0&amount=30&login=Suslik, time: 2023-07-13 10:54:18
+[INFO] GET /Clickshot/media/bc7b8128-7c39-4717-b85e-76379b353a14.jpg?null, time: 2023-07-13 10:54:18
+[INFO] GET /Clickshot/media/bc7b8128-7c39-4717-b85e-76379b353a14.jpg?null, time: 2023-07-13 10:54:19
+[INFO] POST /Clickshot/getSubscribing?null, time: 2023-07-13 10:54:20
+[INFO] POST /Clickshot/deleteUser?null, time: 2023-07-13 11:20:36
+[ERROR] LikesDAO::unLike() You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'userId = (SELECT id FROM Users WHERE login = 'Andry')' at line 1
+UPDATE LikedBy SET deleted = NOW() userId = (SELECT id FROM Users WHERE login = ?)
+[ERROR] SavesDAO::unSave() You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'userId = (SELECT id FROM Users WHERE login = 'Andry')' at line 1
+UPDATE SavedBy SET deleted = NOW() userId = (SELECT id FROM Users WHERE login = ?)
+[INFO] POST /Clickshot/deleteUser?null, time: 2023-07-13 11:22:46
+[INFO] POST /Clickshot/deleteUser?null, time: 2023-07-13 11:23:11
+[INFO] POST /Clickshot/deleteUser?null, time: 2023-07-13 11:23:42
+[INFO] POST /Clickshot/authorize?null, time: 2023-07-13 11:23:56
+[INFO] POST /Clickshot/deleteUser?null, time: 2023-07-13 11:24:31
+[INFO] POST /Clickshot/deleteUser?null, time: 2023-07-13 11:26:01
+[INFO] POST /Clickshot/authorize?null, time: 2023-07-13 11:27:17
+[INFO] GET /Clickshot/ava?login=Suslik, time: 2023-07-13 11:27:18
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-13 11:27:18
+[INFO] POST /Clickshot/findPost?null, time: 2023-07-13 11:27:20
+[INFO] POST /Clickshot/findUser?null, time: 2023-07-13 11:27:21
+[INFO] GET /Clickshot/ava?login=Ivan, time: 2023-07-13 11:27:22
+[INFO] GET /Clickshot/ava?login=Mira, time: 2023-07-13 11:27:22
+[INFO] GET /Clickshot/ava?login=Suslik, time: 2023-07-13 11:27:22
+[INFO] GET /Clickshot/media/3ed7448e-c63a-459f-bdc0-9ecac9728259.jpg?null, time: 2023-07-13 11:27:23
+[INFO] GET /Clickshot/media/bc7b8128-7c39-4717-b85e-76379b353a14.jpg?null, time: 2023-07-13 11:27:23
+[INFO] GET /Clickshot/media/user_icon_without_photo.PNG?null, time: 2023-07-13 11:27:23
+[INFO] POST /Clickshot/findUser?null, time: 2023-07-13 11:27:26
+[INFO] GET /Clickshot/ava?login=Ivan, time: 2023-07-13 11:27:27
+[INFO] GET /Clickshot/ava?login=Mira, time: 2023-07-13 11:27:27
+[INFO] GET /Clickshot/ava?login=Suslik, time: 2023-07-13 11:27:27
+[INFO] GET /Clickshot/media/3ed7448e-c63a-459f-bdc0-9ecac9728259.jpg?null, time: 2023-07-13 11:27:27
+[INFO] GET /Clickshot/media/bc7b8128-7c39-4717-b85e-76379b353a14.jpg?null, time: 2023-07-13 11:27:28
+[INFO] POST /Clickshot/deleteUser?null, time: 2023-07-13 11:30:59
+[INFO] POST /Clickshot/deleteUser?null, time: 2023-07-13 11:31:14

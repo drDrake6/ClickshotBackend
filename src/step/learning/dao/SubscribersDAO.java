@@ -59,6 +59,18 @@ public class SubscribersDAO {
                     + "\n" + sql, LoggerService.Status.ERROR);
         }
     }
+    public void unsubscribeAll(String subscriber){
+        String sql = "UPDATE Subscribers SET deleted = NOW() WHERE subscriberId = (SELECT id FROM Users WHERE login = ?)";
+        try (PreparedStatement prep =
+                     dataService.getConnection().prepareStatement(sql)) {
+            prep.setString(1,  subscriber);
+            prep.executeUpdate();
+
+        } catch (SQLException ex) {
+            loggerService.log("SubscribersDAO::unsubscribeAll() " + ex.getMessage()
+                    + "\n" + sql, LoggerService.Status.ERROR);
+        }
+    }
     public Boolean isSubscribedTo(String author, String subscriber, boolean includeDeleted){
 
         String sql = "SELECT * FROM Subscribers WHERE subscriberId = (SELECT id FROM Users WHERE login = ?) AND userId = (SELECT id FROM Users WHERE login = ?)";
@@ -132,7 +144,7 @@ public class SubscribersDAO {
             prep.setInt(3, amount);
             ResultSet res = prep.executeQuery();
             List<User> users = new ArrayList<>();
-            if(res.next()){
+            while(res.next()){
                 users.add(new User(res));
             }
             return users;
@@ -160,7 +172,7 @@ public class SubscribersDAO {
             prep.setInt(3, amount);
             ResultSet res = prep.executeQuery();
             List<User> users = new ArrayList<>();
-            if(res.next()){
+            while(res.next()){
                 users.add(new User(res));
             }
             return users;

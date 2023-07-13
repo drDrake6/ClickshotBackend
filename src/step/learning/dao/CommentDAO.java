@@ -100,6 +100,19 @@ public class CommentDAO {
             return null;
         }
     }
+    public Boolean deleteCommentByAuthor(String login){
+        String sql = "UPDATE Comments SET deleted = NOW() WHERE author = ?";
+        try(PreparedStatement prep =
+                    dataService.getConnection().prepareStatement(sql)){
+            prep.setString(1, login);
+
+            return prep.executeUpdate() != 0;
+        } catch (SQLException ex) {
+            loggerService.log("CommentDAO::deleteCommentByAuthor() " + ex.getMessage()
+                    + "\n" + sql, LoggerService.Status.ERROR);
+            return null;
+        }
+    }
     public Boolean restoreComment(String id){
         String sql = "UPDATE Comments SET deleted = null WHERE id = ?";
         try(PreparedStatement prep =
