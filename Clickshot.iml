@@ -9,5 +9,15 @@
     <facet type="app-engine-standard" name="Google App Engine Standard">
       <configuration />
     </facet>
+    <facet type="web" name="Web2">
+      <configuration>
+        <descriptors>
+          <deploymentDescriptor name="web.xml" url="file://$MODULE_DIR$/web/WEB-INF/web.xml" />
+        </descriptors>
+        <webroots>
+          <root url="file://$MODULE_DIR$/web" relative="/" />
+        </webroots>
+      </configuration>
+    </facet>
   </component>
 </module>

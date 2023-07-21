@@ -1,8 +1,8 @@
 {
   "dbConnection": {
-    "connectionString": "jdbc:mysql://52.57.119.226:3308/clickshotdb",
-    "dbUser": "disayn",
-    "dbPass": "yznKT03YhhXvCVcndZRX"
+    "connectionString": "jdbc:mysql://localhost:3306/clickshotdb",
+    "dbUser": "root",
+    "dbPass": "admin"
   },
-  "domen": "https://tomcat.clickshot.com.ua/Clickshot"
+  "domen": "http://localhost:8080/Clickshot"
 }

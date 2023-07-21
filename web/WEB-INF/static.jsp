@@ -9,7 +9,6 @@
 </head>
 <body>
 <h1>Ой</h1>
-<p><%=request.getRealPath("/")%></p>
 <img src="<%=contextPath%>/media/gopher.png" alt="none">
 </body>
 </html>
